@@ -1305,3 +1305,1957 @@ HTML5是这样定义插图（figure）的：“一个独立的内容单元，可
 </html>
 ```
 
+## 4. 文档分节
+
+### 4.1  标题
+
+#### `h1～h6` 标题元素
+
+| 元素             | `h1～h6`                                                     |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 流                                                           |
+| 允许具有的父元素 | `hgroup`元素或其他任何可以包含流元素的元素。这些元素不能是`address`元素的后代元素 |
+| 局部属性         | 无                                                           |
+| 内容             | 流内容                                                       |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | 无                                                           |
+| 习惯样式         | 下表                                                         |
+
+习惯样式：
+
+| 元素 | 习惯样式                                                     |
+| :--- | :----------------------------------------------------------- |
+| `h1` | `h1 { display: block; font-size: 2em; margin-before: 0.67em; margin-after: 0.67em;  margin-start: 0; margin-end: 0; font-weight: bold; }` |
+| `h2` | `h2 { display: block; font-size: 1.5em; margin-before: 0.83em; margin-after: 0.83em;  margin-start: 0; margin-end: 0; font-weight: bold; }` |
+| `h3` | `h3 { display: block; font-size: 1.17em; margin-before: 1em; margin-after: 1em;  margin-start: 0; margin-end: 0; font-weight: bold; }` |
+| `h4` | `h4 { display: block; margin-before: 1.33em; margin-after: 1.33em; margin-start: 0;  margin-end: 0; font-weight: bold; }` |
+| `h5` | `h5 { display: block; font-size: .83em; margin-before: 1.67em; margin-after: 1.67em;  margin-start: 0; margin-end: 0; font-weight: bold; }` |
+| `h6` | `h6 { display: block; font-size: .67em; margin-before: 2.33em; margin-after: 2.33em;  margin-start: 0; margin-end: 0; font-weight: bold; }` |
+
+#### `hgroup` 元素
+
+`hgroup` 元素可以用来将几个标题元素作为一个整体处理，以免搅乱HTML文档的大纲。
+
+| 元素             | `hgroup`                        |
+| ---------------- | ------------------------------- |
+| 元素类型         | 流                              |
+| 允许具有的父元素 | 任何可以包含流元素的元素        |
+| 局部属性         | 无                              |
+| 内容             | 一个或多个标题元素（`h1～h6` ） |
+| 标签用法         | 开始标签和结束标签              |
+| 是否为HTML5新增  | 是                              |
+| 在HTML5中的变化  | 无                              |
+| 习惯样式         | `hgroup { display: block; }`    |
+
+### 4.2  章节
+
+#### `section` 元素
+
+`section` 元素是HTML5中新增的。顾名思义，它表示的是文档中的一节。使用标题元素的时候实际上也生成了隐含的节。用`section` 元素则可以明确地生成节并且将其与标题分开。
+
+| 元素             | `section`                                                    |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 流                                                           |
+| 允许具有的父元素 | 任何可以包含流元素的元素，但`section` 元素不能是`address` 元素的后代元素 |
+| 局部属性         | 无                                                           |
+| 内容             | `style` 元素和流内容                                         |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 是                                                           |
+| 在HTML5中的变化  | 无                                                           |
+| 习惯样式         | `section { display: block; }`                                |
+
+#### `header` 元素
+
+`header` 元素表示一节的首部。里面可以包含各种适合出现在首部的东西，包括刊头或徽标。在内嵌的元素方面，`header` 元素通常包含一个标题元素或一个`hgroup` 元素，还可以包含该节的导航元素。
+
+| 元素             | `header`                                                     |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 流                                                           |
+| 允许具有的父元素 | 任何可以包含流元素的元素。`header` 元素不能是`address` 、`footer` 元素和其他`header` 元素的后代元素 |
+| 局部属性         | 无                                                           |
+| 内容             | 流内容                                                       |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 是                                                           |
+| 在HTML5中的变化  | 无                                                           |
+| 习惯样式         | `header { display: block; }`                                 |
+
+#### `footer` 元素
+
+`footer` 元素是`header` 元素的配套元素，表示一节的尾部。`footer` 通常包含着该节的总结信息，还可以包含作者介绍、版权信息、到相关内容的链接、徽标及免责声明等。
+
+| 元素             | `footer`                                                     |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 流                                                           |
+| 允许具有的父元素 | 任何可以包含流元素的元素。`footer` 元素不能是`address` 、`header` 元素和其他`footer` 元素的后代元素 |
+| 局部属性         | 无                                                           |
+| 内容             | 流内容                                                       |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 是                                                           |
+| 在HTML5中的变化  | 无                                                           |
+| 习惯样式         | `footer { display: block; }`                                 |
+
+### 4.3  导航
+
+#### `nav` 元素
+
+`nav` 元素表示文档中的一个区域，它包含着到其他页面或同一页面的其他部分的链接。显然，并非所有的超链接都要放到`nav` 元素中。该元素的目的是规划出文档的主要导航区域。
+
+| 元素             | `nav`                                                        |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 流                                                           |
+| 允许具有的父元素 | 任何可以包含流元素的元素。但是该元素不能是`address` 元素的后代元素 |
+| 局部属性         | 无                                                           |
+| 内容             | 流内容                                                       |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 是                                                           |
+| 在HTML5中的变化  | 无                                                           |
+| 习惯样式         | `nav { display: block; }`                                    |
+
+#### `article` 元素
+
+`article` 元素代表HTML文档中一段独立成篇的内容，从理论上讲，可以独立于页面其余内容发布或使用（例如通过RSS）。这不是说作者必须单独发布它，而是说判断是否使用该元素时要以独立性为依据。一篇新文章和博文条目都是这方面的典型例子。
+
+| 元素             | `article`                                                    |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 流                                                           |
+| 允许具有的父元素 | 任何可以包含流元素的元素，但该元素不能是`address` 元素的后代元素 |
+| 局部属性         | 无                                                           |
+| 内容             | `style` 元素和流内容                                         |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 是                                                           |
+| 在HTML5中的变化  | 无                                                           |
+| 习惯样式         | `article { display: block; }`                                |
+
+#### `aside` 元素
+
+`aside` 元素用来表示跟周边内容稍沾一点边的内容，类似于书籍或杂志中的侧栏。其内容与页面其他内容、`article` 或`section` 有点关系，但并非主体内容的一部分。它可能是一些背景信息、到相关文章的链接，诸如此类。
+
+| 元素             | `aside`                                                      |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 流                                                           |
+| 允许具有的父元素 | 任何可以包含流元素的元素，但该元素不能是`address` 元素的后代元素 |
+| 局部属性         | 无                                                           |
+| 内容             | `style` 元素和流内容                                         |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 是                                                           |
+| 在HTML5中的变化  | 无                                                           |
+| 习惯样式         | `aside { display: block; }`                                  |
+
+### 4.4  提供联系信息
+
+#### `address` 元素
+
+`address` 元素用来表示文档或`article` 元素的联系信息。
+
+| 元素             | address                                                      |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 流                                                           |
+| 允许具有的父元素 | 任何可以包含流元素的元素                                     |
+| 局部属性         | 无                                                           |
+| 内容             | 流内容。但是标题元素`h1～h6` 、`section` 、`header` 、`footer` 、`nav` 、`article` 和`aside` 元素不能用做该元素的后代元素 |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 是                                                           |
+| 在HTML5中的变化  | 无                                                           |
+| 习惯样式         | `address { display: block; font-style: italic; }`            |
+
+### 4.5  生成详情区域
+
+#### `details` 元素
+
+`details` 元素在文档中生成一个区域，用户可以展开它以了解关于某主题的更多详情。
+
+| 元素             | `details`                            |
+| ---------------- | ------------------------------------ |
+| 元素类型         | 流                                   |
+| 允许具有的父元素 | 任何可以包含流元素的元素             |
+| 局部属性         | `open`                               |
+| 内容             | 流内容及一个可有可无的`summary` 元素 |
+| 标签用法         | 开始标签和结束标签                   |
+| 是否为HTML5新增  | 是                                   |
+| 在HTML5中的变化  | 无                                   |
+| 习惯样式         | `details { display: block; }`        |
+
+#### `summary` 元素
+
+`details` 元素通常包含一个`summary` 元素，后者的作用是为该详情区域生成一个说明标签或标题。
+
+| 元素             | `summary`                     |
+| ---------------- | ----------------------------- |
+| 元素类型         | 无                            |
+| 允许具有的父元素 | `details` 元素                |
+| 局部属性         | 无                            |
+| 内容             | 短语内容                      |
+| 标签用法         | 开始标签和结束标签            |
+| 是否为HTML5新增  | 是                            |
+| 在HTML5中的变化  | 无                            |
+| 习惯样式         | `summary { display: block; }` |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            h1, h2, h3, article > footer { background: grey; color: white; }
+            hgroup > h1 { margin-bottom: 0; margin-top: 0}
+            hgroup > h2 { background: grey; color: white; font-size: 1em;
+                        margin-top: 0px; margin-bottom: 2px}
+            body > header  *, body > footer * { background:transparent; color:black;}
+            body > article > section,
+            body > article > section > section {margin-left: 10px;}
+            body > header {
+                border: medium solid black; padding-left: 5px; margin: 10px 0 10px 0;
+            }
+            article {border: thin black solid; padding: 10px; margin-bottom: 5px}
+            details {border: solid thin black; padding: 5px}
+            details > summary { font-weight: bold}
+        </style>
+    </head>
+    <body>
+        <header>
+            <hgroup>
+                <h1>Things I like</h1>
+                <h2>by Adam Freeman</h2>
+            </hgroup>
+        </header>
+        <article>
+            <header>
+                <hgroup>
+                    <h1 id="activitiesilike">Activities I like</h1>
+                    <h2>It hurts, but I keep doing it</h2>
+                </hgroup>
+            </header>
+            <section>
+                <p>I like to swim, cycle and run. I am in training for my first
+                triathlon, but it is hard work.</p>
+                <details>
+                    <summary>Kinds of Triathlon</summary>
+                    There are different kinds of triathlon - sprint, Olympic and so on.
+                    I am aiming for Olympic, which consists of the following:
+                    <ol>
+                        <li>1.5km swim</li>
+                        <li>40km cycle</li>
+                        <li>10km run</li>
+                    </ol>
+                </details>
+            </section>
+        </article>
+    </body>
+</html>
+```
+
+## 5. 表格
+
+### 5.1  基本表格
+
+#### `table` 元素
+
+| 元素             | `table`                                                      |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 流                                                           |
+| 允许具有的父元素 | 任何可以包含流元素的元素                                     |
+| 局部属性         | `border`                                                     |
+| 内容             | `caption` 、`colgroup` 、`thead` 、`tbody` 、`tfoot` 、`tr` 、`th` 和`td` 元素 |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | `summary` 、`align` 、`width` 、`bgcolor` 、`cellpadding` 、`cellspacing` 、`frame` 和`rules` 属性已不再使用，其功能改用CSS实现。`border` 属性的值必须设置为1。表格边框的粗细必须用CSS设置 |
+| 习惯样式         | `table { display: table; border-collapse: separate;   border-spacing: 2px; border-color: gray; }` |
+
+#### `tr` 元素
+
+| 元素             | `tr`                                                         |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 无                                                           |
+| 允许具有的父元素 | `table` 、`thead` 、`tfoot` 和`tbody` 元素                   |
+| 局部属性         | 无                                                           |
+| 内容             | 一个或多个`td` 或`th` 元素                                   |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | `align` 、`char` 、`charoff` 、`valign` 和`bgcolor` 属性已不再使用，其功能改用CSS实现 |
+| 习惯样式         | `tr { display: table-row; vertical-align: inherit;   border-color: inherit;}` |
+
+#### `td` 元素
+
+| 元素             | `td`                                                         |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 无                                                           |
+| 允许具有的父元素 | `tr` 元素                                                    |
+| 局部属性         | `colspan` 、`rowspan` 、`headers`                            |
+| 内容             | 流内容                                                       |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | `scope` 属性已不再使用。`abbr` 、`axis` 、`align` 、`width` 、`char` 、`charoff` 、`valign` 、`bgcolor` 、`height` 和`nowrap` 属性已不再使用，其功能改用CSS实现 |
+| 习惯样式         | `td { display: table-cell; vertical-align: inherit; }`       |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td>Apples</td>
+                <td>Green</td>
+                <td>Medium</td>
+            </tr>
+            <tr>
+                <td>Oranges</td>
+                <td>Orange</td>
+                <td>Large</td>
+            </tr>
+        </table>
+    </body>
+</html>
+```
+
+#### `th` 元素
+
+`th` 元素表示表头的单元格，它可以用来区分数据和对数据的说明。
+
+| 元素             | `th`                                                         |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 无                                                           |
+| 允许具有的父元素 | tr元素                                                       |
+| 局部属性         | `colspan` 、`rowspan` 、`scope` 和`headers`                  |
+| 内容             | 短语内容                                                     |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | `scope` 属性已不再使用；`abbr` 、`axis` 、`align` 、`width` 、`char` 、`charoff` 、`valign` 、`bgcolor` 、`height` 和`nowrap` 属性已不再使用，其功能改用CSS实现 |
+| 习惯样式         | `th { display: table-cell; vertical-align: inherit;   font-weight: bold; text-align: center; }` |
+
+### 5.2  表格结构
+
+#### `tbody` 元素
+
+`tbody` 元素表示构成表格主体的全体行——不包括表头行和表脚行
+
+| 元素             | `tbody`                                                      |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | （无）                                                       |
+| 允许具有的父元素 | `table` 元素                                                 |
+| 局部属性         | 无                                                           |
+| 内容             | 零个或多个`tr` 元素                                          |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | `align` 、`char` 、`charoff` 和`valign` 属性已不再使用       |
+| 习惯样式         | `tbody { display: table-row-group;   vertical-align: middle; border-color: inherit; }` |
+
+#### `thead` 元素
+
+`thead` 元素用来标记表格的标题行。
+
+| 元素             | `thead`                                                      |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 无                                                           |
+| 允许具有的父元素 | `table` 元素                                                 |
+| 局部属性         | 无                                                           |
+| 内容             | 零个或多个`tr` 元素                                          |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | `align` 、`char` 、`charoff` 和`valign` 属性已不再使用       |
+| 习惯样式         | `thead { display: table-header-group;   vertical-align: middle; border-color: inherit; }` |
+
+#### `tfoot` 元素
+
+`tfoot` 元素用来标记组成表脚的行。
+
+| 元素             | `tfoot`                                                      |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | （无）                                                       |
+| 允许具有的父元素 | `table` 元素                                                 |
+| 局部属性         | 无                                                           |
+| 内容             | 零个或多个`tr` 元素                                          |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | `tfoot` 元素现在出现在`tbody` 或`tr` 元素前后都可以。在HTML4中，它只能出现在这些元素之前。`align` 、`char` 、`charoff` 和`valign` 属性已不再使用 |
+| 习惯样式         | `tfoot { display: table-footer-group;   vertical-align: middle; border-color: inherit; }` |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            thead th, tfoot th { text-align:left; background:grey; color:white}
+            tbody th { text-align:right; background: lightgrey; color:grey}
+        </style>
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th><th>Name</th><th>Color</th><th>Size</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Rank</th><th>Name</th><th>Color</th><th>Size</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                <tr>
+                    <th>Favorite:</th><td>Apples</td><td>Green</td><td>Medium</td>
+                </tr>
+                <tr>
+                    <th>2nd Favorite:</th><td>Oranges</td><td>Orange</td><td>Large</td>
+                </tr>
+                <tr>
+                    <th>3rd Favorite:</th><td>Pomegranate</td>
+                    <td>A kind of greeny-red</td><td>Varies from medium to large</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
+```
+
+### 5.3  不规则表格
+
+大多数表格都是简单的网格形式，每个单元格占据网格中的一个位置。但是为了表示更复杂的数据，有时需要制作不规则的表格，其中的单元格会跨越几行或几列。这种表格的制作要用到`td` 和`th` 元素的`colspan` 和`rowspan` 属性。
+
+<b>让一个单元格纵跨多行要用`rowspan` 属性，为该属性设置的值就是所跨行数。同样，想让一个单元格横跨多列要用`colspan` 属性。</b>
+
+> **提示** 为`rowspan` 和`colspan` 设置的值必须是整数。
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            td {border: thin solid black; padding: 5px; font-size:x-large};
+        </style>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td>1</td>
+                <td rowspan="3">2</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>9</td>
+            </tr>
+        </table>
+    </body>
+</html>
+```
+
+### 5.4  为表格添加标题
+
+#### `caption` 元素
+
+`caption` 元素可以用来为表格定义一个标题并将其与表格关联起来。
+
+| 元素             | `caption`                                                 |
+| ---------------- | --------------------------------------------------------- |
+| 元素类型         | 无                                                        |
+| 允许具有的父元素 | `table` 元素                                              |
+| 局部属性         | 无                                                        |
+| 内容             | 流内容（但不能是`table` 元素）                            |
+| 标签用法         | 开始标签和结束标签                                        |
+| 是否为HTML5新增  | 否                                                        |
+| 在HTML5中的变化  | `align` 属性已不再使用                                    |
+| 习惯样式         | `caption { display: table-caption; text-align: center; }` |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            thead th, tfoot th { text-align:left; background:grey; color:white}
+            tbody th { text-align:right; background: lightgrey; color:grey}
+            [colspan], [rowspan] {font-weight:bold; border: medium solid black}
+            thead [colspan], tfoot [colspan] {text-align:center; }
+            caption {font-weight: bold; font-size: large; margin-bottom:5px}
+        </style>
+    </head>
+    <body>
+        <table>
+            <caption>Results of the 2011 Fruit Survey</caption>
+            <thead>
+                <tr>
+                    <th>Rank</th><th>Name</th><th>Color</th>
+                    <th colspan="2">Size & Votes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Favorite:</th><td>Apples</td><td>Green</td>
+                    <td>Medium</td><td>500</td>
+                </tr>
+                <tr>
+                    <th>2nd Favorite:</th><td>Oranges</td><td>Orange</td>
+                    <td>Large</td><td>450</td>
+                </tr>
+                <tr>
+                    <th>3rd Favorite:</th><td>Pomegranate</td>
+                    <td colspan="2" rowspan="2">
+                        Pomegranates and cherries can both come in a range of colors
+                        and sizes.
+                    </td>
+                    <td>203</td>
+                </tr>
+                <tr>
+                    <th rowspan="2">Joint 4th:</th>
+                    <td>Cherries</td>
+                    <td rowspan="2">75</td>
+                </tr>
+                <tr>
+                    <td>Pineapple</td>
+                    <td>Brown</td>
+                    <td>Very Large</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="5"> & copy; 2011 Adam Freeman Fruit Data Enterprises</th>
+                </tr>
+            </tfoot>
+        </table>
+    </body>
+</html>
+```
+
+#### `colgroup` 元素
+
+HTML中的表格是基于行的。单元格的定义都要放在`tr` 元素中，而表格则是一行一行地组建出来的。因此对列应用样式有点不方便，对于包含不规则单元格的表格更是如此。这个问题的解决办法是使用`colgroup` 和`col` 元素。`colgroup` 代表一组列。
+
+| 元素             | `colgroup`                                              |
+| ---------------- | ------------------------------------------------------- |
+| 元素类型         | 无                                                      |
+| 允许具有的父元素 | `table` 元素                                            |
+| 局部属性         | `span`                                                  |
+| 内容             | 零个或多个`col` 元素（只有未设置`span` 属性时才能使用） |
+| 标签用法         | 开始标签和结束标签                                      |
+| 是否为HTML5新增  | 否                                                      |
+| 在HTML5中的变化  | `width` 、`char` 、`charoff` 和`valign` 属性已不再使用  |
+| 习惯样式         | `colgroup { display: table-column-group; }`             |
+
+#### `col` 元素
+
+用`col` 元素指定组中的各列。
+
+| 元素             | `col`                                                        |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 无                                                           |
+| 允许具有的父元素 | `colgroup` 元素                                              |
+| 局部属性         | `span`                                                       |
+| 内容             | 无                                                           |
+| 标签用法         | 虚元素形式                                                   |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | `align` 、`width` 、`char` 、`charoff` 和`valign` 属性已不再使用 |
+| 习惯样式         | `col { display: table-column; }`                             |
+
+### 5.5  设置表格边框
+
+`table` 元素定义了`border` 属性。使用这个属性就是告诉浏览器这个表格是用来表示表格式数据而不是用来布置其他元素的。
+
+`border` 属性的值必须设置为1或空字符串（`""` ）。该属性并不控制边框的样式，那是CSS的工作。
+
+尽管`border` 属性会让浏览器为表格和每个单元格添加边框，作者还是需要用CSS选择器分别针对各种元素重设边框样式。在设计CSS选择器时可用的办法很多：表格的外边框可以通过`table` 元素控制；表头、表格主体和表脚可以分别通过`thead` 、`tbody` 和`tfoot` 元素控制；列可以通过`colgroup` 和`col` 元素控制；各个单元格可以通过`th` 和`td` 元素控制。而且，就算别的办法都不管用，至少还可以使用全局属性`id` 和`class` 确定目标。
+
+## 6. 表单
+
+### 6.1  基本表单
+
+#### `form` 元素
+
+| 元素             | `form`                                                       |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 流元素                                                       |
+| 允许具有的父元素 | 任何可以包含流元素的元素。但`form` 元素不能是其他`form` 元素的后代元素 |
+| 局部属性         | `action` 、`method` 、`enctype` 、`name` 、`accept-charset` 、`novalidate` 、`target` 和`autocomplete` |
+| 内容             | 流内容（但主要是`label` 元素和`input` 元素）                 |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | `novalidate` 和`autocomplete` 属性是HTML5中新增的            |
+| 习惯样式         | `form { display: block; margin-top: 0em; }`                  |
+
+#### `input` 元素
+
+其用途是收集用户输入数据。
+
+| 元素             | `input`                                                      |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 短语元素                                                     |
+| 允许具有的父元素 | 任何可以包含短语元素的元素                                   |
+| 局部属性         | `name` 、`disabled` 、`form` 、`type` ，以及取决于`type` 属性值的其他一些属性 |
+| 内容             | 无                                                           |
+| 标签用法         | 虚元素形式                                                   |
+| 是否为HTML5新增  | 否，但是增加了一些新的`input` 元素类型，它们由`type` 属性确定（详见第13章） |
+| 在HTML5中的变化  | 在HTML5中`type` 属性有一些新的值。此外还添加了一些新的属性，它们需要与`type` 属性的特定值搭配使用 |
+| 习惯样式         | 无。这种元素的外观取决于`type` 属性                          |
+
+#### `button` 元素
+
+其作用是告诉浏览器把用户输入的数据提交给服务器。
+
+| 元素             | `button`                                                     |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 短语元素                                                     |
+| 允许具有的父元素 | 任何可以包含短语元素的元素                                   |
+| 局部属性         | `name` 、`disabled` 、`form` 、`type` 、`value` 、`autofocus` ，以及取决于`type` 属性值的其他一些属性 |
+| 内容             | 短语内容                                                     |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | 新增了一些属性，具体有哪些可用取决于`type` 属性值            |
+| 习惯样式         | 无                                                           |
+
+<b>`type` 属性:</b>
+
+| 值       | 说明                     |
+| :------- | :----------------------- |
+| `submit` | 表示按钮的用途是提交表单 |
+| `reset`  | 表示按钮的用途是重置表单 |
+| `button` | 表示按钮没有具体语义     |
+
+<b>`type` 属性设置为`submit` 时`button` 元素的额外属性:</b>
+
+| 属性             | 说明                                                         |
+| :--------------- | :----------------------------------------------------------- |
+| `form`           | 指定按钮关联的表单                                           |
+| `formaction`     | 覆盖`form` 元素的`action` 属性，另行指定表单将要提交到的URL。 |
+| `formenctype`    | 覆盖`form` 元素的`enctype` 属性，另行指定表单的编码方式      |
+| `formmethod`     | 覆盖`form` 元素的`method` 属性。关于`method` 属性            |
+| `formtarget`     | 覆盖`form` 元素的`target` 属性。关于`target` 属性            |
+| `formnovalidate` | 覆盖`form` 元素的`novalidate` 属性，表明是否应执行客户端数据有效性检查 |
+
+```
+ <button type="submit" formaction="http://test:8080/form" formmethod="post">Submit Vote</button>
+```
+
+### 6.2  配置表单
+
+#### `action` 属性
+
+`action` 属性说明了提交表单时浏览器应该把从用户收集的数据发送到什么地方。
+
+```
+...
+<form method="post" action="http://test:8080/form">
+...
+```
+
+如果不设置`form` 元素的`action` 属性，那么浏览器会将表单数据发到用以加载该HTML文档的URL。
+
+#### `method` 属性
+
+method 属性指定了用来将表单数据发送到服务器的HTTP方法。允许的值有get 和post 这两个，它们分别对应于HTTP的GET 和POST 方法。未设置method 属性时使用的默认值为get 。
+
+```
+...
+<form method="post" action="http://test:8080/form">
+...
+```
+
+#### `enctype` 属性
+
+`enctype` 属性指定了浏览器对发送给服务器的数据采用的编码方式。该属性可用的值有三个如下表：
+
+| 值                                  | 说明                                                         |
+| :---------------------------------- | :----------------------------------------------------------- |
+| `application/x-www-form-urlencoded` | 这是未设置`enctype` 属性时使用的默认编码方式。它不能用来将文件上传到服务器 |
+| `multipart/form-data`               | 该编码方式用于将文件上传到服务器                             |
+| `text/plain`                        | 该编码方式因浏览器而异                                       |
+
+**`application/x-www-form-urlencoded` 编码**
+
+这是默认的编码方式，除了不能用来上传文件到服务器外，它适用于各种类型的表单。每项数据的名称和值都与URL采用同样的编码方案。
+
+**`multipart/form-data` 编码**
+
+multipart/form-data编码走的是另一条路子。它更为冗长，处理起来更加复杂。这也是它一般只用于需要上传文件到服务器的表单的原因——这个任务用默认编码方式无法办到。
+
+**`text/plain` 编码**
+
+这种编码要谨慎使用。对于在这种方案中数据应该如何编码并没有正式的规范，主流浏览器各有各的数据编码方法。
+
+#### `autocomplete` 属性
+
+`autocomplete` 属性允许的值有两个：`on` 和`off` 。如果不设置这个属性的话，其默认值为`on` ，表示允许浏览器填写表单。
+
+```
+ ...
+ <form autocomplete="off" method="post" action="http://test:8080/form">
+ ...
+```
+
+#### **`target` 属性**
+
+默认情况下浏览器会用提交表单后服务器反馈的信息替换表单所在s的原页面。这可以用`form` 元素的`target` 属性予以改变。
+
+属性值：
+
+| 值        | 说明                                             |
+| :-------- | :----------------------------------------------- |
+| `_blank`  | 将浏览器反馈信息显示在新窗口（或标签页）中       |
+| `_parent` | 将浏览器反馈信息显示在父窗框组中                 |
+| `_self`   | 将浏览器反馈信息显示在当前窗口中（这是默认行为） |
+| `_top`    | 将浏览器反馈信息显示在顶层窗口中                 |
+| `<frame>` | 将浏览器反馈信息显示在指定窗框中                 |
+
+```
+...
+<form target="_blank" method="post" action="http://test:8080/form">
+...
+```
+
+#### `name` 属性
+
+`name` 属性可以用来为表单设置一个独一无二的标识符，以便使用DOM（Document Object Model，文档对象模型）时区分各个表单。
+
+```
+...
+<form name="fruitvote" id="fruitvote" method="post" action="http://test:8080/form">
+...
+```
+
+### 6.3  配置表单内容
+
+#### `label` 元素
+
+| 元素             | `label`                      |
+| ---------------- | ---------------------------- |
+| 元素类型         | 短语元素                     |
+| 允许具有的父元素 | 任何可以包含短语元素的元素   |
+| 局部属性         | `for` 、`form`               |
+| 内容             | 短语内容                     |
+| 标签用法         | 开始标签和结束标签           |
+| 是否为HTML5新增  | 否                           |
+| 在HTML5中的变化  | `form` 属性是HTML5中新增的   |
+| 习惯样式         | `label { cursor: default; }` |
+
+```
+ <form method="post" action="http://test:8080/form">
+     <p><label for="fave">Fruit: <input id="fave" name="fave"/></label></p>
+     <p><label for="name">Name: <input id="name" name="name"/></label></p>
+     <button>Submit Vote</button>
+ </form>
+```
+
+#### `autofocus` 属性
+
+让表单显示出来的时候即聚焦于某个`input` 元素。
+
+```
+<form method="post" action="http://test:8080/form">
+    <p>
+    	<label for="fave">Fruit: <input autofocus id="fave" name="fave"/></label>
+    </p>
+    <p><label for="name">Name: <input id="name" name="name"/></label></p>
+    <button>Submit Vote</button>
+</form>
+```
+
+#### `disabled` 属性
+
+禁止用户在某个`input` 元素中输入数据。
+
+```
+<form method="post" action="http://test:8080/form">
+    <p>
+    	<label for="fave">Fruit: <input autofocus id="fave" name="fave"/></label>
+    </p>
+    <p>
+    	<label for="name">Name: <input disabled id="name" name="name"/></label>
+    </p>
+    <button>Submit Vote</button>
+</form>
+```
+
+#### `fieldset` 元素
+
+对于更复杂的表单，有时需要将一些元素组织在一起。为此可以使用`fieldset` 元素。
+
+| 元素             | `fieldset`                                                   |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 流元素                                                       |
+| 允许具有的父元素 | 任何可以包含流元素的元素，通常是`form` 元素的后代元素        |
+| 局部属性         | `name` 、`form` 、`disabled`                                 |
+| 内容             | 流内容。在开头位置可以包含一个`legend` 元素                  |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | `form` 属性是HTML5中新增的，详见12.8节                       |
+| 习惯样式         | `fieldset { display: block; margin-start: 2px;   margin-end: 2px; padding-before: 0.35em;   padding-start: 0.75em; padding-end: 0.75em;   padding-after: 0.625em; border: 2px groove; }` |
+
+<b>`disabled` 属性</b>: 用`fieldset` 禁用整组`input` 元素。
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <form method="post" action="http://titan:8080/form">
+            <fieldset>
+                <p><label for="name">Name: <input id="name" name="name"/></label></p>
+                <p><label for="city">City: <input id="city" name="city"/></label></p>
+            </fieldset>
+            <fieldset>
+                <p><label for="fave1">#1: <input id="fave1" name="fave1"/></label></p>
+                <p><label for="fave2">#2: <input id="fave2" name="fave2"/></label></p>
+                <p><label for="fave3">#3: <input id="fave3" name="fave3"/></label></p>
+            </fieldset>
+            <button>Submit Vote</button>
+        </form>
+    </body>
+</html>
+```
+
+#### `legend` 元素
+
+为`fieldset` 元素添加说明标签。
+
+| 元素             | `legend`                                                     |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 无                                                           |
+| 允许具有的父元素 | `fieldset` 元素                                              |
+| 局部属性         | 无                                                           |
+| 内容             | 短语内容                                                     |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | 无                                                           |
+| 习惯样式         | `legend { display: block; padding-start: 2px;   padding-end: 2px; border: none; }` |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <form method="post" action="http://titan:8080/form">
+            <fieldset>
+                <legend>Enter Your Details</legend>
+                <p><label for="name">Name: <input id="name" name="name"/></label></p>
+                <p><label for="name">City: <input id="city" name="city"/></label></p>
+            </fieldset>
+            <fieldset>
+                <legend>Vote For Your Three Favorite Fruits</legend>
+                <p><label for="fave1">#1: <input id="fave1" name="fave1"/></label></p>
+                <p><label for="fave2">#2: <input id="fave2" name="fave2"/></label></p>
+                <p><label for="fave3">#3: <input id="fave3" name="fave3"/></label></p>
+            </fieldset>
+            <button>Submit Vote</button>
+        </form>
+    </body>
+</html>
+```
+
+## 7. 定制input元素
+
+### 7.1  输入文字
+
+`type` 属性设置为`text` 的`input` 元素在浏览器中显示为一个单行文本框。这是未设置`type` 属性情况下的默认形式。
+
+| 属性          | 说明                                                         | 是否为HTML5新增 |
+| :------------ | :----------------------------------------------------------- | :-------------- |
+| `dirname`     | 指定元素内容文字方向的名称                                   | 是              |
+| `list`        | 指定为文本框提供建议值的`datalist` 元素，其值为`datalist` 元素的`id` 值 | 是              |
+| `maxlength`   | 设定用户可以在文本框中输入的字符的最大数目                   | 否              |
+| `pattern`     | 指定一个用于输入验证的正则表达式                             | 是              |
+| `placeholder` | 指定关于所需数据类型的提示                                   | 是              |
+| `readonly`    | 用来将文本框设为只读以阻止用户编辑其内容                     | 否              |
+| `required`    | 表明用户必须输入一个值，否则无法通过输入验证                 | 是              |
+| `size`        | 通过指定文本框中可见的字符数目设定其宽度                     | 否              |
+| `value`       | 设置文本框的初始值                                           | 否              |
+
+#### 设定元素大小
+
+有两个属性能够对文本框的大小产生影响。`maxlength` 属性设定了用户能够输入的字符的最大数目，`size` 属性则设定了文本框能够显示的字符数目。二者的字符数目均以正整数表示。
+
+```
+<form method="post" action="http://test:8080/form">
+    <p>
+    <label for="name">
+    	Name: <input maxlength="10" id="name" name="name"/>
+    </label>
+    </p>
+    <p>
+    <label for="city">
+   		City: <input size="10" id="city" name="city"/>
+    </label>
+    </p>
+</form>
+
+```
+
+#### 设置初始值和占位提示
+
+可以用`value` 属性设置一个默认值，还可以用`placeholder` 属性设置一段提示文字，告诉用户应该输入什么类型的数据。
+
+```
+<form method="post" action="http://test:8080/form">
+    <p>
+    <label for="name">
+   		Name: <input placeholder="Your name" id="name" name="name"/>
+    </label>
+    </p>
+    <p>
+    <label for="city">
+    	City: <input placeholder="Where you live" id="city" name="city"/>
+    </label>
+    </p>
+    <p>
+    <label for="fave">
+    	Fruit: <input value="Apple" id="fave" name="fave"/>
+    </label>
+    </p>
+    <button type="submit">Submit Vote</button>
+</form>
+```
+
+#### `datalist` 元素
+
+可以将`input` 元素的`list` 属性设置为一个`datalist` 元素的`id` 属性值，这样用户在文本框中输入数据时只需从后一元素提供的一批选项中进行选择就行了。
+
+| 元素             | `datalist`                 |
+| ---------------- | -------------------------- |
+| 元素类型         | 短语                       |
+| 允许具有的父元素 | 任何可以包含短语元素的元素 |
+| 局部属性         | 无                         |
+| 内容             | `option` 元素和短语内容    |
+| 标签用法         | 开始标签和结束标签         |
+| 是否为HTML5新增  | 是                         |
+| 在HTML5中的变化  | 无                         |
+| 习惯样式         | 无                         |
+
+#### `option` 元素
+
+用户选择的值各用一个`option` 元素指定。
+
+| 元素             | `option`                                    |
+| ---------------- | ------------------------------------------- |
+| 元素类型         | 无                                          |
+| 允许具有的父元素 | `datalist` 、`select` 、`optgroup`          |
+| 局部属性         | `disabled` 、`selected` 、`label` 和`value` |
+| 内容             | 字符数据                                    |
+| 标签用法         | 虚元素形式，或开始标签与结束标签一起使用    |
+| 是否为HTML5新增  | 否                                          |
+| 在HTML5中的变化  | 无                                          |
+| 习惯样式         | 无                                          |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <form method="post" action="http://test:8080/form">
+            <p>
+                <label for="name">
+                    Name: <input placeholder="Your name" id="name" name="name"/>
+                </label>
+            </p>
+            <p>
+                <label for="city">
+                    City: <input placeholder="Where you live" id="city" name="city"/>
+                </label>
+            </p>
+            <p>
+                <label for="fave">
+                    Fruit: <input list="fruitlist" id="fave" name="fave"/>
+                </label>
+            </p>
+            <button type="submit">Submit Vote</button>
+        </form>
+
+        <datalist id="fruitlist">
+            <option value="Apples" label="Lovely Apples"/>
+            <option value="Oranges">Refreshing Oranges</option>
+            <option value="Cherries"/>
+        </datalist>
+
+    </body>
+</html>
+```
+
+### 7.2  输入密码
+
+`type` 属性值设置为`password` 的`input` 元素用于输入密码。用户输入的字符在这种文本框中显示为星号（*）之类的掩饰字符。
+
+| 属性          | 说明                                         | 是否为HTML5新增 |
+| :------------ | :------------------------------------------- | :-------------- |
+| `maxlength`   | 设定用户可以在密码框中输入的字符的最大数目   | 否              |
+| `pattern`     | 指定一个用于输入验证的正则表达式             | 是              |
+| `palceholder` | 指定关于所需数据类型的提示                   | 是              |
+| `readonly`    | 将密码框设为只读以阻止用户编辑其中的内容     | 否              |
+| `required`    | 表明用户必须输入一个值，否则无法通过输入验证 | 是              |
+| `size`        | 通过指定密码框中可见的字符数目设定其宽度     | 否              |
+| `value`       | 设置初始密码值                               | 否              |
+
+### 7.3  输入数据把关
+
+`input` 元素的`type` 属性在HTML5中新增的一些值可以对用户输入的数据类型提出更具体的要求。
+
+| 属性             | 说明                                               | 是否为HTML5新增 |
+| :--------------- | :------------------------------------------------- | :-------------- |
+| `checkbox`       | 将输入限制为在一个“是/否”二态复选框中进行选择rrr否 |                 |
+| `color`          | 只能输入颜色信息                                   | 是              |
+| `date`           | 只能输入日期                                       | 是              |
+| `datetime`       | 只能输入带时区信息的世界时（包括日期和时间）       | 是              |
+| `datetime-local` | 只能输入不带时区信息的世界时（包括日期和时间）     | 是              |
+| `email`          | 只能输入规范的电子邮箱地址                         | 是              |
+| `month`          | 只能输入年和月                                     | 是              |
+| `number`         | 只能输入整数或浮点数                               | 是              |
+| `radiobutton`    | 将输入限制为在一组固定选项中进行选择               | 否              |
+| `range`          | 只能输入指定范围内的数值                           | 是              |
+| `tel`            | 只能输入规范的电话号码                             | 是              |
+| `time`           | 只能输入时间信息                                   | 是              |
+| `week`           | 只能输入年及星期信息                               | 是              |
+| `url`            | 只能输入完全限定的URL                              | 是              |
+
+### 7.4  获取数值
+
+`type` 属性设置为`number` 的`input` 元素生成的输入框只接受数值。
+
+| 属性       | 说明                                                         | 是否为HTML5新增 |
+| :--------- | :----------------------------------------------------------- | :-------------- |
+| `list`     | 指定为文本框提供建议值的`datalist` 元素。其值为`datalist` 元素的id值 | 是              |
+| `min`      | 设定可接受的最小值（也是下调按钮〔如果有的话〕的下限）以便进行输入验证 | 是              |
+| `max`      | 设定可接受的最大值（也是上调按钮〔如果有的话〕的上限）以便进行输入验证 | 是              |
+| `readonly` | 用来将文本框设置为只读以阻止用户编辑其内容                   | 否              |
+| `required` | 表明用户必须输入一个值，否则无法通过输入验证                 | 是              |
+| `step`     | 指定上下调节数值的步长                                       | 是              |
+| `value`    | 指定元素的初始值                                             | 否              |
+
+### 7.5  获取指定范围内的数值
+
+获取数值的另一种办法是使用`range` 型`input` 元素。用户只能用它从事先规定的范围内选择一个数值。
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <form method="post" action="http://test:8080/form">
+            <p>
+                <label for="name">
+                    Name: <input value="Adam" id="name" name="name"/>
+                </label>
+            </p>
+            <p>
+                <label for="price">
+                    $ per unit in your area: 1
+                    <input type="range" step="1" min="0" max="100"
+                          value="1" id="price" name="price"/>100
+                </label>
+            </p>
+            <input type="submit" value="Submit Vote"/>
+        </form>
+    </body>
+</html>
+```
+
+### 7.6  获取布尔值输入
+
+`checkbox` 型`input` 元素会生成供用户选择是或否的复选框。
+
+| 属性       | 说明                                                     | 是否为HTML5新增 |
+| :--------- | :------------------------------------------------------- | :-------------- |
+| `checked`  | 设置了该属性的复选框刚显示出来时或重置表单后呈勾选状态   | 否              |
+| `required` | 表示用户必须勾选该复选框，否则无法通过输入验证           | 是              |
+| `value`    | 设定在复选框呈勾选状态时提交给服务器的数据值。默认为`on` | 否              |
+
+```
+<p>
+    <label for="veggie">
+    	Are you vegetarian: <input type="checkbox" id="veggie" name="veggie"/>
+    </label>
+</p>
+```
+
+### 7.7  固定选项
+
+`radio` 型`input` 元素可以用来生成一组单选按钮，供用户从一批固定的选项中作出选择。
+
+| 属性       | 说明                                                       | 是否为HTML5新增 |
+| :--------- | :--------------------------------------------------------- | :-------------- |
+| `checked`  | 设置了该属性的单选按钮刚显示出来时或重置表单后呈选定状态   | 否              |
+| `required` | 表示用户必须在一组单选按钮中选择一个，否则无法通过输入验证 | 是              |
+| `value`    | 设定在单选按钮呈选定状态时提交给服务器的数据值             | 否              |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <form method="post" action="http://test:8080/form">
+            <p>
+                <fieldset>
+                    <legend>Vote for your favorite fruit</legend>
+                    <label for="apples">
+                        <input type="radio" checked value="Apples" id="apples"
+                            name="fave"/>
+                        Apples
+                    </label>
+                    <label for="oranges">
+                        <input type="radio" value="Oranges" id="oranges" name="fave"/>
+                        Oranges
+                    </label>
+                    <label for="cherries">
+                        <input type="radio" value="Cherries" id="cherries" name="fave"/>
+                        Cherries
+                    </label>
+                </fieldset>
+            </p>
+            <input type="submit" value="Submit Vote"/>
+        </form>
+    </body>
+</html>
+```
+
+### 7.8  获取有规定格式的字符串
+
+`type` 属性设置为`email` 、`tel` 和`url` 的`input` 元素能接受的输入数据分别为有效的电子邮箱地址、电话号码和URL。
+
+| 属性          | 说明                                                         | 是否为HTML新增 |
+| :------------ | :----------------------------------------------------------- | :------------- |
+| `list`        | 指定为文本框提供建议值的`datalist` 元素，其值为`datalist` 元素的`id` 值 | 是             |
+| `maxlength`   | 设定用户能够在文本框中输入的字符的最大数目                   | 否             |
+| `pattern`     | 指定一个用于输入验证的正则表达式                             | 是             |
+| `placeholder` | 指定关于所需数据类型的提示                                   | 是             |
+| `readonly`    | 用来将文本框设为只读以阻止用户编辑其内容                     | 否             |
+| `required`    | 表示用户必须提供一个值，否则无法通过输入验证                 | 是             |
+| `size`        | 通过指定文本框中可见的字符数目设定其宽度                     | 否             |
+| `value`       | 指定元素的初始值，详见13.1.2节。对于`email` 型`input` 元素，其值可能是单个邮箱地址，也可能是以逗号分隔的多个邮箱地址 | 否             |
+
+`email` 型`input` 元素还支持一个名为`multiple` 的属性。设置了该属性的`input` 元素可以接受多个电子邮箱地址。
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <form method="post" action="http://test:8080/form">
+            <p>
+                <label for="name">
+                    Name: <input value="Adam" id="name" name="name"/>
+                </label>
+            </p>
+            <p>
+                <label for="password">
+                    Password: <input type="password" placeholder="Min 6 characters"
+                        id="password" name="password"/>
+                </label>
+            </p>
+            <p>
+                <label for="email">
+                    Email: <input type="email" placeholder="user@domain.com"
+                        id="email" name="email"/>
+                </label>
+            </p>
+            <p>
+                <label for="tel">
+                    Tel: <input type="tel" placeholder="(XXX)-XXX-XXXX"
+                        id="tel" name="tel"/>
+                </label>
+            </p>
+            <p>
+                <label for="url">
+                    Your homepage: <input type="url" id="url" name="url"/>
+                </label>
+            </p>
+            <input type="submit" value="Submit Vote"/>
+        </form>
+    </body>
+</html>
+```
+
+### 7.9  获取时间和日期
+
+HTML5中增加了一些`input` 元素的新类型，供用户输入日期和时间。
+
+| `type` 属性值    | 说明                                   | 示例                     |
+| :--------------- | :------------------------------------- | :----------------------- |
+| `datetime`       | 获取世界时日期和时间，包括时区信息     | 2011-07-19T16:49:39.491Z |
+| `datetime-local` | 获取本地日期和时间（不含时区信息）     | 2011-07-19T16:49:39.491  |
+| `date`           | 获取本地日期（不含时间和时区信息）     | 2011-07-20               |
+| `month`          | 获取年月信息（不含日、时间和时区信息） | 2011-08                  |
+| `time`           | 获取时间                               | 17:49:44.746             |
+| `week`           | 获取当前星期                           | 2011-W30                 |
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <form method="post" action="http://test:8080/form">
+            <p>
+                <label for="lastbuy">
+                   When did you last buy: <input type="date"
+                      id="lastbuy" name="lastbuy"/>
+                </label>
+            </p>
+            <input type="submit" value="Submit Vote"/>
+        </form>
+    </body>
+</html>
+```
+
+### 7.10  获取颜色
+
+`color` 型`input` 元素只能用来选择颜色。
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <form method="post" action="http://test:8080/form">
+            <p>
+                <label for="color">
+                    Color: <input type="color" id="color" name="color"/>
+                </label>
+            </p>
+            <input type="submit" value="Submit Vote"/>
+        </form>
+    </body>
+</html>
+```
+
+### 7.11  获取搜索用词
+
+`search` 型`input` 元素会生成一个单行文本框，供用户输入搜索用词。
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <form method="post" action="http://test:8080/form">
+            <p>
+                <label for="search">
+                    Search: <input type="search" id="search" name="search"/>
+                </label>
+            </p>
+            <input type="submit" value="Submit Vote"/>
+        </form>
+    </body>
+</html>
+```
+
+### 7.12  生成图像按钮和分区响应图
+
+`image` 型`input` 元素生成的按钮显示为一幅图像，点击它可以提交表单。
+
+| 属性             | 说明                                                         | 是否为HTML5新增 |
+| :--------------- | :----------------------------------------------------------- | :-------------- |
+| `alt`            | 提供元素的说明文字。对需要借助残障辅助技术的用户很有用       | 否              |
+| `formaction`     | 等价于`button` 元素的同名属性                                | 是              |
+| `formenctype`    | 等价于`button` 元素的同名属性                                | 是              |
+| `formmethod`     | 等价于`button` 元素的同名属性                                | 是              |
+| `formtarget`     | 等价于`button` 元素的同名属性                                | 是              |
+| `formnovalidate` | 等价于`button` 元素的同名属性                                | 是              |
+| `height`         | 以像素为单位设置图像的高度（不设置这个属性的话图像将以其本身的高度显示） | 否              |
+| `src`            | 指定要显示的图像的URL                                        | 否              |
+| `width`          | 以像素为单位设置图像的宽度（不设置这个属性的话图像将以其本身的宽度显示） | 否              |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <form method="post" action="http://test:8080/form">
+            <input type="hidden" name="recordID" value="1234"/>
+            <p>
+                <label for="fave">
+                    Favorite Fruit: <input type="text" id="fave" name="fave"/>
+                </label>
+            </p>
+            <input type="image" src="accept.png" name="submit"/>
+        </form>
+    </body>
+</html>
+```
+
+### 7.13  上传文件
+
+`input` 元素类型是`file` 型，它可以在提交表单时将文件上传到服务器。
+
+| 属性       | 说明                                                         | 是否为HTML5新增 |
+| :--------- | :----------------------------------------------------------- | :-------------- |
+| `accept`   | 指定接受的MIME类型。关于MIME类型的定义，参见RFC 2046（http://tools.ietf.org/html/rfc2046 ） | 否              |
+| `multiple` | 设置这个属性的`input` 元素可一次上传多个文件。在撰写本书时，尚无主流浏览器支持这个属性 | 是              |
+| `required` | 表明用户必须为其提供一个值，否则无法通过输入验证。详见第14章 | 是              |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <form method="post" action="http://test:8080/form" enctype="multipart/form-data">
+            <p>
+                <input type="file" name="filedata"/>
+            </p>
+            <input type="submit" value="Submit"/>
+        </form>
+    </body>
+</html>
+```
+
+## 8. 其他表单元素
+
+### 8.1  选项列表
+
+#### `select` 元素
+
+`select` 元素可以用来生成一个选项列表供用户选择。
+
+| 元素             | `select`                                                     |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 短语元素                                                     |
+| 允许具有的父元素 | 任何可以包含短语元素的元素                                   |
+| 局部属性         | `name` 、`disabled` 、`form` 、`size` 、`multiple` 、`autofocus` 和`required` |
+| 内容             | `option` 和`optgroup` 元素                                   |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | `form` 、`autofocus` 和`required` 属性是HTML5新增的          |
+| 习惯样式         | 无，该元素的外观因平台和浏览器而异                           |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <form method="post" action="http://test:8080/form">
+            <p>
+                <label for="fave">
+                    Favorite Fruit:
+                    <select id="fave" name="fave">
+                        <option value="apples" selected label="Apples">Apples</option>
+                        <option value="oranges" label="Oranges">Oranges</option>
+                        <option value="cherries" label="Cherries">Cherries</option>
+                        <option value="pears" label="Pears">Pears</option>
+                    </select>
+                </label>
+            </p>
+            <input type="submit" value="Submit"/>
+        </form>
+    </body>
+</html>
+```
+
+<b>通过设置`size` 属性可让`select` 元素显示多个选项，设置`multiple` 属性则可让用户一次选择多个选项。</b>
+
+#### `optgroup` 元素
+
+`optgroup` 元素可以用来在`select` 元素的内容中建立一定的结构。该元素的用途是对`option` 元素进行编组。
+
+| 元素             | `optgroup`           |
+| ---------------- | -------------------- |
+| 元素类型         | 无                   |
+| 允许具有的父元素 | `select` 元素        |
+| 局部属性         | `label` 、`disabled` |
+| 内容             | `option` 元素        |
+| 标签用法         | 开始标签和结束标签   |
+| 是否为HTML5新增  | 否                   |
+| 在HTML5中的变化  | 无                   |
+| 习惯样式         | 无                   |
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <form method="post" action="http://test:8080/form">
+            <p>
+                <label for="fave" style="vertical-align:top">
+                    Favorite Fruit:
+                    <select id="fave" name="fave">
+                        <optgroup label="Top Choices">
+                            <option value="apples" label="Apples">Apples</option>
+                            <option value="oranges" label="Oranges">Oranges</option>
+                        </optgroup>
+                        <optgroup label="Others">
+                            <option value="cherries" label="Cherries">Cherries</option>
+                            <option value="pears" label="Pears">Pears</option>
+                        </optgroup>
+                    </select>
+                </label>
+            </p>
+            <input type="submit" value="Submit"/>
+        </form>
+    </body>
+</html>
+```
+
+### 8.2  输入多行文字
+
+`textarea` 元素生成的是多行文本框，用户可以在里面输入多行文字。
+
+| 元素             | `textarea`                                                   |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 短语元素                                                     |
+| 允许具有的父元素 | 任何可以包含短语元素的元素，但通常是`form` 元素              |
+| 局部属性         | `name` 、`disabled` 、`form` 、`readonly` 、`maxlength` 、`autofocus` 、`required` 、`placeholder` 、`dirname` 、`rows` 、`wrap` 和`cols` |
+| 内容             | 文本，也即该元素的内容                                       |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | `form` 、`autofocus` 、`required` 、`placeholder` 和`wrap` 属性是HTML5新增的 |
+| 习惯样式         | 无                                                           |
+
+`textarea` 元素的`rows` 和`cols` 属性可用来设置其大小。`wrap` 属性有两个值：`hard` 和`soft` ，可用来控制在用户输入的文字中插入换行符的方式。
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <form method="post" action="http://test:8080/form">
+            <p>
+                <textarea cols="20" rows="5" wrap="hard" id="story"
+                    name="story">Tell us why this is your favorite fruit</textarea>
+            </p>
+            <input type="submit" value="Submit"/>
+        </form>
+    </body>
+</html>
+```
+
+### 8.3  表示计算结果
+
+#### `output` 元素
+
+`output` 元素表示计算的结果。
+
+| 元素             | `output`                      |
+| ---------------- | ----------------------------- |
+| 元素类型         | 短语元素                      |
+| 允许具有的父元素 | 任何可以包含短语元素的元素    |
+| 局部属性         | `name` 、`form` 、`for`       |
+| 内容             | 短语内容                      |
+| 标签用法         | 开始标签和结束标签            |
+| 是否为HTML5新增  | 是                            |
+| 在HTML5中的变化  | 无                            |
+| 习惯样式         | `output { display: inline; }` |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <form onsubmit="return false"
+            oninput="res.value = quant.valueAsNumber * price.valueAsNumber">
+            <fieldset>
+                <legend>Price Calculator</legend>
+                <input type="number" placeholder="Quantity" id="quant" name="quant"/> x
+                <input type="number" placeholder="Price" id="price" name="price"/> =
+                <output for="quant name" name="res"/>
+            </fieldset>
+        </form>
+    </body>
+</html>
+```
+
+### 8.4  生成公开/私有密钥对
+
+#### **`keygen` 元素**
+
+`keygen` 元素的用途是生成公开/私有密钥对。这是公开密钥加密技术中的一个重要功能，公开密钥是包括客户端证书和SSL在内的众多Web安全技术的基础。提交表单时，该元素会生成一对新的密钥。公钥被发给服务器，而私钥则由浏览器保留并存入用户的密钥仓库。
+
+| 元素             | `keygen`                                                     |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 短语元素                                                     |
+| 允许具有的父元素 | 任何可以包含短语元素的元素                                   |
+| 局部属性         | `challenge` 、`keytype` 、`autofocus` 、`name` 、`disabled` 和`form` |
+| 内容             | 无                                                           |
+| 标签用法         | 虚元素形式                                                   |
+| 是否为HTML5新增  | 是                                                           |
+| 在HTML5中的变化  | 无                                                           |
+| 习惯样式         | 无                                                           |
+
+`name` 、`disabled` 、`form` 和`autofocus` 这四个属性的用法与`input` 元素的同名属性相同。
+
+## 9. 嵌入内容
+
+### 9.1  嵌入图像
+
+#### **`img` 元素**
+
+`img` 元素允许我们在HTML文档里嵌入图像。
+
+| 元素             | `img`                                                        |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 短语元素                                                     |
+| 允许具有的父元素 | 任何可能包含短语内容的元素                                   |
+| 局部属性         | `src` 、`alt` 、`height` 、`width` 、`usemap` 、`ismap`      |
+| 内容             | 无                                                           |
+| 标签用法         | 虚元素形式                                                   |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | `border` 、`longdesc` 、`name` 、`align` 、`hspace` 和`vspace` 属性在HTML5已被废弃 |
+| 习惯样式         | 无                                                           |
+
+`src` 属性指定了欲嵌入图像的URL。`alt` 属性定义了`img` 元素的**备用内容** ，此内容会在图像无法显示时呈现。`width` 和`height` 属性来指定`img` 元素所代表图像的尺寸（单位是像素）。
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        Here is a common form for representing the three activities in a triathlon.
+        <p>
+            <img src="triathlon.png" alt="Triathlon Image" width="200" height="67"/>
+        </p>
+        The first icon represents swimming, the second represents cycling and the third
+        represents running.
+    </body>
+</html>
+```
+
+#### **`map` 元素**
+
+创建一个**客户端分区响应图** ，通过点击某张图像上的不同区域让浏览器导航到不同的URL上。这一过程不需要通过服务器引导，因此需要使用元素来定义图像上的各个区域以及它们所代表的行为。
+
+| 元素             | `map`                                                        |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | `map` 元素在包含短语内容时被视为短语元素，包含流内容时则被视为流元素 |
+| 允许具有的父元素 | 任何可以包含短语或流内容的元素                               |
+| 局部属性         | `name`                                                       |
+| 内容             | 一个或多个`area` 元素                                        |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | 如果使用了`id` 属性，它的值必须和`name` 属性相同             |
+| 习惯样式         | 无                                                           |
+
+#### **`area` 元素**
+
+`map` 元素包含一个或多个`area` 元素，它们各自代表了图像上可被点击的一块区域。
+
+| 元素             | `area`                                                       |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 短语                                                         |
+| 允许具有的父元素 | `map` 元素                                                   |
+| 局部属性         | `alt` 、`href` 、`target` 、`rel` 、`media` 、`hreflang` 、`type` 、`shape` 、`coords` |
+| 内容             | 无                                                           |
+| 标签用法         | 虚元素形式                                                   |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | `rel` 、`media` 和`hreflang` 属性是HTML5中新增的。`nohref` 属性现已被废弃 |
+| 习惯样式         | `area { display: none; }`                                    |
+
+<b>与目标地址相关的`area` 元素属性</b>
+
+| 属性       | 说明                                                        |
+| :--------- | :---------------------------------------------------------- |
+| `href`     | 此区域被点击时浏览器应该加载的URL                           |
+| `alt`      | 替代内容，参见`img` 元素的对应属性                          |
+| `target`   | 应该用来显示URL的浏览上下文，参见第7章`base` 元素的对应属性 |
+| `rel`      | 描述了当前文档和目标文档之间的关系，                        |
+| `media`    | 此区域适用的媒介                                            |
+| `hreflang` | 目标文档的语言                                              |
+| `type`     | 目标文档的MIME类型                                          |
+
+**`shape` 和`coords` 属性的值**
+
+`shape` 和`coords` 属性。可以用这些属性来标明用户可以点击的各个图像区域。`shape` 和`coords` 属性是共同起作用的。`coords` 属性的意思根据`shape` 属性的值而定
+
+| `shape` 值 | `coords` 值的性质和意思                                      |
+| :--------- | :----------------------------------------------------------- |
+| `rect`     | 这个值代表了一个矩形区域。`coords` 属性必须由四个用逗号分隔的整数组成，它们代表了下列位置之间的距离： • 图像的左边缘与矩形的左侧 • 图像的上边缘与矩形的上侧 • 图像的左边缘与矩形的右侧 • 图像的上边缘与矩形的下侧 |
+| `circle`   | 这个值代表了一个圆形区域。`coords` 属性必须由三个用逗号分隔的整数组成，它们代表了下列参数： • 从图像左边缘到圆心的距离 • 从图像上边缘到圆心的距离 • 圆的半径 |
+| `poly`     | 这个值代表了一个多边形。`coords` 属性必须至少包含六个用逗号分隔的整数，每一对数字各代表多边形的一个顶点 |
+| `default`  | 这个值的意思是默认区域，即覆盖整张图片。`shape` 属性使用这个值时不需要提供`coords` 值 |
+
+示例:
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        Here is a common form for representing the three activities in a triathlon.
+        <p>
+            <img src="triathlon.png" usemap="#mymap" alt="Triathlon Image"/>
+        </p>
+        The first icon represents swimming, the second represents cycling and the third
+        represents running.
+
+        <map name="mymap">
+            <area href="swimpage.html" shape="rect" coords="3,5,68,62" alt="Swimming"/>
+            <area href="cyclepage.html" shape="rect" coords="70,5,130,62" alt="Running"/>
+            <area href="otherpage.html" shape="default" alt="default"/>
+        </map>
+    </body>
+</html>
+```
+
+### 9.2  嵌入HTML
+
+#### `iframe` 元素
+
+`iframe` 元素允许我们在现有的HTML文档中嵌入另一张文档。
+
+| 元素             | `iframe`                                                     |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 短语                                                         |
+| 允许具有的父元素 | 任何可包含短语内容的元素                                     |
+| 局部属性         | `src` 、`srcdoc` 、`name` 、`width` 、`height` 、`sandbox` 、`seamless` |
+| 内容             | 字符数据                                                     |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | `sandbox` 和`seamless` 属性是HTML5新增的。`longdesc` 、`align` 、`allowtransparency` 、`frameborder` 、`marginheight` 、`marginwidth` 和`scrolling` 属性已被废弃 |
+| 习惯样式         | `iframe { border: 2px inset; }`                              |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+          <header>
+            <h1>Things I like</h1>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="input_color.html" target="myframe">Fruits I Like</a>
+                    </li>
+                    <li>
+                        <a href="input_range.html" target="myframe">Activities I Like</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <iframe name="myframe" width="300" height="100">
+        </iframe>
+    </body>
+</html>
+```
+
+### 9.3  通过插件嵌入内容
+
+#### **`embed` 元素**
+
+| 元素             | `embed`                                    |
+| ---------------- | ------------------------------------------ |
+| 元素类型         | 短语                                       |
+| 允许具有的父元素 | 任何可以包含短语内容的元素                 |
+| 局部属性         | `src` 、`type` 、`height` 、`width`        |
+| 内容             | 无                                         |
+| 标签用法         | 虚许元素形式                               |
+| 是否为HTML5新增  | 是，不过多年来已经作为非正式元素被广泛使用 |
+| 在HTML5中的变化  | 无                                         |
+| 习惯样式         | 无                                         |
+
+`src` 属性指定了内容的地址，`type` 属性则指定了内容的MIME类型，这样浏览器就知道该如何处理它。`width` 和`height` 属性决定嵌入内容将在屏幕上占据的空间大小。
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <embed src="http://www.youtube.com/v/qzA60hHca9s?version=3"
+               type="application/x-shockwave-flash" width="560" height="349"
+               allowfullscreen="true"/>
+    </body>
+</html>
+```
+
+#### **`object` 元素**
+
+`object` 元素实现的效果和`embed` 元素一样，但它的工作方式稍有不同，并带有一些额外的功能。
+
+| 元素             | `object`                                                     |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 这个元素在包含短语内容时被视为短语元素，包含流内容时则被视为流元素 |
+| 允许具有的父元素 | 任何可以包含短语或流内容的元素                               |
+| 局部属性         | `data` 、`type` 、`height` 、`width` 、`usemap` 、`name` 、`form` |
+| 内容             | 空白或任意数量的`param` 元素，并可选择添加短语或流内容作为备用内容，参见本节后面的示例 |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 否                                                           |
+| 在HTML5中的变化  | `form` 属性是HTML5里新增的 `archive` 、`classid` 、`code` 、`codebase` 、`codetype` 、`declare` 、`standby` 、`align` 、`hspace` 、`vspace` 和`border` 属性已被废弃 |
+| 习惯样式         | 无                                                           |
+
+`data` 属性提供了内容的地址，`type` 、`width` 和`height` 属性和在`embed` 元素里的意思一致。使用`param` 元素来定义将要传递给插件的参数，每个需要定义的参数都各自使用一个`param` 元素。
+
+#### **`param` 元素**
+
+**指定备用内容**。`object` 元素的一大优点是可以包含备用内容，在指定内容不可用时显示出来。
+
+| 元素             | `param`                    |
+| ---------------- | -------------------------- |
+| 元素类型         | 无                         |
+| 允许具有的父元素 | `object` 元素              |
+| 局部属性         | `name` 、`value`           |
+| 内容             | 无                         |
+| 标签用法         | 虚元素形式                 |
+| 是否为HTML5新增  | 否                         |
+| 在HTML5中的变化  | 无                         |
+| 习惯样式         | `param { display: none; }` |
+
+`name` 和`value` 属性定义了参数的`name` 和`value` 。
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <object width="560" height="349" data="http://www.youtube.com/v/qzA60hHca9s?version=3">
+            <param name="allowFullScreen" value="true"/>
+            <b>Sorry!</b> We can't display this content
+        </object>
+    </body>
+</html>
+```
+
+### 9.4  嵌入数字表现形式
+
+#### **`progress` 元素**
+
+`progress` 元素可以用来表现某项任务逐渐完成的过程。
+
+| 元素             | `progress`                 |
+| ---------------- | -------------------------- |
+| 元素类型         | 短语                       |
+| 允许具有的父元素 | 任何可以包含短语内容的元素 |
+| 局部属性         | `value` 、`max` 、`form`   |
+| 内容             | 短语内容                   |
+| 标签用法         | 开始标签和结束标签         |
+| 是否为HTML5新增  | 是                         |
+| 在HTML5中的变化  | 无                         |
+| 习惯样式         | 无                         |
+
+`value` 属性定义了当前的进度，它位于0和`max` 属性的值所构成的范围之间。当`max` 属性被省略时，范围是0至1。用浮点数来表示进度，比如0.3代表30%。
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+
+        <progress id="myprogress" value="10" max="100"></progress>
+        <p>
+            <button type="button" value="30">30%</button>
+            <button type="button" value="60">60%</button>
+            <button type="button" value="90">90%</button>
+        </p>
+
+        <script>
+            var buttons = document.getElementsByTagName('BUTTON');
+            var progress = document.getElementById('myprogress');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].onclick = function(e) {
+                    progress.value = e.target.value;
+                };
+            }
+        </script>
+    </body>
+</html>
+```
+
+#### **`meter` 元素**
+
+`meter` 元素显示了某个范围内所有可能值中的一个。
+
+| 元素             | `meter`                                                      |
+| ---------------- | ------------------------------------------------------------ |
+| 元素类型         | 短语                                                         |
+| 允许具有的父元素 | 任何可以包含短语内容的元素                                   |
+| 局部属性         | `value` 、`min` 、`max` 、`low` 、`high` 、`optimum` 、`form` |
+| 内容             | 短语内容                                                     |
+| 标签用法         | 开始标签和结束标签                                           |
+| 是否为HTML5新增  | 是                                                           |
+| 在HTML5中的变化  | 无                                                           |
+| 习惯样式         | 无                                                           |
+
+`min` 和`max` 属性设定了可能值所处范围的边界，它们可以用浮点数来表示。`meter` 元素的显示可以分为三个部分：过低、过高和最佳。`low` 属性设置了一个值，在它之下的所有值都被认为是过低；`high` 属性设置了一个值，在它之上的所有值都被认为是过高；`optimum` 属性则指定了“最佳”的值。
+
+示例:
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <meter id="mymeter" value="90"
+               min="10" max="100" low="40" high="80" optimum="60"></meter>
+
+        <p>
+            <button type="button" value="30">30</button>
+            <button type="button" value="60">60</button>
+            <button type="button" value="90">90</button>
+        </p>
+
+        <script>
+            var buttons = document.getElementsByTagName('BUTTON');
+            var meter = document.getElementById('mymeter');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].onclick = function(e) {
+                    meter.value = e.target.value;
+                };
+            }
+        </script>
+    </body>
+</html>
+```
+
