@@ -2535,3 +2535,690 @@ function handleDescendantEvent(e) {
 | :------- | :--------------- |
 | `submit` | 在表单提交时触发 |
 | `reset`  | 在表单重置时触发 |
+
+## 8. 元素专属对象
+
+文档对象模型（DOM）定义了一组对象来代表文档里不同类型的HTML元素。这些对象可以被当做`HTMLElement` 对象，而且在大多数情况下你的脚本也正是这么做的。但是，如果想要访问某些元素特有的属性或功能，经常可以通过它们中的某个对象做到。
+
+### 8.1  文档和元数据对象
+
+#### `base` 元素
+
+`base` 元素是由`HTMLBaseElement` 对象代表的。这个对象没有定义任何额外的事件，但有两个属性。
+
+<b>`HTMLBaseElement` 对象</b>
+
+| 名称     | 说明                | 返回   |
+| :------- | :------------------ | :----- |
+| `href`   | 对应于`href` 属性   | 字符串 |
+| `target` | 对应于`target` 属性 | 字符串 |
+
+#### `body` 元素
+
+`body` 元素是由`HTMLBodyElement` 对象代表的。这个对象没有定义任何额外的属性，但有一组事件。
+
+<b>`HTMLBodyElement` 的事件</b>
+
+| 事件     | 说明                                                 |
+| :------- | :--------------------------------------------------- |
+| `error`  | 在脚本或图像等资源的加载发生错误时触发               |
+| `load`   | 在文档和它的所有资源都已加载完成时触发               |
+| `unload` | 在浏览器卸载文档（通常是因为用户导航到了别处）时触发 |
+
+#### `link` 元素
+
+`link` 元素是由`HTMLLinkElement` 对象代表的。
+
+<b>`HTMLLinkElement` 对象</b>
+
+| 名称       | 说明                  | 返回   |
+| :--------- | :-------------------- | :----- |
+| `disabled` | 对应于`disabled` 属性 | 布尔值 |
+| `href`     | 对应于`href` 属性     | 字符串 |
+| `rel`      | 对应于`rel` 属性      | 字符串 |
+| `media`    | 对应于`media` 属性    | 字符串 |
+| `hreflang` | 对应于`hreflang` 属性 | 字符串 |
+| `type`     | 对应于`type` 属性     | 字符串 |
+
+#### `meta` 元素
+
+`meta` 元素是由`HTMLMetaElement` 对象代表的。
+
+<b>`HTMLMetaElement` 对象</b>
+
+| 名称        | 说明                    | 返回   |
+| :---------- | :---------------------- | :----- |
+| `name`      | 对应于`name` 属性       | 字符串 |
+| `httpEquiv` | 对应于`http-equiv` 属性 | 字符串 |
+| `content`   | 对应于`content` 属性    | 字符串 |
+
+#### `script` 元素
+
+`script` 元素在DOM里是由`HTMLScriptElement` 对象代表的。
+
+<b>`HTMLScriptElement` 对象</b>
+
+| 名称      | 说明                 | 返回   |
+| :-------- | :------------------- | :----- |
+| `src`     | 对应于`src` 属性     | 字符串 |
+| `async`   | 对应于`async` 属性   | 布尔值 |
+| `defer`   | 对应于`defer` 属性   | 布尔值 |
+| `type`    | 对应于`type` 属性    | 字符串 |
+| `charset` | 对应于`charset` 属性 | 字符串 |
+| `text`    | 对应于`text` 属性    | 字符串 |
+
+#### `style` 元素
+
+`style` 元素在DOM里是由`HTMLStyleElement` 对象代表的。
+
+<b>`HTMLStyleElement` 对象</b>
+
+| 名称       | 说明                  | 返回   |
+| :--------- | :-------------------- | :----- |
+| `disabled` | 对应于`disabled` 属性 | 布尔值 |
+| `media`    | 对应于`media` 属性    | 字符串 |
+| `typed`    | 对应于`typed` 属性    | 字符串 |
+| `scoped`   | 对应于`scoped` 属性   | 布尔值 |
+
+#### `title` 元素
+
+`title` 元素在DOM里是由`HTMLTitleElement` 对象代表的。
+
+<b>`HTMLTitleElement` 对象</b>
+
+| 名称   | 说明                         | 返回   |
+| :----- | :--------------------------- | :----- |
+| `text` | 获取或设置`title` 元素的内容 | 字符串 |
+
+#### 其他文档和元数据元素
+
+`head` 和`html` 元素分别是由`HTMLHeadElement` 和`HTMLHtmlElement` 对象代表的。这些对象没有定义`HTMLElement` 之外的任何方法、属性或事件。`noscript` 元素没有专属的DOM对象，只由`HTMLElement` 代表。
+
+### 8.2  文本元素
+
+#### `a` 元素
+
+`a` 元素是由`HTMLAnchorElement` 对象代表的。
+
+<b>`HTMLAnchorElement` 对象</b>
+
+| 名称       | 说明                                                         | 返回   |
+| :--------- | :----------------------------------------------------------- | :----- |
+| `href`     | 对应于`href` 属性                                            | 字符串 |
+| `target`   | 对应于`target` 属性                                          | 字符串 |
+| `rel`      | 对应于`rel` 属性                                             | 字符串 |
+| `media`    | 对应于`media` 属性                                           | 字符串 |
+| `hreflang` | 对应于`hreflang` 属性                                        | 字符串 |
+| `type`     | 对应于`type` 属性                                            | 字符串 |
+| `text`     | 获取或设置此元素包含的文本                                   | 字符串 |
+| `protocol` | 这个便捷属性用于获取或设置`href` 属性值里的协议名部分        | 字符串 |
+| `host`     | 这个便捷属性用于获取或设置`href` 属性值里的主机名和端口号部分 | 字符串 |
+| `hostname` | 这个便捷属性用于获取或设置`href` 属性值里的主机名部分        | 字符串 |
+| `port`     | 这个便捷属性用于获取或设置`href` 属性值里的端口号部分        | 字符串 |
+| `pathname` | 这个便捷属性用于获取或设置`href` 属性值里的路径部分          | 字符串 |
+| `search`   | 这个便捷属性用于获取或设置`href` 属性值里的查询字符串部分    | 字符串 |
+| `hash`     | 这个便捷属性用于获取或设置`href` 属性值里的文档片段部分      | 字符串 |
+
+#### `del` 和`ins` 元素
+
+`del` 和`ins` 元素都是由`HTMLModElement` 对象代表的。
+
+<b>`HTMLModElement` 对象</b>
+
+| 名称       | 说明                  | 返回   |
+| :--------- | :-------------------- | :----- |
+| `cite`     | 对应于`cite` 属性     | 字符串 |
+| `dateTime` | 对应于`datetime` 属性 | 字符串 |
+
+#### `q` 元素
+
+`q` 元素是由`HTMLQuoteElement` 对象代表的。
+
+<b>`HTMLQuoteElement` 对象</b>
+
+| 名称   | 说明              | 返回   |
+| :----- | :---------------- | :----- |
+| `cite` | 对应于`cite` 属性 | 字符串 |
+
+#### `time` 元素
+
+`time` 元素是由`HTMLTimeElement` 对象代表的。
+
+<b>`HTMLTimeElement` 对象</b>
+
+| 名称          | 说明                                  | 返回   |
+| :------------ | :------------------------------------ | :----- |
+| `dateTime`    | 对应于`datetime` 属性                 | 字符串 |
+| `pubDate`     | 对应于`pubdate` 属性                  | 字符串 |
+| `valueAsDate` | 解析时间和日期，并返回一个`Date` 对象 | `Date` |
+
+#### 其他文本元素
+
+`br` 和`span` 分别是由`HTMLBRElement` 和`HTMLSpanElement` 对象代表的。这些对象没有定义`HTMLElement` 之外的任何方法、属性或事件。以下这些元素只由`HTMLElement` 代表：`abbr` 、`b` 、`cite` 、`code` 、`dfn` 、`em` 、`i` 、`u` 、`kbd` 、`mark` 、`rt` 、`rp` 、`ruby` 、`s` 、`samp` 、`small` 、`strong` 、`sub` 、`sup` 、`var` 和`wbr` 。
+
+### 8.3  分组元素
+
+#### `blockquote` 元素
+
+`blockquote` 元素是由`HTMLQuoteElement` 对象代表的。
+
+#### `li` 元素
+
+`li` 元素是由`HTMLLIElement` 对象代表的。
+
+<b>`HTMLLIElement` 对象</b>
+
+| 名称    | 说明               | 返回 |
+| :------ | :----------------- | :--- |
+| `value` | 对应于`value` 属性 | 数值 |
+
+#### ol元素
+
+`ol` 元素是由`HTMLOListElement` 对象代表的。
+
+<b>`HTMLOListElement` 对象</b>
+
+| 名称       | 说明                  | 返回   |
+| :--------- | :-------------------- | :----- |
+| `reversed` | 对应于`reversed` 属性 | 布尔值 |
+| `start`    | 对应于`start` 属性    | 数值   |
+| `type`     | 对应于`type` 属性     | 字符串 |
+
+#### 其他分组元素
+
+| 名称  | DOM对象                |
+| :---- | :--------------------- |
+| `div` | `HTMLDivElement`       |
+| `dl`  | `HTMLDListElement`     |
+| `hr`  | `HTMLHRElement`        |
+| `p`   | `HTMLParagraphElement` |
+| `pre` | `HTMLPreElement`       |
+| `ul`  | `HTMLUListElement`     |
+
+### 8.4  区块元素
+
+#### `details` 元素
+
+`details` 元素是由`HTMLDetailsElement` 对象代表的。
+
+<b>`HTMLDetailsElement` 对象</b>
+
+| 名称   | 说明              | 返回   |
+| :----- | :---------------- | :----- |
+| `open` | 对应于`open` 属性 | 布尔值 |
+
+#### 其他区块元素
+
+`h1` ～`h6` 元素是由`HTMLHeadingElement` 对象代表的，但这个对象没有定义任何额外的属性。以下这些区块元素不由专属对象代表：`address` 、`article` 、`aside` 、`footer` 、`header` 、`hgroup` 、`nav` 、`section` 和`summary` 。
+
+### 8.5  表格元素
+
+#### `col` 和`colgroup` 元素
+
+`col` 和`colgroup` 元素都是由`HTMLTableColElement` 对象代表的。
+
+<b>`HTMLTableColElement` 对象</b>
+
+| 名称   | 说明              | 返回 |
+| :----- | :---------------- | :--- |
+| `span` | 对应于`span` 属性 | 数值 |
+
+#### `table` 元素
+
+`table` 元素是由`HTMLTableElement` 对象代表的。
+
+<b>`HTMLTableElement` 对象</b>
+
+| 名称                 | 说明                                         | 返回                        |
+| :------------------- | :------------------------------------------- | :-------------------------- |
+| `border`             | 对应于`border` 属性                          | 字符串                      |
+| `caption`            | 返回表格的`caption` 元素                     | `HTMLElement`               |
+| `createCaption()`    | 返回表格的`caption` 元素，如果有必要就创建它 | `HTMLElement`               |
+| `deleteCaption()`    | 删除表格的`caption` 元素                     | `void`                      |
+| `tHead`              | 返回表格的`thead` 元素                       | `HTMLTableSectionElement`   |
+| `createTHead()`      | 返回表格的`thead` 元素，如果有必要就创建一个 | `HTMLTableSectionElement`   |
+| `deleteTHead()`      | 删除表格的`thead` 元素                       | `void`                      |
+| `tFoot`              | 返回表格的`tfoot` 元素                       | `HTMLTableSectionElement`   |
+| `createTFoot()`      | 返回表格的`tfoot` 元素，如果有必要就创建一个 | `HTMLTableSectionElement`   |
+| `deleteTFoot()`      | 删除表格的`tfoot` 元素                       | `void`                      |
+| `tBodies`            | 返回表格的`tbody` 元素                       | `HTMLTableSectionElement[]` |
+| `createTBody()`      | 返回表格的`tbody` 元素，如果有必要就创建一个 | `HTMLTableSectionElement`   |
+| `rows`               | 返回表格各行                                 | `HTMLTableRowElement[]`     |
+| `insertRow(<index>)` | 在表格的指定位置创建一个新行                 | `HTMLTableRowElement`       |
+| `deleteRow(<index>)` | 删除指定索引处的表格行                       | `void`                      |
+
+#### `thead` 、`tbody` 和`tfoot` 元素
+
+`thead` 、`tbody` 和`tfoot` 元素都是由`HTMLTableSectionElement` 对象代表的。
+
+<b>`HTMLTableSectionElement` 对象</b>
+
+| 名称                 | 说明                     | 返回                    |
+| :------------------- | :----------------------- | :---------------------- |
+| `rows`               | 返回表格此区块的各行     | `HTMLTableRowElement[]` |
+| `insertRow(<index>)` | 在指定索引处插入一个新行 | `HTMLTableRowElement`   |
+| `deleteRow(<index>)` | 删除指定索引处的行       | `void`                  |
+
+#### `th` 元素
+
+`th` 元素是由`HTMLTableHeaderCellElement` 对象代表的。
+
+<b>`HTMLTableHeaderCellElement` 对象</b>
+
+| 名称                 | 说明                     | 返回                    |
+| :------------------- | :----------------------- | :---------------------- |
+| `rows`               | 返回表格此区块的各行     | `HTMLTableRowElement[]` |
+| `insertRow(<index>)` | 在指定索引处插入一个新行 | `HTMLTableRowElement`   |
+| `deleteRow(<index>)` | 删除指定索引处的行       | `void`                  |
+
+#### `tr` 元素
+
+`tr` 元素是由`HTMLTableRowElement` 对象代表的。
+
+<b>`HTMLTableRowElement` 对象</b>
+
+| 名称                  | 说明                         | 返回            |
+| :-------------------- | :--------------------------- | :-------------- |
+| `rowIndex`            | 返回行在表格里的位置         | 数值            |
+| `sectionRowIndex`     | 返回行在表格区块里的位置     | 数值            |
+| `cells`               | 返回单元格元素的集合         | `HTMLElement[]` |
+| `insertCell(<index>)` | 在指定索引处插入一个新单元格 | `HTMLElement`   |
+| `deleteCell(<index>)` | 删除指定索引处的单元格       | `void`          |
+
+#### 其他表格元素
+
+| 名称      | DOM对象                    |
+| :-------- | :------------------------- |
+| `caption` | `HTMLTableCaptionElement`  |
+| `td`      | `HTMLTableDataCellElement` |
+
+### 8.6  表单元素
+
+#### `button` 元素
+
+`button` 元素是由`HTMLButtonElement` 对象代表的。
+
+<b>`HTMLButtonElement` 对象</b>
+
+| 名称             | 说明                                        | 返回                 |
+| :--------------- | :------------------------------------------ | :------------------- |
+| `autofocus`      | 对应于`autofocus` 属性                      | 布尔值               |
+| `disabled`       | 对应于`disabled` 属性                       | 布尔值               |
+| `form`           | 返回此元素关联的`form` 元素                 | `HTMLFormElement`    |
+| `formAction`     | 对应于`formaction` 属性                     | 字符串               |
+| `formEncType`    | 对应于`formenctype` 属性                    | 字符串               |
+| `formMethod`     | 对应于`formmethod` 属性                     | 字符串               |
+| `formNoValidate` | 对应于`formnovalidate` 属性                 | 字符串               |
+| `formTarget`     | 对应于`formtarget` 属性                     | 字符串               |
+| `name`           | 对应于`name` 属性                           | 字符串               |
+| `type`           | 对应于`type` 属性                           | 字符串               |
+| `value`          | 对应于`value` 属性                          | 字符串               |
+| `labels`         | 返回属性与此`button` 元素相关的说明标签元素 | `HTMLLabelElement[]` |
+
+#### `datalist` 元素
+
+`datalist` 元素是由`HTMLDataListElement` 对象代表的。
+
+<b>`HTMLDataListElement` 对象</b>
+
+| 名称      | 说明                                       | 返回                  |
+| :-------- | :----------------------------------------- | :-------------------- |
+| `options` | 返回`datalist` 元素包含的`option` 元素集合 | `HTMLOptionElement[]` |
+
+#### `fieldset` 元素
+
+`fieldset` 元素是由`HTMLFieldSetElement` 对象代表的。
+
+<b>`HTMLFieldSetElement` 对象</b>
+
+| 名称       | 说明                              | 返回              |
+| :--------- | :-------------------------------- | :---------------- |
+| `disabled` | 对应于`disabled` 属性             | 布尔值            |
+| `form`     | 对应于`form` 属性                 | `HTMLFormElement` |
+| `name`     | 对应于`name` 属性                 | 字符串            |
+| `elements` | 返回`fieldset` 包含的表单控件集合 | `HTMLElement[]`   |
+
+#### `form` 元素
+
+`form` 元素是由`HTMLFormElement` 对象代表的。
+
+<b>`HTMLFormElement` 对象</b>
+
+| 名称              | 说明                                                         | 返回            |
+| :---------------- | :----------------------------------------------------------- | :-------------- |
+| `acceptCharset`   | 对应于`accept-charset` 属性                                  | 字符串          |
+| `action`          | 对应于`action` 属性                                          | 字符串          |
+| `autocomplete`    | 对应于`autocomplete` 属性                                    | 字符串          |
+| `enctype`         | 对应于`enctype` 属性                                         | 字符串          |
+| `encoding`        | 对应于`enctype` 属性                                         | 字符串          |
+| `method`          | 对应于`method` 属性                                          | 字符串          |
+| `name`            | 对应于`name` 属性                                            | 字符串          |
+| `noValidate`      | 对应于`novalidate` 属性                                      | 布尔值          |
+| `target`          | 对应于`target` 属性                                          | 字符串          |
+| `elements`        | 返回表单里的所有元素                                         | `HTMLElement[]` |
+| `length`          | 返回表单里的元素数量                                         | 数值            |
+| `[<name>]`        | 返回具有指定名称的表单元素                                   | `HTMLElement`   |
+| `[<index>]`       | 返回位于指定索引处的表单元素                                 | `HTMLElement`   |
+| `submit()`        | 提交表单                                                     | `void`          |
+| `reset()`         | 重置表单                                                     | `void`          |
+| `checkValidity()` | 如果所有表单元素都通过了输入验证就返回`true` ，否则返回`false` | 布尔值          |
+
+#### `input` 元素
+
+`input` 元素是由`HTMLInputElement` 对象代表的。
+
+<b>`HTMLInputElement` 对象</b>
+
+| 名称                       | 说明                                                         | 返回                 |
+| :------------------------- | :----------------------------------------------------------- | :------------------- |
+| `accept`                   | 对应于`accept` 属性                                          | 字符串               |
+| `alt`                      | 对应于`alt` 属性                                             | 字符串               |
+| `autocomplete`             | 对应于`autocomplete` 属性                                    | 字符串               |
+| `autofocus`                | 对应于`autofocus` 属性                                       | 布尔值               |
+| `checked`                  | 如果元素被选中则返回`true`                                   | 布尔值               |
+| `dirName`                  | 对应于`dirname` 属性                                         | 字符串               |
+| `disabled`                 | 对应于`disabled` 属性                                        | 布尔值               |
+| `form`                     | 对应于`form` 属性                                            | 字符串               |
+| `formAction`               | 对应于`formaction` 属性                                      | 字符串               |
+| `formEnctype`              | 对应于`formenctype` 属性                                     | 字符串               |
+| `formMethod`               | 对应于`formmethod` 属性                                      | 字符串               |
+| `formNoValidate`           | 对应于`formnovalidate` 属性                                  | 字符串               |
+| `formTarget`               | 对应于`formTarget` 属性                                      | 字符串               |
+| `list`                     | 对应于`list` 属性                                            | `HTMLElement`        |
+| `max`                      | 对应于`max` 属性                                             | 字符串               |
+| `maxLength`                | 对应于`maxlength` 属性                                       | 数值                 |
+| `min`                      | 对应于`min` 属性                                             | 字符串               |
+| `multiple`                 | 对应于`multiple` 属性                                        | 布尔值               |
+| `name`                     | 对应于`name` 属性                                            | 字符串               |
+| `pattern`                  | 对应于`pattern` 属性                                         | 字符串               |
+| `placeholder`              | 对应于`placeholder` 属性                                     | 字符串               |
+| `readOnly`                 | 对应于`readonly` 属性                                        | 布尔值               |
+| `required`                 | 对应于`required` 属性                                        | 布尔值               |
+| `size`                     | 对应于`size` 属性                                            | 数值                 |
+| `src`                      | 对应于`src` 属性                                             | 字符串               |
+| `step`                     | 对应于`step` 属性                                            | 字符串               |
+| `type`                     | 对应于`type` 属性                                            | 字符串               |
+| `value`                    | 对应于`value` 属性                                           | 字符串               |
+| `valueAsDate`              | 获取或设置日期形式的`value` 属性                             | `Date`               |
+| `valueAsNumber`            | 获取或设置数字形式的`value` 属性                             | 数值                 |
+| `selectedOption`           | 从`list` 属性指定的`datalist` 里获取匹配`input` 元素`value` 的`option` 元素 | `HTMLOptionElement`  |
+| `stepUp(<step>)`           | 给`value` 增加指定的量                                       | `void`               |
+| `stepDown(<step>)`         | 给`value` 减少指定的量                                       | `void`               |
+| `willValidate`             | 如果此元素将在提交表单时进行输入验证就返回`true` ，否则返回`false` | 布尔值               |
+| `validity`                 | 返回对输入的有效性评估                                       | `ValidityState`      |
+| `validationMessage`        | 返回在应用输入验证时展示给用户的错误消息                     | 字符串               |
+| `checkValidity()`          | 对此元素执行输入验证                                         | 布尔值               |
+| `setCustomValidity(<msg>)` | 设置一条自定义的验证消息                                     | `void`               |
+| `labels`                   | 返回与此元素关联的说明标签元素                               | `HTMLLabelElement[]` |
+
+#### `label` 元素
+
+`label` 元素是由`HTMLLabelElement` 对象代表的。
+
+<b>`HTMLLabelElement` 对象</b>
+
+| 名称      | 说明                       | 返回              |
+| :-------- | :------------------------- | :---------------- |
+| `form`    | 返回与此元素关联的`form`   | `HTMLFormElement` |
+| `htmlFor` | 对应于`for` 属性           | 字符串            |
+| `control` | 返回`for` 属性所指定的元素 | `HTMLElement`     |
+
+#### `legend` 元素
+
+`legend` 元素是由`HTMLLegendElement` 对象代表的。
+
+<b>`HTMLLegendElement` 对象</b>
+
+| 名称   | 说明                     | 返回              |
+| :----- | :----------------------- | :---------------- |
+| `form` | 返回与此元素关联的`form` | `HTMLFormElement` |
+
+#### `optgroup` 元素
+
+`optgroup` 元素是由`HTMLOptGroupElement` 对象代表的。
+
+<b>`HTMLOptGroupElement` 对象</b>
+
+| 名称       | 说明                  | 返回   |
+| :--------- | :-------------------- | :----- |
+| `disabled` | 对应于`disabled` 属性 | 布尔值 |
+| `label`    | 对应于`label` 属性    | 字符串 |
+
+#### `option` 元素
+
+`option` 元素是由`HTMLOptionElement` 对象代表的。
+
+<b>`HTMLOptionElement` 对象</b>
+
+| 名称       | 说明                                | 返回              |
+| :--------- | :---------------------------------- | :---------------- |
+| `disabled` | 对应于`disabled` 属性               | 布尔值            |
+| `form`     | 返回与此元素关联的`form`            | `HTMLFormElement` |
+| `label`    | 对应于`label` 属性                  | 字符串            |
+| `selected` | 对应于`selected` 属性               | 布尔值            |
+| `value`    | 对应于`value` 属性                  | 字符串            |
+| `text`     | 对应于`text` 属性                   | 字符串            |
+| `index`    | 返回此元素在`select` 父元素里的索引 | 数值              |
+
+#### `output` 元素
+
+`output` 元素是由`HTMLOutputElement` 对象代表的。
+
+<b>`HTMLOutputElement` 对象</b>
+
+| 名称                       | 说明                                                         | 返回                 |
+| :------------------------- | :----------------------------------------------------------- | :------------------- |
+| `htmlFor`                  | 对应于`for` 属性                                             | 字符串               |
+| `form`                     | 返回与此元素关联的`form`                                     | `HTMLFormElement`    |
+| `name`                     | 对应于`name` 属性                                            | 字符串               |
+| `type`                     | 对应于`type` 属性                                            | 字符串               |
+| `value`                    | 对应于`value` 属性                                           | 字符串               |
+| `willValidate`             | 如果此元素将在提交表单时进行输入验证就返回`true` ，否则返回`false` | 布尔值               |
+| `validationMessage`        | 返回在应用输入验证时展示给用户的错误消息                     | 字符串               |
+| `checkValidity()`          | 对此元素执行输入验证                                         | 布尔值               |
+| `setCustomValidity(<msg>)` | 设置一条自定义的验证消息                                     | `void`               |
+| `labels`                   | 返回与此元素关联的说明标签元素                               | `HTMLLabelElement[]` |
+
+#### `select` 元素
+
+`select` 元素是由`HTMLSelectElement` 对象代表的。
+
+<b>`HTMLSelectElement` 对象</b>
+
+| 名称                       | 说明                                                         | 返回                  |
+| :------------------------- | :----------------------------------------------------------- | :-------------------- |
+| `autofocus`                | 对应于`autofocus` 属性                                       | 布尔值                |
+| `disabled`                 | 对应于`disabled` 属性                                        | 布尔值                |
+| `form`                     | 返回与此元素关联的`form`                                     | `HTMLFormElement`     |
+| `multiple`                 | 对应于`multiple` 属性                                        | 布尔值                |
+| `name`                     | 对应于`name` 属性                                            | 字符串                |
+| `required`                 | 对应于`required` 属性                                        | 布尔值                |
+| `size`                     | 对应于`size` 属性                                            | 数值                  |
+| `type`                     | 如果此元素带有`multiple` 属性就返回`select-multiple` ，否则返回`select-one` | 字符串                |
+| `options`                  | 返回`option` 元素的集合                                      | `HTMLOptionElement[]` |
+| `length`                   | 获取或设置选项元素的数量                                     | 数值                  |
+| `[<index>]`                | 获取指定索引处的元素                                         | `HTMLElement`         |
+| `selectedOptions`          | 返回选中的`option` 元素                                      | `HTMLOptionElement[]` |
+| `selectedIndex`            | 返回第一个选中`option` 元素的索引                            | 数值                  |
+| `value`                    | 获取或设置选中的值                                           | 字符串                |
+| `willValidate`             | 如果此元素将在提交表单时进行输入验证就返回`true` ，否则返回`false` | 布尔值                |
+| `validationMessage`        | 返回在应用输入验证时展示给用户的错误消息                     | 字符串                |
+| `checkValidity()`          | 对此元素执行输入验证                                         | 布尔值                |
+| `setCustomValidity(<msg>)` | 设置一条自定义的验证消息                                     | `void`                |
+| `labels`                   | 返回与此元素关联的说明标签元素                               | `HTMLLabelElement[]`  |
+
+#### `textarea` 元素
+
+`textarea` 元素是由`HTMLTextAreaElement` 对象代表的。
+
+<b>`HTMLTextAreaElement` 对象</b>
+
+| 名称                       | 说明                                                         | 返回                 |
+| :------------------------- | :----------------------------------------------------------- | :------------------- |
+| `autofocus`                | 对应于`autofocus` 属性                                       | 布尔值               |
+| `cols`                     | 对应于`cols` 属性                                            | 数值                 |
+| `dirName`                  | 对应于`dirname` 属性                                         | 字符串               |
+| `disabled`                 | 对应于`disabled` 属性                                        | 布尔值               |
+| `form`                     | 返回与此元素关联的`form`                                     | `HTMLFormElement`    |
+| `maxLength`                | 对应于`maxlength` 属性                                       | 数值                 |
+| `name`                     | 对应于`name` 属性                                            | 字符串               |
+| `placeholder`              | 对应于`placeholder` 属性                                     | 字符串               |
+| `readOnly`                 | 对应于`readonly` 属性                                        | 布尔值               |
+| `required`                 | 对应于`required` 属性                                        | 布尔值               |
+| `rows`                     | 对应于`rows` 属性                                            | 数值                 |
+| `wrap`                     | 对应于`wrap` 属性                                            | 字符串               |
+| `type`                     | 返回`textarea`                                               | 字符串               |
+| `value`                    | 返回此元素的内容                                             | 字符串               |
+| `textLength`               | 返回`value` 属性的长度                                       | 数值                 |
+| `willValidate`             | 如果此元素将在提交表单时进行输入验证就返回`true` ，否则返回`false` | 布尔值               |
+| `validationMessage`        | 返回在应用输入验证时展示给用户的错误消息                     | 字符串               |
+| `checkValidity()`          | 对此元素执行输入验证                                         | 布尔值               |
+| `setCustomValidity(<msg>)` | 设置一条自定义的验证消息                                     | `void`               |
+| `labels`                   | 返回与此元素关联的说明标签元素                               | `HTMLLabelElement[]` |
+
+### 8.7  内容元素
+
+#### `area` 元素
+
+`area` 元素是由`HTMLAreaElement` 对象代表的。
+
+<b>`HTMLAreaElement` 对象</b>
+
+| 名称       | 说明                                                         | 返回   |
+| :--------- | :----------------------------------------------------------- | :----- |
+| `alt`      | 对应于`alt` 属性                                             | 字符串 |
+| `coords`   | 对应于`coords` 属性                                          | 字符串 |
+| `shape`    | 对应于`shape` 属性                                           | 字符串 |
+| `href`     | 对应于`href` 属性                                            | 字符串 |
+| `target`   | 对应于`target` 属性                                          | 字符串 |
+| `rel`      | 对应于`rel` 属性                                             | 字符串 |
+| `media`    | 对应于`media` 属性                                           | 字符串 |
+| `hrefLang` | 对应于`hreflang` 属性                                        | 字符串 |
+| `type`     | 对应于`type` 属性                                            | 字符串 |
+| `protocol` | 这个便捷属性用于获取或设置`href` 属性值里的协议名部分        | 字符串 |
+| `host`     | 这个便捷属性用于获取或设置`href` 属性值里的主机名和端口号部分 | 字符串 |
+| `hostname` | 这个便捷属性用于获取或设置`href` 属性值里的主机名部分        | 字符串 |
+| `port`     | 这个便捷属性用于获取或设置`href` 属性值里的端口号部分        | 字符串 |
+| `pathname` | 这个便捷属性用于获取或设置`href` 属性值里的路径部分          | 字符串 |
+| `search`   | 这个便捷属性用于获取或设置`href` 属性值里的查询字符串部分    | 字符串 |
+| `hash`     | 这个便捷属性用于获取或设置`href` 属性值里的文档片段部分      | 字符串 |
+
+#### `embed` 元素
+
+`embed` 元素是由`HTMLEmbedElement` 对象代表的。
+
+<b>`HTMLEmbedElement` 对象</b>
+
+| 名称     | 说明                | 返回   |
+| :------- | :------------------ | :----- |
+| `src`    | 对应于`src` 属性    | 字符串 |
+| `type`   | 对应于`type` 属性   | 字符串 |
+| `width`  | 对应于`width` 属性  | 字符串 |
+| `height` | 对应于`height` 属性 | 字符串 |
+
+#### `iframe` 元素
+
+`iframe` 元素是由`HTMLIFrameElement` 对象代表的。
+
+<b>`HTMLIFrameElement` 对象</b>
+
+| 名称              | 说明                  | 返回       |
+| :---------------- | :-------------------- | :--------- |
+| `src`             | 对应于`src` 属性      | 字符串     |
+| `srcdoc`          | 对应于`srcdoc` 属性   | 字符串     |
+| `name`            | 对应于`name` 属性     | 字符串     |
+| `sandbox`         | 对应于`sandbox` 属性  | 字符串     |
+| `seamless`        | 对应于`seamless` 属性 | 字符串     |
+| `width`           | 对应于`width` 属性    | 字符串     |
+| `height`          | 对应于`height` 属性   | 字符串     |
+| `contentDocument` | 返回`document` 对象   | `Document` |
+| `contentWindow`   | 返回`window` 对象     | `Window`   |
+
+#### `img` 元素
+
+`img` 元素是由`HTMLImageElement` 对象代表的。
+
+<b>`HTMLImageElement` 对象</b>
+
+| 名称       | 说明                         | 返回   |
+| :--------- | :--------------------------- | :----- |
+| `alt`      | 对应于`alt` 属性             | 字符串 |
+| `src`      | 对应于`src` 属性             | 字符串 |
+| `useMap`   | 对应于`usemap` 属性          | 字符串 |
+| `isMap`    | 对应于`ismap` 属性           | 布尔值 |
+| `width`    | 对应于`width` 属性           | 数值   |
+| `height`   | 对应于`height` 属性          | 数值   |
+| `complete` | 如果图像已被下载则返回`true` | 布尔值 |
+
+#### `map` 元素
+
+`map` 元素是由`HTMLMapElement` 对象代表的。
+
+<b>`HTMLMapElement` 对象</b>
+
+| 名称     | 说明                                        | 返回                |
+| :------- | :------------------------------------------ | :------------------ |
+| `name`   | 对应于`name` 属性                           | 字符串              |
+| `areas`  | 返回分区响应图里所有的`area` 元素           | `HTMLAreaElement[]` |
+| `images` | 返回分区响应图里所有的`img` 和`object` 元素 | `HTMLElement[]`     |
+
+#### `meter` 元素
+
+`meter` 元素是由`HTMLMeterElement` 对象代表的。
+
+<b>`HTMLMeterElement` 对象</b>
+
+| 名称     | 说明                           | 返回                 |
+| :------- | :----------------------------- | :------------------- |
+| `value`  | 对应于`value` 属性             | 数值                 |
+| `max`    | 对应于`max` 属性               | 数值                 |
+| `form`   | 返回与此元素关联的`form`       | `HTMLFormElement`    |
+| `labels` | 返回与此元素关联的说明标签元素 | `HTMLLabelElement[]` |
+
+#### `object` 元素
+
+`object` 元素是由`HTMLObjectElement` 对象代表的。
+
+<b>`HTMLObjectElement` 对象</b>
+
+| 名称                       | 说明                                                         | 返回                 |
+| :------------------------- | :----------------------------------------------------------- | :------------------- |
+| `data`                     | 对应于`data` 属性                                            | 字符串               |
+| `type`                     | 对应于`type` 属性                                            | 字符串               |
+| `form`                     | 返回与此元素关联的`form`                                     | `HTMLFormElement`    |
+| `name`                     | 对应于`name` 属性                                            | 字符串               |
+| `useMap`                   | 对应于`usemap` 属性                                          | 字符串               |
+| `width`                    | 对应于`width` 属性                                           | 字符串               |
+| `height`                   | 对应于`height` 属性                                          | 字符串               |
+| `contentDocument`          | 返回`document` 对象                                          | `Document`           |
+| `contentWindow`            | 返回`window` 对象                                            | `Window`             |
+| `willValidate`             | 如果此元素将在提交表单时进行输入验证就返回`true` ，否则返回`false` | 布尔值               |
+| `validationMessage`        | 返回在应用输入验证时展示给用户的错误消息                     | 字符串               |
+| `checkValidity()`          | 对此元素执行输入验证                                         | 布尔值               |
+| `setCustomValidity(<msg>)` | 设置一条自定义的验证消息                                     | `void`               |
+| `labels`                   | 返回与此元素关联的说明标签元素                               | `HTMLLabelElement[]` |
+
+#### `param` 元素
+
+`param` 元素是由`HTMLParamElement` 对象代表的。
+
+<b>`HTMLParamElement` 对象</b>
+
+| 名称    | 说明               | 返回   |
+| :------ | :----------------- | :----- |
+| `name`  | 对应于`name` 属性  | 字符串 |
+| `value` | 对应于`value` 属性 | 字符串 |
+
+#### `progress` 元素
+
+`progress` 元素是由`HTMLProgressElement` 对象代表的。
+
+<b>`HTMLProgressElement` 对象</b>
+
+| 名称       | 说明                           | 返回                 |
+| :--------- | :----------------------------- | :------------------- |
+| `value`    | 对应于`value` 属性             | 数值                 |
+| `max`      | 对应于`max` 属性               | 数值                 |
+| `position` | 对应于`position` 属性          | 数值                 |
+| `form`     | 返回与此元素关联的`form`       | `HTMLFormElement`    |
+| `labels`   | 返回与此元素关联的说明标签元素 | `HTMLLabelElement[]` |
