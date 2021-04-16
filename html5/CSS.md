@@ -2382,3 +2382,1458 @@ counter-increment: paracount 2;
 </html>
 ```
 
+## 5. 布局
+
+### 5.1  定位内容
+
+#### **定位属性**
+
+控制内容最简单的方式就是通过定位，这允许你使用浏览器改变元素的布局方式。
+
+| 属性                          | 说明                   | 值                         |
+| :---------------------------- | :--------------------- | :------------------------- |
+| `position`                    | 设置定位方法           | 参见下表                   |
+| `left` `right` `top` `bottom` | 为定位元素设置偏移量   | `<长度>` `<百分数>` `auto` |
+| `z-index`                     | 设置定位元素的层叠顺序 | 数字                       |
+
+<b>`position` 属性的值</b>
+
+`position` 属性设置了元素的定位方法。
+
+| 值         | 说明                                                       |
+| :--------- | :--------------------------------------------------------- |
+| `static`   | 元素为普通布局，默认值                                     |
+| `relative` | 元素位置相对于普通位置定位                                 |
+| `absolute` | 元素相对于`position` 值不为`static` 的第一位祖先元素来定位 |
+| `fixed`    | 元素相对于浏览器窗口来定位                                 |
+
+`position` 属性的不同值指定了元素定位所针对的不同元素。使用`top` 、`bottom` 、`left` 和`right` 属性设置元素的偏移量的时候，指的是相对于`position` 属性指定的元素的偏移量。
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            img {
+                top: 5px;
+                left:150px;
+                border: medium double black;
+            }
+        </style>
+    </head>
+    <body>
+        <p>
+            There are lots of different kinds of fruit - there are over 500 varieties
+            of banana alone. By the time we add the countless types of apples, oranges,
+            and other well-known fruit, we are faced with thousands of choices.
+        </p>
+        <p>
+            One of the most interesting aspects of fruit is the variety available in
+            each country. I live near London, in an area which is known for
+            its apples.
+
+        </p>
+        <img id="banana" src="banana-small.png" alt="small banana"/>
+        <p>
+            When travelling in Asia, I was struck by how many different
+            kinds of banana were available - many of which had unique flavours and
+            which were only avaiable within a small region.
+        </p>
+        <p>
+            <button>Static</button>
+            <button>Relative</button>
+            <button>Absolute</button>
+            <button>Fixed</button>
+        </p>
+        <script>
+            var buttons = document.getElementsByTagName("BUTTON");
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].onclick = function(e) {
+                    document.getElementById("banana").style.position =
+                        e.target.innerHTML;
+                };
+            }
+        </script>
+    </body>
+</html>
+```
+
+<b>`z-index` 属性</b>
+
+`z-index` 属性指定元素显示的层叠顺序。
+
+| 属性      | 说明                   | 值       |
+| :-------- | :--------------------- | :------- |
+| `z-index` | 设置元素的相对层叠顺序 | `<数值>` |
+
+`z-index` 属性的值是数值，且允许取负值。值越小，在层叠顺序中就越靠后。
+
+### 5.2  多列布局
+
+多列特性允许在多个垂直列中布局内容，跟报纸的排版方式类似。
+
+#### **多列属性**
+
+| 属性                | 说明                                                         | 值                            |
+| :------------------ | :----------------------------------------------------------- | :---------------------------- |
+| `column-count`      | 指定列数                                                     | `<数值>`                      |
+| `column-fill`       | 指定内容在列与列之间的分布方式，`balance` 指浏览器确保不同列之间的长度差异尽可能小。如果取`auto` 值，则按照顺序填充列 | `balance` `auto`              |
+| `column-gap`        | 指定列之间的距离                                             | `<长度值>`                    |
+| `column-rule`       | 在一条声明中设置`column-rule-*` 的简写属性                   | `<宽度值><样式><颜色>`        |
+| `column-rule-color` | 设置列之间的颜色规则                                         | `<颜色>`                      |
+| `column-rule-style` | 设置列之间的样式规则                                         | 跟`border-style` 属性的值相同 |
+| `column-rule-width` | 设置列之间的宽度                                             | `<长度值>`                    |
+| `columns`           | 设置`column-span` 和`column-width` 的简写属性                | `<长度值> <数值>`             |
+| `column-span`       | 指定元素横向能跨多少列                                       | `None` `all`                  |
+| `column-width`      | 指定列宽                                                     | `<长度值>`                    |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            p {
+                column-count: 3;
+                column-fill: balance;
+                column-rule: medium solid black;
+                column-gap: 1.5em;
+            }
+            img {
+                float: left;
+                border: medium double black;
+                background-color: lightgray;
+                padding: 2px;
+                margin: 2px;
+            }
+        </style>
+    </head>
+    <body>
+        <p>
+            There are lots of different kinds of fruit - there are over 500 varieties
+            of banana alone. By the time we add the countless types of apples, oranges,
+            and other well-known fruit, we are faced with thousands of choices.
+           
+            One of the most interesting aspects of fruit is the variety available in
+            each country. I live near London, in an area which is known for
+            its apples.
+            
+            When travelling in Asia, I was struck by how many different
+            kinds of banana were available - many of which had unique flavours and
+            which were only avaiable within a small region.
+
+            And, of course, there are fruits which are truely unique - I am put in mind
+            of the durian, which is widely consumed in SE Asia and is known as the
+            "king of fruits". The durian is largely unknown in Europe and the USA - if
+            it is known at all, it is for the overwhelming smell, which is compared
+            to a combination of almonds, rotten onions and gym socks.
+        </p>
+    </body>
+</html>
+```
+
+### 5.3  表格布局
+
+表格布局使用`di<play` 属性。
+
+<b>跟表格布局相关的`display` 属性的值</b>
+
+| 值                   | 说明                                   |
+| :------------------- | :------------------------------------- |
+| `table`              | 类似`table` 元素                       |
+| `inline-table`       | 类似`table` 元素，但是创建一个行内元素 |
+| `table-caption`      | 类似`caption` 元素                     |
+| `table-column`       | 类似`col` 元素                         |
+| `table-column-group` | 类似`colgroup` 元素                    |
+| `table-header-group` | 类似`thead` 元素                       |
+| `table-row-group`    | 类似`tbody` 元素                       |
+| `table-footer-group` | 类似`tfoot` 元素                       |
+| `table-row`          | 类似`tr` 元素                          |
+| `table-cell`         | 类似`td` 元素                          |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+
+            #table {
+                display: table;
+            }
+            div.row {
+                display: table-row;
+                background-color: lightgray;
+            }
+
+            p {
+                display: table-cell;
+                border: thin solid black;
+                padding: 15px;
+                margin: 15px;
+            }
+
+            img {
+                float:left;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="table">
+            <div class="row">
+                <p>
+                    There are lots of different kinds of fruit - there are over 500
+                    varieties of banana alone. By the time we add the countless types of
+                    apples, oranges, and other well-known fruit, we are faced with
+                    thousands of choices.
+                </p>
+                <p>
+                    One of the most interesting aspects of fruit is the variety available
+                    in each country. I live near London, in an area which is known for
+                    its apples.
+                </p>
+                <p>
+                    When travelling in Asia, I was struck by how many different kinds of
+                    banana were available - many of which had unique flavours and which
+                    were only avaiable within a small region.
+                </p>
+            </div>
+            <div class="row">
+                <p>
+                    This is an apple. <img src="apple.png" alt="apple"/>
+                </p>
+                <p>
+                    This is a banana. <img src="banana-small.png" alt="banana"/>
+                </p>
+                <p>
+                    No picture here
+                </p>
+            </div>
+        </div>
+    </body>
+</html>
+```
+
+## 6. 文本样式
+
+#### 6.1  对齐属性
+
+| 属性           | 说明                                                         | 值                                              |
+| :------------- | :----------------------------------------------------------- | :---------------------------------------------- |
+| `text-align`   | 指定文本块的对齐方式                                         | `start` `end` `left` `right` `center` `justify` |
+| `text-justify` | 如果`text-align` 属性使用了`justify` 值，则该值会用来指定对齐文本的规则 | 参见下表                                        |
+
+`text-align` 属性相当简单，不过，需要注意的重要一点是：可以将文本对齐到显式命名的某个边界（使用`left` 或者`right` 值），或者对齐到语言本来使用的边界（使用`start` 和`end` 值）。在处理从右到左的语言时，这是一个非常重要的区别。
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            #fruittext {
+                width: 400px;
+                margin: 5px;
+                padding: 5px;
+                border: medium double black;
+                background-color: lightgrey;
+            }
+        </style>
+    </head>
+    <body>
+        <p id="fruittext">
+            There are lots of different kinds of fruit - there are over 500
+            varieties of banana alone. By the time we add the countless types of
+            apples, oranges, and other well-known fruit, we are faced with
+            thousands of choices.
+            One of the most interesting aspects of fruit is the
+            variety available in each country. I live near London, in an area which is
+            known for its apples.
+        </p>
+        <p>
+            <button>Start</button>
+            <button>End</button>
+            <button>Left</button>
+            <button>Right</button>
+            <button>Justify</button>
+            <button>Center</button>
+        </p>
+        <script>
+            var buttons = document.getElementsByTagName("BUTTON");
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].onclick = function(e) {
+                    document.getElementById("fruittext").style.textAlign =
+                        e.target.innerHTML;
+                };
+            }
+        </script>
+    </body>
+</html>
+```
+
+<b>`text-justify` 属性的值</b>
+
+| 值                | 说明                                                         |
+| :---------------- | :----------------------------------------------------------- |
+| `auto`            | 浏览器选择对齐规则，这是最简单的方法，不过，不同浏览器之间的呈现方式会有微小差别 |
+| `none`            | 禁用文本对齐                                                 |
+| `inter-word`      | 空白分布在单词之间，适用于英语等词间有空的语言               |
+| `inter-ideograph` | 空白分布在单词、表意字之间，且文本两端对齐，适用于汉语、日文和韩文等语言 |
+| `inter-cluster`   | 空白分布在单词、字形集的边界，适用于泰文等无词间空格的语言   |
+| `distribute`      | 空白分布在单词、字形集的边界，但连续文本或者草体除外         |
+| `kashida`         | 通过拉长选定字符调整对齐方式（仅适用于草体）                 |
+
+### 6.2  处理空白
+
+空白在HTML文档中通常是被压缩或者直接忽略掉。这允许你将HTML文档的布局跟页面的外观分离。
+
+#### **`whitespace` 属性**
+
+| 属性         | 说明                   | 值       |
+| :----------- | :--------------------- | :------- |
+| `whitespace` | 指定空白字符的处理方式 | 参见下表 |
+
+<b>`whitespace` 属性的值</b>
+
+| 值         | 说明                                                         |
+| :--------- | :----------------------------------------------------------- |
+| `normal`   | 默认值，空白符被压缩，文本行自动换行                         |
+| `nowrap`   | 空白符被压缩，文本行不换行                                   |
+| `pre`      | 空白符被保留，文本只在遇到换行符的时候换行，这跟`pre` 元素的效果一样 |
+| `pre-line` | 空白符被压缩，文本会在一行排满或遇到换行符时换行             |
+| `pre-wrap` | 空白符被保留，文本会在一行排满或遇到换行符时换行             |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            #fruittext {
+                width: 400px;
+                margin: 5px;
+                padding: 5px;
+                border: medium double black;
+                background-color: lightgrey;
+                white-space: pre-line;
+            }
+        </style>
+    </head>
+    <body>
+        <p id="fruittext">
+            There are lots of different kinds of fruit - there are over 500
+            varieties
+
+            of banana alone. By the time we add the countless types of
+            apples, oranges, and other well-known fruit, we are faced with
+            thousands of choices.
+
+            One     of the      most interesting aspects of fruit is the
+            variety available   in each country. I live near London,
+
+            in an area which is
+            known for its apples.
+
+        </p>
+    </body>
+</html>
+```
+
+#### **`direction` 属性**
+
+`direction` 属性告诉浏览器文本块的排列方向。
+
+| 属性        | 说明         | 值          |
+| :---------- | :----------- | :---------- |
+| `direction` | 设置文本方向 | `ltr` `rtl` |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            #first {
+                direction: ltr;
+            }
+
+            #second {
+                direction: rtl;
+            }
+        </style>
+    </head>
+    <body>
+        <p id="first">
+            This is left-to-right text
+        </p>
+        <p id="second">
+            This is right-to-lefttext
+        </p>
+    </body>
+</html>
+```
+
+#### **间距属性**
+
+浏览器单词与单词、字母与字母、行与行之间的间距。
+
+| 属性             | 说明               | 值                                 |
+| :--------------- | :----------------- | :--------------------------------- |
+| `letter-spacing` | 设置字母之间的间距 | `normal` `<长度值>`                |
+| `word-spacing`   | 设置单词之间的间距 | `Normal` `<长度值>`                |
+| `line-height`    | 设置行高           | `Normal` `<数值>` `<长度值>` `<%>` |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            #fruittext {
+                margin: 5px;
+                padding: 5px;
+                border: medium double black;
+                background-color: lightgrey;
+                word-spacing: 10px;
+                letter-spacing: 2px;
+                line-height: 3em;
+            }
+        </style>
+    </head>
+    <body>
+        <p id="fruittext">
+            There are lots of different kinds of fruit - there are over 500
+            varieties of banana alone. By the time we add the countless types of
+            apples, oranges, and other well-known fruit, we are faced with
+            thousands of choices.
+        </p>
+    </body>
+</html>
+```
+
+#### `word-wrap` 属性
+
+`word-wrap` 属性告诉浏览器当一个单词的长度超出包含块的宽度时如何处理。
+
+| 值           | 说明                                   |
+| :----------- | :------------------------------------- |
+| `normal`     | 单词不断开，即使无法完全放入包含块元素 |
+| `break-word` | 断开单词，使其放入包含块元素           |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            p {
+                width:150px;
+                margin: 15px;
+                padding: 5px;
+                border: medium double black;
+                background-color: lightgrey;
+                float:left;
+            }
+
+            #first {
+                word-wrap: break-word;
+            }
+
+            #second {
+                word-wrap: normal;
+            }
+        </style>
+    </head>
+    <body>
+        <p id="first">
+            There are lots of different kinds of fruit - there are over 500
+            varieties of madeupfruitwithaverylongname alone.
+        </p>
+        <p id="second">
+            There are lots of different kinds of fruit - there are over 500
+            varieties of madeupfruitwithaverylongname alone.
+        </p>
+    </body>
+</html>
+```
+
+#### **`text-indent` 属性**
+
+`text-indent` 属性用于指定文本块首行缩进，值可以是长度值，也可以是相对于元素宽度的百分数值。
+
+| 属性          | 说明               | 值               |
+| :------------ | :----------------- | :--------------- |
+| `text-indent` | 设置文本首行的缩进 | `<长度值>` `<%>` |
+
+### 6.3  文本装饰与大小写转换
+
+`text-decoration` 和`text-transform` 两个属性分别允许我们装饰文本和转换文本大小写。
+
+| 属性              | 说明                 | 值                                                   |
+| :---------------- | :------------------- | :--------------------------------------------------- |
+| `text-decoration` | 为文本块应用装饰效果 | `none` `underline` `overline` `line-through` `blink` |
+| `text-transform`  | 为文本块转换大小写   | `none` `capitalize` `uppercase` `lowercase`          |
+
+`text-decoration` 属性为文本块应用某种效果，如下划线，默认值是`none` （意思是不应用任何装饰）。`text-transform` 属性改变文本块的大小写，默认值也是`none` 。
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            p {
+                border: medium double black;
+                background-color: lightgrey;
+                text-decoration: line-through;
+                text-transform: uppercase;
+            }
+        </style>
+    </head>
+    <body>
+        <p>
+            There are lots of different kinds of fruit - there are over 500
+            varieties of banana alone. By the time we add the countless types of
+            apples, oranges, and other well-known fruit, we are faced with
+            thousands of choices.
+            One of the most interesting aspects of fruit is the
+            variety available in each country. I live near London, in an area which is
+            known for its apples.
+        </p>
+    </body>
+</html>
+```
+
+### 6.4  文本阴影
+
+使用`text-shadow` 属性为文本创建阴影效果。
+
+| 属性          | 说明             | 值                                     |
+| :------------ | :--------------- | :------------------------------------- |
+| `text-shadow` | 为文本块应用阴影 | `<h-shadow> <v-shadow> <blur> <color>` |
+
+`h-shadow` 和`v-shadow` 值分别指定阴影的水平偏移和垂直偏移。它们的值用长度值表示，允许负值。`blur` 值也是一个长度值，定义了阴影的模糊程度，该值可选。`color` 值指定阴影的颜色。
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            h1 {
+                text-shadow: 0.1em .1em 1px lightgrey;
+            }
+            p {
+                text-shadow: 5px 5px 20px black;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Thoughts about Fruit</h1>
+        <p>
+            There are lots of different kinds of fruit - there are over 500
+            varieties of banana alone. By the time we add the countless types of
+            apples, oranges, and other well-known fruit, we are faced with
+            thousands of choices.
+        </p>
+    </body>
+</html>
+```
+
+### 6.5  字体
+
+#### 字体属性
+
+| 属性           | 说明                           | 值                                                          |
+| :------------- | :----------------------------- | :---------------------------------------------------------- |
+| `font-family`  | 指定文本块采用的字体名称       | 参见下表                                                    |
+| `font-size`    | 指定文本块的字体大小           | 参见下表                                                    |
+| `font-style`   | 指定字体样式                   | `Normal` `italic` `oblique`                                 |
+| `font-variant` | 指定字体是否以小型大写字母显示 | `Normal` `smallcaps`                                        |
+| `font-weight`  | 设置字体粗细                   | `Normal` `bold` `bolder` `lighter` `100` ～`900` 之间的数字 |
+| `font`         | 在一条声明中设置字体的简写属性 | 参见下节                                                    |
+
+<b>`font-family` 属性值</b>
+
+`font-family` 属性指定使用的字体，按照优先顺序排列。浏览器从字体列表中的第一种开始尝试，直到发现合适的字体为止。
+
+| 通用字体系列 | 实现字体示例    |
+| :----------- | :-------------- |
+| `serif`      | `Times`         |
+| `sans-serif` | `Helvetica`     |
+| `cursive`    | `Zapf-Chancery` |
+| `fantasy`    | `Western`       |
+| `monospace`  | `Courier`       |
+
+<b>`font-size` 属性的值</b>
+
+`font-size` 属性用来指定字体大小。
+
+| 值                                                           | 说明                                                         |
+| :----------------------------------------------------------- | :----------------------------------------------------------- |
+| `xx-small` `x-small` `small` `medium` `large` `x-large` `xx-large` | 设置字体大小。浏览器会决定每个值代表具体大小。不过，从上到下逐渐增大是有保证的 |
+| `smaller` `larger`                                           | 设置字体相对于父元素字体的大小                               |
+| `<length>`                                                   | 使用CSS长度值精确设置字体大小                                |
+| `<%>`                                                        | 将字体大小表示为父元素字体大小的百分数                       |
+
+#### 指定Web字体
+
+使用`@font-face` 指定Web字体。
+
+使用示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            @font-face {
+                font-family: 'MyFont';
+                font-style: normal;
+                font-weight: normal;
+                src: url('http://test/listings/MyFont.woff');
+            }
+            p {
+                padding: 5px;
+                border: medium double black;
+                background-color: lightgrey;
+                margin: 2px;
+                float: left;
+                font-size: medium;
+                font-family: MyFont, cursive;
+            }
+            #first {
+                font-weight: bold;
+            }
+            #second {
+                font-style: italic;
+            }
+        </style>
+    </head>
+    <body>
+        <p>
+            There are lots of different kinds of fruit - there are over 500
+            varieties of <span id="first">banana</span> alone. By the time we add the
+            countless types of <span id="second">apples, oranges, and other
+            well-known fruit, we are faced with thousands of choices</span>.
+        </p>
+    </body>
+</html>
+```
+
+## 7. 过渡、动画与变换
+
+### 7.1  过渡
+
+#### 过渡属性
+
+控制应用新属性值的速度。
+
+| 属性                         | 说明                                   | 值         |
+| :--------------------------- | :------------------------------------- | :--------- |
+| `transition-delay`           | 指定过渡开始之前的延迟时间             | `<时间>`   |
+| `transition-duration`        | 指定过渡的持续时间                     | `<时间>`   |
+| `transition-property`        | 指定应用过渡的属性                     | `<字符串>` |
+| `transition-timing-function` | 指定过渡期间计算中间值的方式           |            |
+| `transition`                 | 在一条声明中指定所有过渡细节的简写属性 |            |
+
+`transition-delay` 和`transition-duration` 属性指定为CSS时间，是一个数字，单位为`ms` （毫秒）或`s` （秒）。
+
+<b>transition简写属性</b>
+
+```
+transition: <transition-property> <transition-duration> <transition-timing-function> <transition-delay>
+```
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            p {
+                padding: 5px;
+                border: medium double black;
+                background-color: lightgray;
+                font-family: sans-serif;
+            }
+            #banana {
+                font-size: large;
+                border: medium solid black;
+            }
+            #banana:hover {
+                font-size: x-large;
+                border: medium solid white;
+                background-color: green;
+                color: white;
+                padding: 4px;
+                -webkit-transition-delay: 100ms;
+                -webkit-transition-property: background-color, color, padding, font-size, border;
+                -webkit-transition-duration: 500ms;
+            }
+        </style>
+    </head>
+    <body>
+        <p>
+            There are lots of different kinds of fruit - there are over 500
+            varieties of <span id="banana">banana</span> alone. By the time we add the
+            countless types of apples, oranges, and other
+            well-known fruit, we are faced with thousands of choices.
+        </p>
+    </body>
+</html>
+```
+
+### 7.2  动画
+
+动画本质上是增强的过渡。在如何从一种CSS样式过渡到另一种样式的过程中，你具有了更多选择、更多控制，以及更多灵活性。
+
+#### **动画属性**
+
+| 属性                        | 说明                               | 值                                                           |
+| :-------------------------- | :--------------------------------- | :----------------------------------------------------------- |
+| `animation-delay`           | 设置动画开始前的延迟               | `<时间>`                                                     |
+| `animation-direction`       | 设置动画循环播放的时候是否反向播放 | `normal` `alternate`                                         |
+| `animation-duration`        | 设置动画播放的持续时间             | `<时间>`                                                     |
+| `animation-iteration-count` | 设置动画的播放次数                 | `infinite` `<数值>`                                          |
+| `animation-name`            | 指定动画名称                       | `none` `<字符串>`                                            |
+| `animation-play-state`      | 允许动画暂停和重新播放             | `running` `paused`                                           |
+| `animation-timing-function` | 指定如何计算中间动画值             | `ease` `linear` `ease-in` `ease-out` `ease-in-out` `cubic-bezier` |
+| `animation`                 | 简写属性                           | 参见下面的解释                                               |
+
+<b>`animation` 简写属性的格式</b>
+
+```
+animation: <animation-name> <animation-duration> <animation-timing-function> <animation-delay> <animation-iteration-count>
+```
+
+这些属性都不是用来指定要作为动画的CSS属性的。这是因为动画是在两部分定义的。第一部分包含在样式声明中，使用上表列出的属性。它们定义了动画的样式，但并没有定义哪些属性是动画。第二部分使用`@key-frames` 规则创建，用来定义应用动画的属性。
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            p {
+                padding: 5px;
+                border: medium double black;
+                background-color: lightgray;
+                font-family: sans-serif;
+            }
+            #banana {
+                font-size: large;
+                border: medium solid black;
+            }
+
+            #banana:hover {
+                -webkit-animation-delay: 100ms;
+                -webkit-animation-duration: 500ms;
+                -webkit-animation-iteration-count: infinite;
+                -webkit-animation-timing-function: linear;
+                -webkit-animation-name: 'GrowShrink';
+            }
+
+            @-webkit-keyframes GrowShrink {
+                to {
+                    font-size: x-large;
+                    border: medium solid white;
+                    background-color: green;
+                    color: white;
+                    padding: 4px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <p>
+            There are lots of different kinds of fruit - there are over 500
+            varieties of <span id="banana">banana</span> alone. By the time we add the
+            countless types of apples, oranges, and other
+            well-known fruit, we are faced with thousands of choices.
+        </p>
+    </body>
+</html>
+```
+
+```
+@keyframes GrowShrink {
+    to {
+        font-size: x-large;
+        border: medium solid white;
+        background-color: green;
+        color: white;
+        padding: 4px;
+    }
+}
+```
+
+声明的开始是`@keyframes` ，接着指定了这组关键帧的名字`GrowShrink` 。声明内部指定了一组要应用动画效果的属性。这里在一个`to` 声明中指定了五个属性及其值。这是关键帧设置最简单的类型。`to` 声明定义了一组设置动画样式的属性，同时也定义了动画结束时这些属性的最终值。
+
+#### `animation-direction` 属性
+
+动画结束后浏览器可以选择接下来动画以何种方式重复。使用`animation-direction` 属性指定首选方式。
+
+| 值          | 说明                                                         |
+| :---------- | :----------------------------------------------------------- |
+| `normal`    | 每次重复都向前播放，如果可重复播放多次，每次动画都恢复初始状态，从头开始播放 |
+| `alternate` | 动画先向前播放，然后反方向播放，相当于`animation-iteration-count` 属性的值为2 |
+
+#### `animation-play-state` 属性
+
+`animation-play-state` 属性可以用来停止和启动动画。如果这个属性的值为`paused` ，动画就会停止。如果换成`playing` ，动画就会开始播放。
+
+### 7.3  变换
+
+使用CSS变换为元素应用线性变换，也就是说你可以旋转、缩放、倾斜和平移某个元素。
+
+#### **`transform` 属性**
+
+| 属性               | 说明               | 值       |
+| :----------------- | :----------------- | :------- |
+| `transform`        | 指定应用的变换功能 | 参见下表 |
+| `transform-origin` | 指定变换的起点     | 参见下表 |
+
+<b>`transform` 属性的值</b>
+
+| 值                                                           | 说明                                                         |
+| :----------------------------------------------------------- | :----------------------------------------------------------- |
+| `translate(<长度值或百分数值>)` `translateX(<长度值或百分数值>)` `translateY(<长度值或百分数值>)` | 在水平方向、垂直方向或者两个方向上平移元素                   |
+| `scale(<数值>)` `scaleX(<数值>)` `scaleY(<数值>)`            | 在水平方向、垂直方向或者两个方向上缩放元素                   |
+| `rotate(<角度>)`                                             | 旋转元素                                                     |
+| `skew(<角度>)` `skewX(<角度>)` `skewY(<角度>)`               | 在水平方向、垂直方向或者两个方向上使元素倾斜一定的角度       |
+| `matrix(4～6个数值，逗号隔开)`                               | 指定自定义变换。大多数浏览器还没有实现*z* 轴缩放，因此最后两个数字可以忽略（有些情况必须要省略） |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            p {
+                padding: 5px;
+                border: medium double black;
+                background-color: lightgray;
+                font-family: sans-serif;
+            }
+            #banana {
+                font-size: x-large;
+                border: medium solid white;
+                background-color: green;
+                color: white;
+                padding: 4px;
+                -moz-transform: rotate(-45deg) scaleX(1.2);
+            }
+        </style>
+    </head>
+    <body>
+        <p id="fruittext">
+            There are lots of different kinds of fruit - there are over 500
+            varieties of <span id="banana">banana</span> alone. By the time we add the
+            countless types of apples, oranges, and other
+            well-known fruit, we are faced with thousands of choices.
+        </p>
+    </body>
+</html>
+```
+
+<b>`transform-origin` 属性的值</b>
+
+| 值                      | 说明                           |
+| :---------------------- | :----------------------------- |
+| `<%>`                   | 指定元素*x* 轴或者*y* 轴的起点 |
+| `<长度值>`              | 指定距离                       |
+| `left` `center` `Right` | 指定*x* 轴上的位置             |
+| `top` `center` `bottom` | 指定*y* 轴上的位置             |
+
+要定义起点，需要为*x* 轴和*y* 轴各定义一个值。如果只提供一个值，另一个值会被认为是中心位置。
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            p {
+                padding: 5px;
+                border: medium double black;
+                background-color: lightgray;
+                font-family: sans-serif;
+            }
+            #banana {
+
+                font-size: x-large;
+                border: medium solid white;
+                background-color: green;
+                color: white;
+                padding: 4px;
+                -moz-transform: rotate(-45deg) scaleX(1.2);
+                -moz-transform-origin: right top;
+            }
+        </style>
+    </head>
+    <body>
+        <p id="fruittext">
+            There are lots of different kinds of fruit - there are over 500
+            varieties of <span id="banana">banana</span> alone. By the time we add the
+            countless types of apples, oranges, and other
+            well-known fruit, we are faced with thousands of choices.
+        </p>
+    </body>
+</html>
+```
+
+## 8. 其他特性
+
+### 8.1  设置元素的颜色和透明度
+
+| 属性      | 说明             | 值       |
+| :-------- | :--------------- | :------- |
+| `color`   | 设置元素的前景色 | `<颜色>` |
+| `opacity` | 设置颜色的透明度 | `<数值>` |
+
+#### 设置前景色
+
+`color` 属性设置元素的前景色。一般而言，元素对`color` 属性之于它的意义可以有不同的解读，不过实际上，`color` 属性一般用来设置文本的颜色。
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            p {
+                padding: 5px;
+                border: medium double black;
+                background-color: lightgray;
+                font-family: sans-serif;
+            }
+            #banana {
+                font-size: x-large;
+                border: medium solid white;
+                background-color: green;
+                color: rgba(255, 255, 255, 0.7);
+            }
+            a:hover {
+                color: red;
+            }
+
+        </style>
+    </head>
+    <body>
+        <p id="fruittext">
+            There are lots of different kinds of fruit - there are over 500
+            varieties of <span id="banana">banana</span> alone. By the time we add the
+            countless types of apples, oranges, and other well-known fruit, we are faced
+            with thousands of choices.
+            <a href="http://en.wikipedia.org/wiki/Banana">Learn more about Bananas</a>
+        </p>
+    </body>
+</html>
+```
+
+#### 设置元素的透明度
+
+使用`opacity` 属性让整个元素和文本内容透明。这个属性的取值范围是0到1，前者代表完全透明，后者代表完全不透明。
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            p {
+                padding: 5px;
+                border: medium double black;
+                background-color: lightgray;
+                font-family: sans-serif;
+            }
+            #banana {
+                font-size: x-large;
+                border: medium solid white;
+                background-color: green;
+                color: white;
+                opacity: 0.4;
+            }
+            a:hover {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <p id="fruittext">
+            There are lots of different kinds of fruit - there are over 500
+            varieties of <span id="banana">banana</span> alone. By the time we add the
+            countless types of apples, oranges, and other well-known fruit, we are faced
+            with thousands of choices.
+            <a href="http://en.wikipedia.org/wiki/Banana">Learn more about Bananas</a>
+        </p>
+    </body>
+</html>
+```
+
+### 8.2  表格样式
+
+| 属性              | 说明                         | 值                    |
+| :---------------- | :--------------------------- | :-------------------- |
+| `border-collapse` | 设置相邻单元格的边框处理样式 | `collapse` `separate` |
+| `border-spacing`  | 设置相邻单元格边框的间距     | 1～2个长度值          |
+| `caption-side`    | 设置表格标题的位置           | `top` `bottom`        |
+| `empty-cells`     | 设置空单元格是否显示边框     | `hide` `show`         |
+| `table-layout`    | 指定表格的布局样式           | `auto` `fixed`        |
+
+#### 合并表格边框
+
+`border-collapse` 用来控制`table` 元素相邻单元格边框的样式。
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            table {
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 2px;
+            }
+        </style>
+    </head>
+    <body>
+        <table border="1">
+            <caption>Results of the 2011 Fruit Survey</caption>
+            <colgroup id="colgroup1">
+                <col id="col1And2" span="2"/>
+                <col id="col3"/>
+            </colgroup>
+            <colgroup id="colgroup2" span="2"/>
+            <thead>
+                <tr>
+                    <th>Rank</th><th>Name</th><th>Color</th>
+                    <th colspan="2">Size & Votes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Favorite:</th><td>Apples</td><td>Green</td>
+                    <td>Medium</td><td>500</td>
+                </tr>
+                <tr>
+                    <th>2nd Favorite:</th><td>Oranges</td><td>Orange</td>
+                    <td>Large</td><td>450</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="5">&copy; 2011 Adam Freeman Fruit Data Enterprises</th>
+                </tr>
+            </tfoot>
+        </table>
+    </body>
+</html>
+```
+
+#### 　配置独立边框
+
+如果你一定要为`border-collapse` 属性使用默认值`separate` ，再加几个其他属性同样可以改善表格的外观。
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            table {
+                border-collapse: separate;
+                border-spacing: 10px;
+            }
+            th, td {
+                padding: 2px;
+            }
+        </style>
+    </head>
+    <body>
+        <table border="1">
+            <caption>Results of the 2011 Fruit Survey</caption>
+            <colgroup id="colgroup1">
+                <col id="col1And2" span="2"/>
+                <col id="col3"/>
+            </colgroup>
+            <colgroup id="colgroup2" span="2"/>
+            <thead>
+                <tr>
+                    <th>Rank</th><th>Name</th><th>Color</th>
+                    <th colspan="2">Size & Votes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Favorite:</th><td>Apples</td><td>Green</td>
+                    <td>Medium</td><td>500</td>
+                </tr>
+                <tr>
+                    <th>2nd Favorite:</th><td>Oranges</td><td>Orange</td>
+                    <td></td><td></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="5">&copy; 2011 Adam Freeman Fruit Data Enterprises</th>
+                </tr>
+            </tfoot>
+        </table>
+    </body>
+</html>
+```
+
+#### 处理空单元格
+
+浏览器如何处理空单元格。默认情况下，即使单元格为空，浏览器也会为单元格设置独立的边框。可以使用`empty-cells` 属性控制这种行为。`empty-cells` 的默认值为`show` ，如果将该属性设置为`hide` ，浏览器就不会绘制边框。
+
+```
+<style>
+    table {
+        border-collapse: separate;
+        border-spacing: 10px;
+        empty-cells: hide;
+    }
+    th, td {
+        padding: 2px;
+    }
+</style>
+```
+
+#### 设置标题的位置
+
+如果为`table` 元素添加`caption` ，标题会显示在表格的顶部。不过，我们可以使用`caption-side` 属性改变这种默认行为。这个属性有两个值：`top` （默认值）和`bottom` 。
+
+#### 指定表格布局
+
+默认情况下，浏览器会根据表格每一列中最宽的单元格设置整列单元格的宽度。这意味着你不需要担心还要亲自解决单元格大小的问题，不过，这同时意味着在能够确定页面布局之前，浏览器必须获取所有的表格内容。
+
+浏览器显示表格采用的方法是由`table-layout` 属性决定的，之前说过，它的默认值是`auto` 。使用另一个值`fixed` 可以禁用自动布局。在`fixed` 模式中，表格的大小是由表格自身和单独每列的`width` 值设定的。如果没有列宽值可用，浏览器会设置等距离的列宽。
+
+因此，只要获取了一行的表格数据，浏览器就可以确定列宽。其他行内的数据会自动换行以适应列宽（可能导致行高比`auto` 模式下略高）。
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            table {
+                border-collapse: collapse;
+                caption-side: bottom;
+                table-layout: fixed;
+                width: 100%;
+            }
+            th, td {
+                padding: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <table border="1">
+            <caption>Results of the 2011 Fruit Survey</caption>
+            <colgroup id="colgroup1">
+                <col id="col1And2" span="2"/>
+                <col id="col3"/>
+            </colgroup>
+            <colgroup id="colgroup2" span="2"/>
+            <thead>
+                <tr>
+                    <th>Rank</th><th>Name</th><th>Color</th>
+                    <th colspan="2">Size & Votes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Really Really Really Long Title:</th>
+                    <td>Apples</td><td>Green</td>
+                    <td>Medium</td><td>500</td>
+                </tr>
+                <tr>
+                    <th>2nd Favorite:</th><td>Oranges</td><td>Orange</td>
+                    <td></td><td></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="5">&copy; 2011 Adam Freeman Fruit Data Enterprises</th>
+                </tr>
+            </tfoot>
+        </table>
+    </body>
+</html>
+```
+
+### 8.3  设置列表样式
+
+| 属性                  | 说明                             | 值                 |
+| :-------------------- | :------------------------------- | :----------------- |
+| `list-style-type`     | 指定列表中使用的标记的类型       | 参见下表           |
+| `list-style-image`    | 指定图像作为列表标记             | `<图像>`           |
+| `list-style-position` | 指定标记相对于列表项目盒子的位置 | `inside` `outside` |
+| `list-style`          | 设置所有列表特征的简写属性       | 参见下面的解释     |
+
+<b>`list-style` 简写属性的格式</b>
+
+```
+list-style: <list-style-type> <list-style-position> <list-style-image>
+```
+
+#### `list-style-type` 属性
+
+`list-style-type` 属性用来设置标记（有时候也称为项目符号）的样式。
+
+| 值                                                      | 说明                                                       |
+| :------------------------------------------------------ | :--------------------------------------------------------- |
+| none                                                    | 没有标记                                                   |
+| `box` `check` `circle` `diamond` `disc` `dash` `square` | 使用指定形状的标记，注意并不是所有的浏览器都支持每一种形状 |
+| `decimal`                                               | 使用十进制数字作为标记                                     |
+| `binary`                                                | 使用二进制数作为标记                                       |
+| `lower-alpha`                                           | 使用小写字母字符作为标记                                   |
+| `upper-alpha`                                           | 使用大写字母字符作为标记                                   |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            ol {
+                list-style-type: lower-alpha;
+            }
+        </style>
+    </head>
+    <body>
+        I like apples and oranges.
+
+        I also like:
+        <ol>
+            <li>bananas</li>
+            <li>mangoes</li>
+            <li style="list-style-type: decimal">cherries</li>
+            <li>plums</li>
+            <li>peaches</li>
+            <li>grapes</li>
+        </ol>
+    </body>
+</html>
+```
+
+#### `list-style-image` 属性
+
+`list-style-image` 属性可以将图像用做列表标记。
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            ul {
+                list-style-image: url('banana-vsmall.png');
+            }
+        </style>
+    </head>
+    <body>
+        I like apples and oranges.
+
+        I also like:
+        <ul>
+            <li>bananas</li>
+            <li>mangoes</li>
+            <li>cherries</li>
+            <li>plums</li>
+            <li>peaches</li>
+            <li>grapes</li>
+        </ul>
+    </body>
+</html>
+```
+
+#### `list-style-position` 属性
+
+使用`list-style-position` 属性指定标记相对于`li` 元素内容框的位置。这个属性有两个值：`inside` 和`outside` ，前者定义标记位于内容框内部，后者定义标记位于内容框外部。
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            li.inside {
+                list-style-position: inside;
+            }
+            li.outside {
+                list-style-position: outside;
+            }
+            li {
+                background-color: lightgray;
+            }
+        </style>
+    </head>
+    <body>
+        I like apples and oranges.
+
+        I also like:
+        <ul>
+            These are the inside items:
+            <li class="inside">bananas</li>
+            <li class="inside">mangoes</li>
+            <li class="inside">cherries</li>
+            These are the outside items:
+            <li class="outside">plums</li>
+            <li class="outside">peaches</li>
+            <li class="outside">grapes</li>
+        </ul>
+    </body>
+</html>
+```
+
+### 8.4  设置光标样式
+
+`cursor` 属性用来改变光标的外形。
+
+| 属性     | 说明           | 值                                                           |
+| :------- | :------------- | :----------------------------------------------------------- |
+| `cursor` | 设置光标的样式 | `auto` 、`crosshair` 、`default` 、`help` 、`move` 、`pointer` 、`progress` 、`text` 、`wait` 、`n-resize` 、 `s-resize` 、`e-resize` 、`w-resize` 、`ne-resize` 、`nw-resize` 、`se-resize` 、`sw-resize` |
+
+示例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <meta name="author" content="Adam Freeman"/>
+        <meta name="description" content="A simple example"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            p {
+                padding: 5px;
+                border: medium double black;
+                background-color: lightgray;
+                font-family: sans-serif;
+            }
+            #banana {
+                font-size: x-large;
+                border: medium solid white;
+                background-color: green;
+                color: rgba(255, 255, 255, 0.7);
+                cursor: progress;
+            }
+
+        </style>
+    </head>
+    <body>
+        <p id="fruittext">
+            There are lots of different kinds of fruit - there are over 500
+            varieties of <span id="banana">banana</span> alone. By the time we add the
+            countless types of apples, oranges, and other well-known fruit, we are faced
+            with thousands of choices.
+        </p>
+    </body>
+</html>
+```
+
