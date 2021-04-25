@@ -2410,3 +2410,1693 @@ echo -n "The time and date are: "
 
 ### 11.2  变量
 
+#### 环境变量
+
+查看当前环境变量：
+
+```
+$ set
+```
+
+变量放置到双引号中：
+
+```
+$ echo "The cost of the item is $15"
+```
+
+> 脚本在引号中出现美元符，它就会以为你在引用一个变量。在这个例子中，脚本会尝试显示变量`$1` （但并未定义），再显示数字5。要显示美元符，你必须在它前面放置一个反斜线。
+>
+> $ echo "The cost of the item is \$15"
+
+#### 用户变量
+
+除了环境变量，shell脚本还允许在脚本中定义和使用自己的变量。定义变量允许临时存储数据并在整个脚本中使用，从而使shell脚本看起来更像一个真正的计算机程序。
+
+用户变量可以是任何由字母、数字或下划线组成的文本字符串，长度不超过20个。用户变量区分大小写。
+
+```
+var1=10
+
+var2=-57
+```
+
+> 变量每次被引用时，都会输出当前赋给它的值。重要的是要记住，引用一个变量值时需要使用美元符，而引用变量来对其进行赋值时则不要使用美元符。
+
+#### 命令替换
+
+shell脚本中最有用的特性之一就是可以从命令输出中提取信息，并将其赋给变量。把输出赋给变量之后，就可以随意在脚本中使用了。这个特性在处理脚本数据时尤为方便。
+
+有两种方法可以将命令输出赋给变量：
+
+- 反引号字符（``）
+- `$()` 格式
+
+用一对反引号把整个命令行命令围起来：
+
+```
+testing=`date`
+```
+
+使用`$()` 格式：
+
+```
+testing=$(date)
+```
+
+> 注意，赋值等号和命令替换字符之间没有空格。
+
+在脚本中通过命令替换获得当前日期并用它来生成唯一文件名:
+
+```
+#!/bin/bash
+
+# copy the /usr/bin directory listing to a log file
+
+today=$(date +%y%m%d)
+
+ls /usr/bin -al > log.$today
+```
+
+### 11.3  重定向输入和输出
+
+想要保存某个命令的输出而不仅仅只是让它显示在显示器上。bash shell提供了几个操作符，可以将命令的输出重定向到另一个位置（比如文件）。重定向可以用于输入，也可以用于输出，可以将文件重定向到命令输入。
+
+####  **输出重定向**
+
+最基本的重定向将命令的输出发送到一个文件中。bash shell用大于号（>）来完成这项功能：
+
+```
+$ command > outputfile
+```
+
+不想覆盖文件原有内容，而是想要将命令的输出追加到已有文件中，用双大于号（>>）来追加数据：
+
+```
+$ command >> outputfile
+```
+
+#### 输入重定向
+
+输入重定向和输出重定向正好相反。输入重定向将文件的内容重定向到命令，而非将命令的输出重定向到文件。
+
+输入重定向符号是小于号（<）：
+
+```
+$ command < inputfile
+```
+
+内联重定向，这种方法无需使用文件进行重定向，只需要在命令行中指定用于输入重定向的数据就可以了，内联输入重定向符号是远小于号（<<）：
+
+```
+$ command << marker
+```
+
+### 11.4  管道
+
+管道符号在shell编程之外也很少用到。该符号由两个竖线构成，一个在另一个上面。然而管道符号的印刷体通常看起来更像是单个竖线（|）。在美式键盘上，它通常和反斜线（\）位于同一个键。管道被放在命令之间，将一个命令的输出重定向到另一个命令中：
+
+```
+$ command1 | command2
+```
+
+> 不要以为由管道串起的两个命令会依次执行。Linux系统实际上会同时运行这两个命令，在系统内部将它们连接起来。在第一个命令产生输出的同时，输出会被立即送给第二个命令。数据传输不会用到任何中间文件或缓冲区。
+
+### 11.5  执行数学运算
+
+####  `expr `**命令**
+
+```
+$ expr 1 + 5
+```
+
+> 运算符号前后必须以空格隔开
+
+<b>expr命令操作符</b>
+
+| **操作符**                 | **描述**                                                     |
+| :------------------------- | :----------------------------------------------------------- |
+| `ARG1 | ARG2`              | 如果 `ARG1` 既不是null也不是零值，返回 `ARG1` ；否则返回 `ARG2` |
+| `ARG1 & ARG2`              | 如果没有参数是null或零值，返回 `ARG1` ；否则返回 `0`         |
+| `ARG1 < ARG2`              | 如果 `ARG1` 小于 `ARG2` ，返回 `1` ；否则返回 `0`            |
+| `ARG1 <= ARG2`             | 如果 `ARG1` 小于或等于 `ARG2` ，返回 `1` ；否则返回 `0`      |
+| `ARG1 = ARG2`              | 如果 `ARG1` 等于 `ARG2` ，返回 `1` ；否则返回 `0`            |
+| `ARG1 != ARG2`             | 如果 `ARG1` 不等于 `ARG2` ，返回 `1` ；否则返回 `0`          |
+| `ARG1 >= ARG2`             | 如果 `ARG1` 大于或等于 `ARG2` ，返回 `1` ；否则返回 `0`      |
+| `ARG1 > ARG2`              | 如果 `ARG1` 大于 `ARG2` ，返回 `1` ；否则返回 `0`            |
+| `ARG1 + ARG2`              | 返回 `ARG1` 和 `ARG2` 的算术运算和                           |
+| `ARG1 - ARG2`              | 返回 `ARG1` 和 `ARG2` 的算术运算差                           |
+| `ARG1 * ARG2`              | 返回 `ARG1` 和 `ARG2` 的算术乘积                             |
+| `ARG1 / ARG2`              | 返回 `ARG1` 被 `ARG2` 除的算术商                             |
+| `ARG1 % ARG2`              | 返回 `ARG1` 被 `ARG2` 除的算术余数                           |
+| `STRING : REGEXP`          | 如果 `REGEXP` 匹配到了 `STRING` 中的某个模式，返回该模式匹配 |
+| `match STRING REGEXP`      | 如果 `REGEXP` 匹配到了 `STRING` 中的某个模式，返回该模式匹配 |
+| `substr STRING POS LENGTH` | 返回起始位置为 `POS` （从 `1` 开始计数）、长度为 `LENGTH` 个字符的子字符串 |
+| `index STRING CHARS`       | 返回在 `STRING` 中找到 `CHARS` 字符串的位置；否则，返回 `0`  |
+| `length STRING`            | 返回字符串 `STRING` 的数值长度                               |
+| `+ TOKEN`                  | 将 `TOKEN` 解释成字符串，即使是个关键字                      |
+| `(EXPRESSION)`             | 返回 `EXPRESSION` 的值                                       |
+
+对于那些容易被shell错误解释的字符，在它们传入`expr` 命令之前，需要使用shell的转义字符（反斜线）将其标出来:
+
+```
+$ expr 5 \* 2
+```
+
+要将一个数学算式的结果赋给一个变量，需要使用命令替换来获取`expr` 命令:
+
+```
+#!/bin/bash
+
+var1=10
+var2=20
+
+var3=$(expr $var2 / $var1)
+```
+
+#### **使用方括号**
+
+在bash中，在将一个数学运算结果赋给某个变量时，可以用美元符和方括号（`$[ operation ]` ）将数学表达式围起来:
+
+```
+$ var1=$[1 + 5]
+```
+
+这种技术也适用于shell脚本:
+
+```
+#!/bin/bash
+
+var1=100
+var2=50
+var3=45
+
+var4=$[$var1 * ($var2 - $var3)]
+```
+
+> bash shell数学运算符只支持整数运算。
+
+#### 浮点运算
+
+<b>bc的使用</b>
+
+```
+variable=$(bc << EOF
+
+options
+
+statements
+
+expressions
+
+EOF
+)
+```
+
+示例：
+
+```
+var5=$(bc << EOF
+
+scale = 4
+
+a1 = ( $var1 * $var2)
+
+b1 = ($var3 * $var4)
+
+a1 + b1
+
+EOF
+)
+```
+
+### 11.6  退出脚本
+
+shell中运行的每个命令都使用**退出状态码** （exit status）告诉shell它已经运行完毕。退出状态码是一个0～255的整数值，在命令结束运行时由命令传给shell。可以捕获这个值并在脚本中使用。
+
+Linux提供了一个专门的变量`$?` 来保存上个已执行命令的退出状态码：
+
+```
+$ echo $?
+
+0
+```
+
+#### Linux退出状态码
+
+| **状态码** | **描述**                   |
+| :--------- | :------------------------- |
+| `0`        | 命令成功结束               |
+| `1`        | 一般性未知错误             |
+| `2`        | 不适合的shell命令          |
+| `126`      | 命令不可执行               |
+| `127`      | 没找到命令                 |
+| `128`      | 无效的退出参数             |
+| `128+x`    | 与Linux信号x相关的严重错误 |
+| `130`      | 通过Ctrl+C终止的命令       |
+| `255`      | 正常范围之外的退出状态码   |
+
+####  `exit ` 命令
+
+默认情况下，shell脚本会以脚本中的最后一个命令的退出状态码退出。
+
+改变这种默认行为，返回自己的退出状态码:
+
+```
+#!/bin/bash
+
+# testing the exit status
+
+var1=10
+var2=30
+var3=$[$var1 + $var2]
+echo The answer is $var3
+
+exit 5
+```
+
+> 注意这个功能，因为退出状态码最大只能是`255`
+
+## 12. 结构化命令
+
+### 12.1  `if-then ` 语句
+
+格式：
+
+```
+if command
+
+then
+
+    commands
+
+fi
+```
+
+> `if` 语句会运行`if` 后面的那个命令。如果该命令的退出状态码是`0` ，位于`then` 部分的命令就会被执行。如果该命令的退出状态码是其他值， `then` 部分的命令就不会被执行，bash shell会继续执行脚本中的下一个命令。`fi` 语句用来表示`if-then` 语句到此结束。
+
+示例：
+
+```
+#!/bin/bash
+
+# testing the if statement
+
+if pwd
+
+then
+
+    echo "It worked"
+
+fi
+```
+
+### 12.2  `if-then-else ` 语句
+
+格式：
+
+```
+if command
+
+then
+
+   commands
+
+else
+
+   commands
+
+fi
+```
+
+> 当`if` 语句中的命令返回退出状态码`0` 时，`then` 部分中的命令会被执行，这跟普通的`if-then` 语句一样。当`if` 语句中的命令返回非零退出状态码时，bash shell会执行`else` 部分中的命令。
+
+示例：
+
+```
+if grep $testuser /etc/passwd
+
+then
+
+   echo "The bash files for user $testuser are:"
+
+   ls -a /home/$testuser/.b*
+
+   echo
+
+else
+
+   echo "The user $testuser does not exist on this system."
+
+   echo
+
+fi
+```
+
+### 12.3  嵌套if
+
+示例：
+
+```
+if grep $testuser /etc/passwd
+
+then
+
+   echo "The user $testuser exists on this system."
+
+else
+
+   echo "The user $testuser does not exist on this system."
+
+   if ls -d /home/$testuser/
+
+   then
+
+      echo "However, $testuser has a directory."
+
+   fi
+
+fi
+```
+
+<b>elif格式</b>
+
+```
+if command1
+
+then
+
+   commands
+
+elif command2
+
+then
+
+    more commands
+
+fi
+```
+
+> `elif` 语句行提供了另一个要测试的命令，这类似于原始的`if` 语句行。如果`elif` 后命令的退出状态码是`0` ，则bash会执行第二个`then` 语句部分的命令。使用这种嵌套方法，代码更清晰，逻辑更易懂。
+
+### 12.4  test命令
+
+`if-then` 语句是否能测试命令退出状态码之外的条件。答案是不能。但在bash shell中有个好用的工具可以帮你通过`if-then` 语句测试其他条件。
+
+`test` 命令提供了在`if-then` 语句中测试不同条件的途径。如果`test` 命令中列出的条件成立，`test` 命令就会退出并返回退出状态码`0` 。
+
+test格式：
+
+```
+test condition
+```
+
+> `condition `是`test` 命令要测试的一系列参数和值。
+
+使用格式：
+
+```
+if test condition
+
+then
+
+   commands
+
+fi
+```
+
+> 如果不写`test` 命令的 `condition `部分，它会以非零的退出状态码退出，并执行`else` 语句块。
+
+示例：
+
+```
+if test $my_variable
+
+then
+
+   echo "The $my_variable expression returns a True"
+
+else
+
+   echo "The $my_variable expression returns a False"
+
+fi
+```
+
+#### 方括号定义测试条件
+
+这是bash shell提供了另一种条件测试方法，无需在`if-then` 语句中声明`test` 命令。
+
+格式:
+
+```
+if [ condition ]
+
+then
+
+   commands
+
+fi
+```
+
+#### 数值比较
+
+test数值比较参数：
+
+| **比较**    | **描述**                      |
+| :---------- | :---------------------------- |
+| `n1 -eq n2` | 检查 `n1` 是否与 `n2` 相等    |
+| `n1 -ge n2` | 检查 `n1` 是否大于或等于 `n2` |
+| `n1 -gt n2` | 检查 `n1` 是否大于 `n2`       |
+| `n1 -le n2` | 检查 `n1` 是否小于或等于 `n2` |
+| `n1 -lt n2` | 检查 `n1` 是否小于 `n2`       |
+| `n1 -ne n2` | 检查 `n1` 是否不等于 `n2`     |
+
+使用示例：
+
+```
+if [ $value1 -gt 5 ]
+
+then
+
+    echo "The test value $value1 is greater than 5"
+
+fi
+```
+
+#### 字符串比较
+
+比较参数：
+
+| **比较**       | **描述**                       |
+| :------------- | :----------------------------- |
+| `str1 = str2`  | 检查 `str1` 是否和 `str2` 相同 |
+| `str1 != str2` | 检查 `str1` 是否和 `str2` 不同 |
+| `str1 < str2`  | 检查 `str1` 是否比 `str2` 小   |
+| `str1 > str2`  | 检查 `str1` 是否比 `str2` 大   |
+| `-n str1`      | 检查 `str1` 的长度是否非0      |
+| `-z str1`      | 检查 `str1` 的长度是否为0      |
+
+示例：
+
+```
+if [ $val1 \> $val2 ]
+
+then
+
+  echo "$val1 is greater than $val2"
+
+else
+
+   echo "$val1 is less than $val2"
+
+fi
+```
+
+> 脚本需要对重定向符号进行转义
+
+#### 文本比较
+
+比较参数：
+
+| **比较**          | **描述**                                     |
+| :---------------- | :------------------------------------------- |
+| `-d file`         | 检查 `file` 是否存在并是一个目录             |
+| `-e file`         | 检查 `file` 是否存在                         |
+| `-f file`         | 检查 `file` 是否存在并是一个文件             |
+| `-r file`         | 检查 `file` 是否存在并可读                   |
+| `-s file`         | 检查 `file` 是否存在并非空                   |
+| `-w file`         | 检查 `file` 是否存在并可写                   |
+| `-x file`         | 检查 `file` 是否存在并可执行                 |
+| `-O file`         | 检查 `file` 是否存在并属当前用户所有         |
+| `-G file`         | 检查 `file` 是否存在并且默认组与当前用户相同 |
+| `file1 -nt file2` | 检查 `file1` 是否比 `file2` 新               |
+| `file1 -ot file2` | 检查 `file1` 是否比 `file2` 旧               |
+
+示例：
+
+```
+#!/bin/bash
+
+jump_directory=/home/arthur
+
+if [ -d $jump_directory ]
+
+then
+
+   echo "The $jump_directory directory exists"
+
+   cd $jump_directory
+
+   ls
+
+else
+
+   echo "The $jump_directory directory does not exist"
+
+fi
+
+```
+
+#### 复合测试条件
+
+`if-then` 语句允许你使用布尔逻辑来组合测试。有两种布尔运算符可用：
+
+- `[ condition1 ] && [ condition2 ]`
+- `[ condition1 ] || [ condition2 ]`
+
+使用示例：
+
+```
+#!/bin/bash
+
+# testing compound comparisons
+
+if [ -d $HOME ] && [ -w $HOME/testing ]
+
+then
+
+   echo "The file exists and you can write to it"
+
+else
+
+   echo "I cannot write to the file"
+
+fi
+```
+
+### 12.5  `if-then `**的高级特性**
+
+#### 使用双括号
+
+**双括号** 命令允许你在比较过程中使用高级数学表达式。格式如下：
+
+```
+(( expression ))
+```
+
+<b>双括号命令符号</b>
+
+| **符号** | **描述** |
+| :------- | :------- |
+| `val++`  | 后增     |
+| `val--`  | 后减     |
+| `++val`  | 先增     |
+| `--val`  | 先减     |
+| `!`      | 逻辑求反 |
+| `~`      | 位求反   |
+| `**`     | 幂运算   |
+| `<<`     | 左位移   |
+| `>>`     | 右位移   |
+| `&`      | 位布尔和 |
+| `|`      | 位布尔或 |
+| `&&`     | 逻辑和   |
+| `||`     | 逻辑或   |
+
+示例：
+
+```
+#!/bin/bash
+
+# using double parenthesis
+
+val1=10
+
+if (( $val1 ** 2 > 90 ))
+
+then
+
+   (( val2 = $val1 ** 2 ))
+
+   echo "The square of $val1 is $val2"
+
+fi
+```
+
+**双方括号** 命令提供了针对字符串比较的高级特性。格式如下：
+
+```
+[[ expression ]]
+```
+
+> 双方括号里的 `expression `使用了`test` 命令中采用的标准字符串比较。但它提供了`test` 命令未提供的另一个特性——**模式匹配** （pattern matching）。
+
+```
+#!/bin/bash
+
+# using pattern matching
+
+if [[ $USER == r* ]]
+
+then
+
+   echo "Hello $USER"
+
+else
+
+   echo "Sorry, I do not know you"
+
+fi
+```
+
+### 12.6  case命令
+
+`case` 命令会采用列表格式来检查单个变量的多个值。格式如下：
+
+```
+case variable in
+
+pattern1 | pattern2) commands1;;
+
+pattern3) commands2;;
+
+*) default commands;;
+
+esac
+```
+
+> `case` 命令会将指定的变量与不同模式进行比较。如果变量和模式是匹配的，那么shell会执行为该模式指定的命令。可以通过竖线操作符在一行中分隔出多个模式模式。星号会捕获所有与已知模式不匹配的值。
+
+使用示例：
+
+```
+#!/bin/bash
+
+# using the case command
+
+case $USER in
+
+rich | barbara)
+
+   echo "Welcome, $USER"
+
+   echo "Please enjoy your visit";;
+
+testing)
+
+  echo "Special testing account";;
+
+jessica)
+
+   echo "Do not forget to log off when you're done";;
+
+*)
+
+   echo "Sorry, you are not allowed here";;
+
+esac
+```
+
+### 12.7  for
+
+循环遍历，格式如下：
+
+```
+for var in list
+
+do
+
+    commands
+
+done
+```
+
+> 在`list` 参数中，你需要提供迭代中要用到的一系列值。可以通过几种不同的方法指定列表中的值。
+>
+> 在每次迭代中，变量`var` 会包含列表中的当前值。第一次迭代会使用列表中的第一个值，第二次迭代使用第二个值，以此类推，直到列表中的所有值都过一遍。
+>
+> 在`do` 和`done` 语句之间输入的命令可以是一条或多条标准的bash shell命令。在这些命令中，`$var` 变量包含着这次迭代对应的当前列表项中的值。
+
+示例：
+
+```
+#!/bin/bash
+
+# using a variable to hold the list
+
+list="Alabama Alaska Arizona Arkansas Colorado"
+list=$list" Connecticut"
+
+for state in $list
+
+do
+
+    echo "Have you ever visited $state?"
+
+done
+```
+
+> shell看到了列表值中的单引号并尝试使用它们来定义一个单独的数据值，这真是把事情搞得一团糟。
+>
+> 有两种办法可解决这个问题：
+>
+> - 使用转义字符（反斜线）来将单引号转义；
+> - 使用双引号来定义用到单引号的值。
+
+<b>更改字段分隔符</b>`IFS` 环境变量定义了bash shell用作字段分隔符的一系列字符。默认情况下，bash shell会将下列字符当作字段分隔符：
+
+- 空格
+- 制表符
+- 换行符
+
+如果bash shell在数据中看到了这些字符中的任意一个，它就会假定这表明了列表中一个新数据字段的开始。在处理可能含有空格的数据（比如文件名）时，这会非常麻烦, 要解决这个问题，可以在shell脚本中临时更改`IFS` 环境变量的值来限制被bash shell当作字段分隔符的字符。
+
+```
+#!/bin/bash
+
+# reading values from a file
+
+file="states"
+IFS=$'\n'
+
+for state in $(cat $file)
+
+do
+
+    echo "Visit beautiful $state"
+
+done
+```
+
+> 一个可参考的安全实践是在改变`IFS` 之前保存原来的`IFS` 值，之后再恢复它:
+>
+> IFS.OLD=$IFS
+>
+> IFS=$'\n'
+>
+> <在代码中使用新的IFS值>
+>
+> IFS=$IFS.OLD
+
+<b> 使用通配符读取目录</b>
+
+```
+#!/bin/bash
+
+# iterate through all the files in a directory
+
+for file in /home/rich/test/*
+
+do
+
+    if [ -d "$file" ]
+
+    then
+
+       echo "$file is a directory"
+
+    elif [ -f "$file" ]
+
+    then
+
+       echo "$file is a file"
+
+    fi
+
+done
+```
+
+> 将`$file` 变量用双引号圈起来。如果不这么做，遇到含有空格的目录名或文件名时就会有错误产生
+
+### 12.8  while
+
+格式如下：
+
+```
+while test command
+
+do
+
+  other commands
+
+done
+```
+
+示例：
+
+```
+#!/bin/bash
+
+# while command test
+
+var1=10
+
+while [ $var1 -gt 0 ]
+
+do
+
+    echo $var1
+
+    var1=$[ $var1 - 1 ]
+
+done
+```
+
+### 12.9  until 命令
+
+`until` 命令和`while` 命令工作的方式完全相反。`until` 命令要求你指定一个通常返回非零退出状态码的测试命令。只有测试命令的退出状态码不为`0` ，bash shell才会执行循环中列出的命令。一旦测试命令返回了退出状态码`0` ，循环就结束了。格式如下：
+
+```
+until test commands
+
+do
+
+    other commands
+
+done
+```
+
+示例：
+
+```
+#!/bin/bash
+
+# using the until command
+
+var1=100
+
+until [ $var1 -eq 0 ]
+
+do
+
+    echo $var1
+
+    var1=$[ $var1 - 25 ]
+
+done
+```
+
+### 12.10  嵌套循环
+
+示例：
+
+```
+#!/bin/bash
+
+# nesting for loops
+
+for (( a = 1; a <= 3; a++ ))
+
+do
+
+    echo "Starting loop $a:"
+
+    for (( b = 1; b <= 3; b++ ))
+
+    do
+
+       echo "   Inside loop: $b"
+
+    done
+
+done
+```
+
+### 12.11  控制循环
+
+有两个命令能帮我们控制循环内部的情况：
+
+- `break` 命令
+- `continue` 命令
+
+#### break命令
+
+`break` 命令是退出循环的一个简单方法。可以用`break` 命令来退出任意类型的循环，包括`while` 和`until` 循环。
+
+```
+#!/bin/bash
+
+# breaking out of a for loop
+
+for var1 in 1 2 3 4 5 6 7 8 9 10
+
+do
+
+   if [ $var1 -eq 5 ]
+
+   then
+
+      break
+
+   fi
+
+   echo "Iteration number: $var1"
+
+done
+
+echo "The for loop is completed"
+```
+
+跳出外部循环：
+
+```
+#!/bin/bash
+
+# breaking out of an outer loop
+
+
+for (( a = 1; a < 4; a++ ))
+
+do
+
+   echo "Outer loop: $a"
+
+   for (( b = 1; b < 100; b++ ))
+
+   do
+
+      if [ $b -gt 4 ]
+
+      then
+
+         break 2
+
+      fi
+
+      echo "   Inner loop: $b"
+
+   done
+
+done
+```
+
+> `break n`
+>
+> 其中 `n `指定了要跳出的循环层级。默认情况下， `n `为`1` ，表明跳出的是当前的循环。如果你将 `n `设为`2` ，`break` 命令就会停止下一级的外部循环。
+
+#### `continue` 命令
+
+`continue` 命令可以提前中止某次循环中的命令，但并不会完全终止整个循环。示例如下：
+
+```
+#!/bin/bash
+
+# using the continue command
+
+
+for (( var1 = 1; var1 < 15; var1++ ))
+
+do
+
+   if [ $var1 -gt 5 ] && [ $var1 -lt 10 ]
+
+   then
+
+      continue
+
+   fi
+
+   echo "Iteration number: $var1"
+
+done
+```
+
+### 12.12  控制循环输出
+
+在shell脚本中，你可以对循环的输出使用管道或进行重定向。这可以通过在`done` 命令之后添加一个处理命令来实现。示例如下：
+
+```
+for file in /home/rich/*
+
+ do
+
+   if [ -d "$file" ]
+
+   then
+
+      echo "$file is a directory"
+
+   elif
+
+      echo "$file is a file"
+
+   fi
+
+done > output.txt
+```
+
+> shell会将`for` 命令的结果重定向到文件output.txt中，而不是显示在屏幕上。
+
+## 13. 处理用户输入
+
+### 13.1  命令行参数
+
+向shell脚本传递数据的最基本方法是使用命令行参数。命令行参数允许在运行脚本时向命令行添加数据。
+
+#### 读取参数
+
+bash shell会将一些称为**位置参数** （positional parameter）的特殊变量分配给输入到命令行中的所有参数。这也包括shell所执行的脚本名称。位置参数变量是标准的数字：`$0` 是程序名，`$1` 是第一个参数，`$2` 是第二个参数，依次类推，直到第九个参数`$9` 。示例如下：
+
+```
+#!/bin/bash
+
+# using one command line parameter
+
+
+factorial=1
+
+for (( number = 1; number <= $1 ; number++ ))
+
+do
+
+   factorial=$[ $factorial * $number ]
+
+done
+
+echo The factorial of $1 is $factorial
+```
+
+执行：
+
+```
+$ ./test1.sh 5
+```
+
+> 如果需要输入更多的命令行参数，则每个参数都必须用空格分开。
+>
+> 要在参数值中包含空格，必须要用引号（单引号或双引号均可）。
+>
+> 如果脚本需要的命令行参数不止9个，你仍然可以处理，但是需要稍微修改一下变量名。在第9个变量之后，你必须在变量数字周围加上花括号，比如`${10}` 
+
+`$0` 变量的实际字符串不仅仅是脚本名，而是完整的脚本路径时，变量`$0` 就会使用整个路径，使用`basename` 命令会返回不包含路径的脚本名。示例如下：
+
+```
+#!/bin/bash
+
+# Using basename with the $0 parameter
+
+
+name=$(basename $0)
+
+echo
+
+echo The script name is: $name
+```
+
+#### 参数统计
+
+统计一下命令行中输入了多少个参数，无需测试每个参数。bash shell为此提供了一个特殊变量。
+
+特殊变量`$#` 含有脚本运行时携带的命令行参数的个数。可以在脚本中任何地方使用这个特殊变量，就跟普通变量一样。
+
+示例：
+
+```
+#!/bin/bash
+
+# getting the number of parameters
+
+
+echo There were $# parameters supplied.
+```
+
+> `${!#}` 变量会返回命令行用到的脚本名
+
+#### 抓取所有的数据
+
+`$*` 和`$@` 变量可以用来轻松访问所有的参数。这两个变量都能够在单个变量中存储所有的命令行参数。
+
+`$*` 变量会将命令行上提供的所有参数当作一个单词保存。这个单词包含了命令行中出现的每一个参数值。基本上`$*` 变量会将这些参数视为一个整体，而不是多个个体。
+
+`$@` 变量会将命令行上提供的所有参数当作同一字符串中的多个独立的单词。这样就能够遍历所有的参数值，得到每个参数。这通常通过`for` 命令完成。
+
+示例：
+
+```
+#!/bin/bash
+
+# testing $* and $@
+
+count=1
+
+for param in "$*"
+
+do
+
+   echo "\$* Parameter #$count = $param"
+
+   count=$[ $count + 1 ]
+
+done
+
+#
+
+echo
+
+count=1
+
+#
+
+for param in "$@"
+
+do
+
+   echo "\$@ Parameter #$count = $param"
+
+   count=$[ $count + 1 ]
+
+done
+```
+
+### 13.2  获取用户输入
+
+#### 基本的读取
+
+`read` 命令从标准输入（键盘）或另一个文件描述符中接受输入。在收到输入后，`read` 命令会将数据放进一个变量。示例如下：
+
+```
+#!/bin/bash
+
+# testing the read command
+
+
+echo -n "Enter your name: "
+
+read name
+
+echo "Hello $name, welcome to my program. "
+```
+
+`-p` 选项，允许你直接在`read` 命令行指定提示符:
+
+```
+#!/bin/bash
+
+# testing the read -p option
+
+
+read -p "Please enter your age: " age
+
+days=$[ $age * 365 ]
+
+echo "That makes you over $days days old! "
+```
+
+`-t` 选项指定了`read` 命令等待输入的秒数:
+
+```
+#!/bin/bash
+
+# timing the data entry
+
+if read -t 5 -p "Please enter your name: " name
+
+then
+
+   echo "Hello $name, welcome to my script"
+
+else
+
+   echo
+
+   echo "Sorry, too slow! "
+
+fi
+```
+
+`-s` 选项可以避免在`read` 命令中输入的数据出现在显示器上:
+
+```
+#!/bin/bash
+
+# hiding input data from the monitor
+
+
+read -s -p "Enter your password: " pass
+
+echo
+
+echo "Is your password really $pass? "
+```
+
+## 14. 呈现数据
+
+###  14.1  输入和输出
+
+#### 文件描述符
+
+Linux系统将每个对象当作文件处理。这包括输入和输出进程。Linux用**文件描述符** （`file descriptor` ）来标识每个文件对象。文件描述符是一个非负整数，可以唯一标识会话中打开的文件。每个进程一次最多可以有九个文件描述符。出于特殊目的，bash shell保留了前三个文件描述符（`0` 、`1` 和`2` ）。
+
+<b>Linux的标准文件描述符</b>
+
+| **文件描述符** | **缩写** | **描述** |
+| :------------- | :------- | :------- |
+| `0`            | `STDIN`  | 标准输入 |
+| `1`            | `STDOUT` | 标准输出 |
+| `2`            | `STDERR` | 标准错误 |
+
+<b>STDIN</b>
+
+`STDIN` 文件描述符代表shell的标准输入。对终端界面来说，标准输入是键盘。shell从`STDIN` 文件描述符对应的键盘获得输入，在用户输入时处理每个字符。
+
+在使用输入重定向符号（`<` ）时，Linux会用重定向指定的文件来替换标准输入文件描述符。它会读取文件并提取数据，就如同它是键盘上键入的。
+
+<b>STDOUT</b>
+
+`TDOUT` 文件描述符代表shell的标准输出。在终端界面上，标准输出就是终端显示器。shell的所有输出（包括shell中运行的程序和脚本）会被定向到标准输出中，也就是显示器。
+
+默认情况下，大多数bash命令会将输出导向`STDOUT` 文件描述符。
+
+<b>STDERR</b>
+
+shell通过特殊的`STDERR` 文件描述符来处理错误消息。`STDERR` 文件描述符代表shell的标准错误输出。shell或shell中运行的程序和脚本出错时生成的错误消息都会发送到这个位置。默认情况下，`STDERR` 文件描述符会和`STDOUT` 文件描述符指向同样的地方（尽管分配给它们的文件描述符值不同）。也就是说，默认情况下，错误消息也会输出到显示器输出中。
+
+只重定向错误示例：
+
+```
+$ ls -al badfile 2> test4
+```
+
+重定向错误和正常输出，必须用两个重定向符号：
+
+```
+$ ls -al test test2 test3 badtest 2> test6 1> test7
+```
+
+#### 在脚本中重定向输出
+
+<b>临时重定向</b>
+
+如果有意在脚本中生成错误消息，可以将单独的一行输出重定向到`STDERR` 。你所需要做的是使用输出重定向符来将输出信息重定向到`STDERR` 文件描述符。在重定向到文件描述符时，你必须在文件描述符数字之前加一个`&` ：
+
+```
+#!/bin/bash
+
+# testing STDERR messages
+
+echo "This is an error" >&2
+
+echo "This is normal output"
+```
+
+<b>永久重定向</b>
+
+如果脚本中有大量数据需要重定向，那重定向每个`echo` 语句就会很烦琐。取而代之，你可以用`exec` 命令告诉`shell` 在脚本执行期间重定向某个特定文件描述符:
+
+```
+#!/bin/bash
+
+# redirecting all output to a file
+
+exec 1>testout
+
+
+echo "This is a test of redirecting all output"
+
+echo "from a script to another file."
+
+echo "without having to redirect every individual line"
+```
+
+### 14.2  创建自己的重定向
+
+可以用`exec` 命令来给输出分配文件描述符。和标准的文件描述符一样，一旦将另一个文件描述符分配给一个文件，这个重定向就会一直有效，直到你重新分配。
+
+示例：
+
+```
+$ cat test13
+
+#!/bin/bash
+
+# using an alternative file descriptor
+
+exec 3>test13out
+
+echo "This should display on the monitor"
+
+echo "and this should be stored in the file" >&3
+
+echo "Then this should be back on the monitor"
+
+
+
+$ ./test13
+
+This should display on the monitor
+
+Then this should be back on the monitor
+
+
+
+$ cat test13out
+
+and this should be stored in the file
+
+$
+```
+
+关闭问价描述符：
+
+```
+#!/bin/bash
+
+# testing closing file descriptors
+
+exec 3> test17file
+
+echo "This is a test line of data" >&3
+
+exec 3>&-
+
+echo "This won't work" >&3
+
+
+
+$ ./badtest
+
+./badtest: 3: Bad file descriptor
+
+$
+```
+
+### 14.3  列出打开的文件描述符
+
+`lsof` 命令会列出整个Linux系统打开的所有文件描述符。
+
+该命令会产生大量的输出。它会显示当前Linux系统上打开的每个文件的有关信息。这包括后台运行的所有进程以及登录到系统的任何用户。最常用的有`-p` 和`-d` ，前者允许指定进程ID（PID），后者允许指定要显示的文件描述符编号。要想知道进程的当前PID，可以用特殊环境变量`$$` （shell会将它设为当前PID）。`-a` 选项用来对其他两个选项的结果执行布尔`AND` 运算，这会产生如下输出：
+
+```
+$ /usr/sbin/lsof -a -p $$ -d 0,1,2
+
+COMMAND  PID USER   FD   TYPE DEVICE SIZE NODE NAME
+
+bash    3344 rich    0u   CHR  136,0         2 /dev/pts/0
+
+bash    3344 rich    1u   CHR  136,0         2 /dev/pts/0
+
+bash    3344 rich    2u   CHR  136,0         2 /dev/pts/0
+
+$
+```
+
+<b>输出说明</b>
+
+| **列**  | **描述**                                                     |
+| :------ | :----------------------------------------------------------- |
+| COMMAND | 正在运行的命令名的前9个字符                                  |
+| PID     | 进程的PID                                                    |
+| USER    | 进程属主的登录名                                             |
+| FD      | 文件描述符号以及访问类型（ `r` 代表读， `w` 代表写， `u` 代表读写） |
+| TYPE    | 文件的类型（ `CHR` 代表字符型， `BLK` 代表块型， `DIR` 代表目录， `REG` 代表常规文件） |
+| DEVICE  | 设备的设备号（主设备号和从设备号）                           |
+| SIZE    | 如果有的话，表示文件的大小                                   |
+| NODE    | 本地文件的节点号                                             |
+| NAME    | 文件名                                                       |
+
+### 14.4  阻止输出
+
+如果在运行在后台的脚本出现错误消息，shell会通过电子邮件将它们发给进程的属主。这会很麻烦，尤其是当运行会生成很多烦琐的小错误的脚本时。要解决这个问题，可以将`STDERR` 重定向到一个叫作**null文件** 的特殊文件。null文件跟它的名字很像，文件里什么都没有。shell输出到null文件的任何数据都不会保存，全部都被丢掉了。
+
+在Linux系统上null文件的标准位置是/dev/null。你重定向到该位置的任何数据都会被丢掉，不会显示。
+
+```
+$ ls -al > /dev/null
+
+$ cat /dev/null
+
+$
+```
+
+### 14.5  创建临时文件
+
+Linux系统有特殊的目录，专供临时文件使用。Linux使用/tmp目录来存放不需要永久保留的文件。大多数Linux发行版配置了系统在启动时自动删除/tmp目录的所有文件。
+
+系统上的任何用户账户都有权限在读写/tmp目录中的文件。这个特性为你提供了一种创建临时文件的简单方法，而且还不用操心清理工作。
+
+#### 创建临时文件
+
+默认情况下，`mktemp` 会在本地目录中创建一个文件。要用`mktemp` 命令在本地目录中创建一个临时文件，你只要指定一个文件名模板就行了。模板可以包含任意文本文件名，在文件名末尾加上6个`X` 就行了。示例如下：
+
+```
+$ mktemp testing.XXXXXX
+
+$ ls -al testing*
+```
+
+> `mktemp` 命令会用6个字符码替换这6个`X` ，从而保证文件名在目录中是唯一的。你可以创建多个临时文件，它可以保证每个文件都是唯一的。
+
+`-t` 选项会强制`mktemp` 命令来在系统的临时目录来创建该文件:
+
+```
+$ mktemp -t test.XXXXXX
+
+/tmp/test.xG3374
+```
+
+> 在用这个特性时，`mktemp` 命令会返回用来创建临时文件的全路径，而不是只有文件名
+
+`-d` 选项告诉`mktemp` 命令来创建一个临时目录而不是临时文件:
+
+```
+$ mktemp -d dir.XXXXXX
+```
+
+### 14.6  记录消息
+
+将输出同时发送到显示器和日志文件，这种做法有时候能够派上用场。你不用将输出重定向两次，只要用特殊的`tee` 命令就行。
+
+`tee` 命令相当于管道的一个T型接头。它将从`STDIN` 过来的数据同时发往两处。一处是`STDOUT` ，另一处是`tee` 命令行所指定的文件名：
+
+```
+$ date | tee testfile
+
+Sun Oct 19 18:56:21 EDT 2014
+
+$ cat testfile
+
+Sun Oct 19 18:56:21 EDT 2014
+
+$
+```
+
+> 注意，默认情况下，`tee` 命令会在每次使用时覆盖输出文件内
+>
+> 如果你想将数据追加到文件中，必须用`-a` 选项。
+>
+> $ date | tee -a testfile
+
+## 15. 控制脚本
+
+### 15.1  Linux信号
+
+| **信号** | **值**    | **描述**                       |
+| :------- | :-------- | :----------------------------- |
+| `1`      | `SIGHUP`  | 挂起进程                       |
+| `2`      | `SIGINT`  | 终止进程                       |
+| `3`      | `SIGQUIT` | 停止进程                       |
+| `9`      | `SIGKILL` | 无条件终止进程                 |
+| `15`     | `SIGTERM` | 尽可能终止进程                 |
+| `17`     | `SIGSTOP` | 无条件停止进程，但不是终止进程 |
+| `18`     | `SIGTSTP` | 停止或暂停进程，但不终止进程   |
+| `19`     | `SIGCONT` | 继续运行停止的进程             |
+
+### 15.2  捕获信号
+
+也可以不忽略信号，在信号出现时捕获它们并执行其他命令。`trap` 命令允许你来指定shell脚本要监看并从shell中拦截的Linux信号。如果脚本收到了`trap` 命令中列出的信号，该信号不再由shell处理，而是交由本地处理。
+
+`trap` 命令的格式是：
+
+```
+trap commands signals
+```
+
+示例：
+
+```
+#!/bin/bash
+
+# Testing signal trapping
+
+trap "echo ' Sorry! I have trapped Ctrl-C'" SIGINT
+
+
+echo This is a test script
+
+count=1
+
+while [ $count -le 10 ]
+
+do
+
+   echo "Loop #$count"
+
+   sleep 1
+
+   count=$[ $count + 1 ]
+
+done
+
+
+echo "This is the end of the test script"
+```
+
+在脚本中捕获脚本退出：
+
+```
+trap "echo Goodbye..." EXIT
+```
+
+### 15.3  以后台的模式运行脚本
+
+以后台模式运行shell脚本非常简单。只要在命令后加个`&` 符就行了。
+
+```
+#!/bin/bash
+
+# Test running in the background
+
+count=1
+
+while [ $count -le 10 ]
+
+do
+
+   sleep 1
+
+   count=$[ $count + 1 ]
+
+done
+
+
+
+
+$ ./test4.sh &
+
+[1] 3231
+
+$
+```
+
+### 15.4  在非控制台下运行脚本
+
+在终端会话中启动shell脚本，然后让脚本一直以后台模式运行到结束，即使你退出了终端会话。这可以用`nohup` 命令来实现。
+
+`nohup` 命令运行了另外一个命令来阻断所有发送给该进程的`SIGHUP` 信号。这会在退出终端会话时阻止进程退出。
+
+`nohup` 命令的格式如下：
+
+```
+$ nohup ./test1.sh &
+```
+
+> 和普通后台进程一样，shell会给命令分配一个作业号，Linux系统会为其分配一个PID号。区别在于，当你使用`nohup` 命令时，如果关闭该会话，脚本会忽略终端会话发过来的`SIGHUP` 信号。
+>
+> 由于`nohup` 命令会解除终端与进程的关联，进程也就不再同`STDOUT` 和`STDERR` 联系在一起。为了保存该命令产生的输出，`nohup` 命令会自动将`STDOUT` 和`STDERR` 的消息重定向到一个名为nohup.out的文件中。
+
+### 15.5  调整谦让度
+
+在多任务操作系统中（Linux就是），内核负责将CPU时间分配给系统上运行的每个进程。**调度优先级** （scheduling priority）是内核分配给进程的CPU时间（相对于其他进程）。在Linux系统中，由shell启动的所有进程的调度优先级默认都是相同的。
+
+调度优先级是个整数值，从-20（最高优先级）到+19（最低优先级）。默认情况下，bash shell以优先级0来启动所有进程。
+
+#### nice命令
+
+`nice` 命令允许你设置命令启动时的调度优先级。要让命令以更低的优先级运行，只要用`nice` 的`-n` 命令行来指定新的优先级级别。
+
+```
+$ nice -n 10 ./test4.sh > test4.out &
+
+[1] 4973
+
+$
+
+
+$ ps -p 4973 -o pid,ppid,ni,cmd
+
+  PID  PPID  NI CMD
+
+ 4973  4721  10 /bin/bash ./test4.sh
+```
+
+> 注意，必须将`nice` 命令和要启动的命令放在同一行中。`ps` 命令的输出验证了谦让度值（`NI` 列）已经被调整到了`10` 。
+
+#### renice命令
+
+有时你想改变系统上已运行命令的优先级。这正是`renice` 命令可以做到的。它允许你指定运行进程的PID来改变它的优先级。
+
+使用格式如下：
+
+```
+$ renice -n 10 -p PID
+```
+
+> `renice` 命令也有一些限制：
+>
+> - 只能对属于你的进程执行`renice` ；
+> - 只能通过`renice` 降低进程的优先级；
+> - root用户可以通过`renice` 来任意调整进程的优先级。
+>
+> 如果想完全控制运行进程，必须以root账户身份登录或使用`sudo` 命令。
+
+### 15.6  定时运行作业
+
+#### at命令
+
+`at` 命令允许指定Linux系统何时运行脚本。`at` 命令会将作业提交到队列中，指定shell何时运行该作业。`at` 的守护进程`atd` 会以后台模式运行，检查作业队列来运行作业。大多数Linux发行版会在启动时运行此守护进程。
+
+`atd` 守护进程会检查系统上的一个特殊目录（通常位于/var/spool/at）来获取用`at` 命令提交的作业。默认情况下，`atd` 守护进程会每60秒检查一下这个目录。有作业时，`atd` 守护进程会检查作业设置运行的时间。如果时间跟当前时间匹配，`atd` 守护进程就会运行此作业。
+
+`at` 命令的基本格式:
+
+```
+at [-f filename] time
+```
+
+`atq` 命令可以查看系统中有哪些作业在等待:
+
+```
+$ atq
+```
+
+`atrm` 命令来删除等待中的作业:
+
+```
+$ atrm atd_id
+```
+
+> atd_id为atq查出的作业号
+
+#### cron命令
+
+Linux系统使用cron程序来安排要定期执行的作业。cron程序会在后台运行并检查一个特殊的表（被称作cron**时间表** ），以获知已安排执行的作业。
+
+cron时间表格式：
+
+```
+min hour dayofmonth month dayofweek command
+```
+
+每天的10:15运行一个命令，可以用cron时间表条目：
+
+```
+15 10 * * * command
+```
+
+每周一4:15 PM运行的命令，可以用下面的条目：
+
+```
+15 16 * * 1 command
+```
+
+> 可以用三字符的文本值（mon、tue、wed、thu、fri、sat、sun）或数值（0为周日，6为周六）来指定dayofweek表项。
+
+在每个月的第一天中午12点执行命令。可以用下面的格式：
+
+```
+00 12 1 * * command
+```
+
+每个月的最后一天执行的命令，格式如下：
+
+```
+00 12 * * * if [`date +%d -d tomorrow` = 01 ] ; then ; command
+```
+
+<b>构建cron时间表</b>
+
+每个系统用户（包括root用户）都可以用自己的cron时间表来运行安排好的任务。Linux提供了`crontab` 命令来处理cron时间表。要列出已有的cron时间表，可以用`-l` 选项:
+
+```
+$ crontab -l
+```
+
