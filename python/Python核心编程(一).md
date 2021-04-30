@@ -536,5 +536,498 @@ while True:
 
 > SocketServer 请求处理程序的默认行为是接受连接、获取请求，然后关闭连接。由于这个原因，我们不能在应用程序整个执行过程中都保持连接，因此每次向服务器发送消息时，都需要创建一个新的套接字。
 
-### 2.6  Twisted框架
+## 3. 因特网客户端编程
+
+### 3.1  文件传输
+
+因特网中最常见的事情就是传输文件。文件传输每时每刻都在发生。有很多协议可以用于在因特网上传输文件。最流行的包括文件传输协议（FTP）、UNIX 到 UNIX 复制协议（UUCP）、用于Web的超文本传输协议（HTTP）。另外，还有（UNIX下的）远程文件复制命令rcp（以及更安全、更灵活的scp和rsync）。
+
+FTP要求输入用户名和密码才能访问远程FTP服务器，但也允许没有账号的用户匿名登录。不过管理员要先设置FTP服务器以允许匿名用户登录。这时，匿名用户的用户名是“anonymous”，密码一般是用户的电子邮件地址。与向特定的登录用户传输文件不同，这相当于公开某些目录让大家访问。
+
+FTP看作客户端/服务器编程中的特殊情况。因为这里的客户端和服务器都使用两个套接字来通信：一个是控制和命令端口（21号端口），另一个是数据端口（有时是20号端口）。
+
+#### Python与FTP
+
+<b>ftplib.FTP类的方法</b>
+
+| 方法                                        | 描述                                                         |
+| ------------------------------------------- | ------------------------------------------------------------ |
+| login(user='anonymous', passwd='',acct='' ) | 登录FTP服务器，所有参数都是可选的                            |
+| pwd()                                       | 获得当前工作目录                                             |
+| cwd(path)                                   | 把当前工作目录设置为path所示的路径                           |
+| dir([path[,...[,cd]]])                      | 显示path目录里的内容，可选的参数cd是一个回调函数，会传递给retrlines()方法 |
+| nlst([path[,...]])                          | 与dir()类似，但返回一个文件名列表，而不是显示这些文件名      |
+| retrlines(cmd[,cd])                         | 给定FTP命令，用于下载文本文件。可选的回调函数cd用于处理文件的每一行 |
+| retrbinary(cmd,cd[,bs=8192[,ra]])           | 与retrlines()类似，只是这个指令处理二进制文件。回调函数cd用于处理每一块（块大小默认为8KB）下载的数据 |
+| storlines(cmd, f)                           | 给定FTP类似，用来上传文本文件。要给定一个文件对象f           |
+| storbinary(cmd, f[f,bs=8192])               | 与storlines()类似，只是这个指令处理二进制文件。要给定一个文件对象f，上传块大小bs默认为8KB |
+| rename(old, new)                            | 把远程文件old重命名为new                                     |
+| delete(path)                                | 删除位于path的远程文件                                       |
+| mkd(directory)                              | 创建远程目录                                                 |
+| rmd(directory)                              | 删除远程目录                                                 |
+| quit()                                      | 关闭连接并退出                                               |
+
+交互示例：
+
+```
+>>> from ftplib import FTP
+
+>>> f = FTP('ftp.python.org')
+
+>>> f.login('anonymous', 'guido@python.org')
+
+'230 Guest login ok, access restrictions apply.'
+
+>>> f.dir()
+
+total 38
+
+drwxrwxr-x 10　1075　　 4127　　　　512 May 17 2000 .
+
+drwxrwxr-x 10　1075　　 4127　　　　512 May 17 2000 ..
+
+drwxr-xr-x 3　 root　　 wheel　　　 512 May 19 1998 bin
+
+drwxr-sr-x 3　 root　　 1400　　　　512 Jun　9 1997 dev
+
+drwxr-xr-x 3　 root　　 wheel　　　 512 May 19 1998 etc
+
+lrwxrwxrwx 1　 root　　 bin　　　　　 7 Jun 29 1999 lib -> usr/lib
+
+-r--r--r-- 1　 guido　　4127　　　　 52 Mar 24 2000 motd
+
+drwxrwsr-x 8　 1122　　 4127　　　　512 May 17 2000 pub
+
+drwxr-xr-x 5　 root　　 wheel　　　 512 May 19 1998 usr
+
+>>> f.retrlines('RETR motd')
+
+Sun Microsystems Inc.　　SunOS 5.6　　　 Generic August 1997
+
+'226 Transfer complete.
+
+>>> f.quit()
+
+'221 Goodbye.'
+```
+
+### 3.2  网络新闻传输协议
+
+用户使用网络新闻传输协议（NNTP）在新闻组中下载或发表帖子。该协议由Brain Kantor （加州大学圣地亚哥分校）和Phil Lapsley（加州大学伯克利分校）创建并记录在RFC 977中，于1986年2月公布。其后在2000年10月公布的RFC 2980中对该协议进行了更新。
+
+作为客户端/服务器架构的另一个例子，NNTP 与 FTP 的操作方式相似，但更简单。在FTP中，登录、传输数据和控制需要使用不同的端口，而NNTP只使用一个标准端口119来通信。
+
+#### Python和NNTP
+
+<b>常见nntplib.NNTP类的方法</b>
+
+| 方法                    | 描述                                                         |
+| ----------------------- | ------------------------------------------------------------ |
+| group(name)             | 选择一个组的名字，返回一个元组(rsp,ct,fst,lst,group)，分别表示服务器响应信息、文章数量、第一个和最后一个文章的编号、组名，所有数据都是字符串。 |
+| xhdr(hdr,artrg[,ofile]) | 返回文章范围artrg(“头-尾”的格式)内文章hdr头的列表，或把数据输出到文件ofile中 |
+| body(id[,ofile])        | 根据Id获取文章正文，id可以是消息的ID，也可以是文章编号，返回一个元组(rsp,anum,mid,data)，分别表示服务器响应信息、文章编号、消息ID、文章所有行的列表，或把数据输出到文件ofile中 |
+| head(id)                | 与body()类似，返回相同的元组，只是返回的行列表中只包括文章标题 |
+| article(id)             | 同样与body类似，返回相同的元组，只是返回的行列表中同时包括文章标题与正文 |
+| stat(id)                | 让文章的指针指向id(即前面的消息ID或文章编号)。返回一个与body()相同的元组(rsp, anum, mid), 但不包含文章的数据 |
+| next()                  | 用法和stat()类似，把文章指针移到下一篇文章，返回与stat()相似的元组 |
+| last()                  | 用法和stat()类似，把文章指针移到最后一篇，返回与stat()相似的元组 |
+| post(ufile)             | 上传ufile文件对象里的内容(使用ufile.readline())，并发布到当前新闻组中 |
+| quit()                  | 关闭连接并退出                                               |
+
+NNTP交互示例：
+
+```
+>>> from nntplib import NNTP
+
+>>> n = NNTP('your.nntp.server')
+
+>>> rsp, ct, fst, lst, grp = n.group('comp.lang.python')
+
+>>> rsp, anum, mid, data = n.article('110457')
+
+>>> for eachLine in data:
+
+...　　 print eachLine
+
+From: "Alex Martelli" <alex@...>
+
+Subject: Re: Rounding Question
+
+Date: Wed, 21 Feb 2001 17:05:36 +0100
+
+"Remco Gerlich" <remco@...> wrote:
+
+> Jacob Kaplan-Moss <jacob@...> wrote in comp.lang.python:
+
+>> So I've got a number between 40 and 130 that I want to round up to
+
+>> the nearest 10.That is:
+
+>>
+
+>>　　 40 --> 40, 41 --> 50, ..., 49 --> 50, 50 --> 50, 51 --> 60
+
+> Rounding like this is the same as adding 5 to the number and then
+
+> rounding down.Rounding down is substracting the remainder if you were
+
+> to divide by 10, for which we use the % operator in Python.
+
+This will work if you use +9 in each case rather than +5 (note that he
+
+doesn't really want rounding -- he wants 41 to 'round' to 50, for ex).
+
+Alex
+
+>>> n.quit()
+
+'205 closing connection - goodbye!'
+
+>>>
+```
+
+## 4. 多线程编程
+
+### 4.1  线程和进程
+
+<b>进程</b>
+
+计算机程序只是存储在磁盘上的可执行二进制（或其他类型）文件。只有把它们加载到内存中并被操作系统调用，才拥有其生命期。进程（有时称为重量级进程）则是一个执行中的程序。每个进程都拥有自己的地址空间、内存、数据栈以及其他用于跟踪执行的辅助数据。操作系统管理其上所有进程的执行，并为这些进程合理地分配时间。进程也可以通过派生（fork或spawn）新的进程来执行其他任务，不过因为每个新进程也都拥有自己的内存和数据栈等，所以只能采用进程间通信（IPC）的方式共享信息。
+
+<b>线程</b>
+
+线程（有时候称为轻量级进程）与进程类似，不过它们是在同一个进程下执行的，并共享相同的上下文。可以将它们认为是在一个主进程或“主线程”中并行运行的一些“迷你进程”。
+
+线程包括开始、执行顺序和结束三部分。它有一个指令指针，用于记录当前运行的上下文。当其他线程运行时，它可以被抢占（中断）和临时挂起（也称为睡眠）——这种做法叫做让步（yielding）。
+
+一个进程中的各个线程与主线程共享同一片数据空间，因此相比于独立的进程而言，线程间的信息共享和通信更加容易。线程一般是以并发方式执行的，正是由于这种并行和数据共享机制，使得多任务间的协作成为可能。当然，在单核CPU系统中，因为真正的并发是不可能的，所以线程的执行实际上是这样规划的：每个线程运行一小会儿，然后让步给其他线程（再次排队等待更多的CPU时间）。在整个进程的执行过程中，每个线程执行它自己特定的任务，在必要时和其他线程进行结果通信。
+
+当然，这种共享并不是没有风险的。如果两个或多个线程访问同一片数据，由于数据访问顺序不同，可能导致结果不一致。这种情况通常称为竞态条件（race condition）。幸运的是，大多数线程库都有一些同步原语，以允许线程管理器控制执行和访问。
+
+另一个需要注意的问题是，线程无法给予公平的执行时间。这是因为一些函数会在完成前保持阻塞状态，如果没有专门为多线程情况进行修改，会导致CPU的时间分配向这些贪婪的函数倾斜。
+
+### 4.2  Python和线程
+
+#### 全局解释器锁(GIL)
+
+Python虚拟机的访问是由全局解释器锁（GIL）控制的。这个锁就是用来保证同时只能有一个线程运行的。在多线程环境中，Python虚拟机将按照下面所述的方式执行。
+
+1.设置GIL。
+
+2.切换进一个线程去运行。
+
+3.执行下面操作之一。
+
+a.指定数量的字节码指令。
+
+b.线程主动让出控制权（可以调用time.sleep(0)来完成）。
+
+4.把线程设置回睡眠状态（切换出线程）。
+
+5.解锁GIL。
+
+6.重复上述步骤。
+
+当调用外部代码（即，任意C/C++扩展的内置函数）时，GIL会保持锁定，直至函数执行结束（因为在这期间没有Python字节码计数）。编写扩展函数的程序员有能力解锁GIL，然而，作为Python开发者，你并不需要担心Python代码会在这些情况下被锁住。
+
+例如，对于任意面向 I/O 的 Python 例程（调用了内置的操作系统 C 代码的那种）， GIL会在I/O调用前被释放，以允许其他线程在I/O执行的时候运行。而对于那些没有太多 I/O 操作的代码而言，更倾向于在该线程整个时间片内始终占有处理器（和 GIL）。换句话说就是，I/O 密集型的 Python 程序要比计算密集型的代码能够更好地利用多线程环境。
+
+#### `_thread` 模块
+
+除了派生线程外，`_thread` 模块还提供了基本的同步数据结构，称为锁对象（lock object，也叫原语锁、简单锁、互斥锁、互斥和二进制信号量）。
+
+<b>常见`_thread` 模块的函数</b>
+
+| 函数/方法                                     | 描述                                                         |
+| --------------------------------------------- | ------------------------------------------------------------ |
+| start_new_thread(function, args, kwargs=None) | 派生一个新的线程，使用给定的args和可选的kwargs来执行function |
+| allocate_lock()                               | 分配LockType锁对象                                           |
+| exit()                                        | 给线程退出指令                                               |
+
+<b>常见LockType锁对象的方法</b>
+
+| 函数/方法          | 描述                                       |
+| ------------------ | ------------------------------------------ |
+| acquire(wait=None) | 尝试获取锁对象                             |
+| locked()           | 如果获取了锁对象则返回True,否则，返回False |
+| release()          | 释放锁                                     |
+
+使用示例(无锁):
+
+```
+"""
+_thread模块使用（无锁）
+"""
+import _thread as thread
+from time import sleep, ctime
+
+
+def loop0():
+    print(f'start loop 0 at: {ctime()}')
+    sleep(4)
+    print(f'loop 0 done at: {ctime()}')
+
+
+def loop1():
+    print(f'start loop 1 at: {ctime()}')
+    sleep(2)
+    print(f'loop 1 done at: {ctime()}')
+
+
+def main():
+    print(f'starting at: {ctime()}')
+    thread.start_new_thread(loop0, ())
+    thread.start_new_thread(loop1, ())
+
+    sleep(6)
+    print(f'all DONE at: {ctime()}')
+
+
+if __name__ == '__main__':
+    main()
+```
+
+> start_new_thread()必须包含开始的两个参数，于是即使要执行的函数不需要参数，也需要传递一个空元组。
+>
+> 程序中剩下的一个主要区别是增加了一个 sleep(6)调用。为什么必须要这样做呢？这是因为如果我们没有阻止主线程继续执行，它将会继续执行下一条语句，显示“all done”然后退出，而loop0()和loop1()这两个线程将直接终止。
+
+使用示例(有锁)：
+
+```
+"""
+_thread模块使用（有锁）
+"""
+import _thread as thread
+from time import sleep, ctime
+
+
+loops = [4, 2]
+
+
+def loop(nloop, nsec, lock):
+    print(f'start lool {nloop} at: {ctime()}')
+    sleep(nsec)
+    print(f'loop {nloop} done at: {ctime()}')
+
+
+def main():
+    print(f'starting at: ctime()')
+    locks = []
+    nloops = range(len(loops))
+
+    for i in nloops:
+        lock = thread.allocate_lock()
+        lock.acquire()
+        locks.append(lock)
+    
+    for i in nloops:
+        thread.start_new_thread(loop, (i, loops[i], locks[i]))
+    
+    for i in nloops:
+        while locks[i].locked():
+            pass
+
+
+if __name__ == '__main__':
+    main()
+```
+
+#### threading模块
+
+避免使用thread模块的另一个原因是该模块不支持守护线程这个概念。当主线程退出时，所有子线程都将终止，不管它们是否仍在工作。如果你不希望发生这种行为，就要引入守护线程的概念了。
+
+threading 模块支持守护线程，其工作方式是：守护线程一般是一个等待客户端请求服务的服务器。如果没有客户端请求，守护线程就是空闲的。如果把一个线程设置为守护线程，就表示这个线程是不重要的，进程退出时不需要等待这个线程执行完成。
+
+<b>`threading` 模块的对象</b>
+
+| 对象             | 描述                                                         |
+| ---------------- | ------------------------------------------------------------ |
+| Thread           | 表示一个执行线程对象                                         |
+| Lock             | 锁原语对象(和`_thread` 模块中的锁一样)                       |
+| RLock            | 可重入锁对象，使单一线程可以(再次)获得已持有的锁(递归锁)     |
+| Condition        | 条件变量对象，使得一个线程等待另一个线程满足特定的条件，比如改变状态或某个数据值 |
+| Event            | 条件变量的通用版本，任意数量的线程等待某个事件的发生，在该事件发生后所有线程将被激活 |
+| Semaphore        | 为线程间共享的有限资源提供一个计数器，如果没有可用资源时会被阻塞 |
+| BoundedSemaphore | 与Semaphore相似，不过它不允许超过初始值                      |
+| Timer            | 与Thread相似，不过它要在运行前等待一段时间                   |
+| Barrier          | 创建一个“障碍”, 必须达到指定数量的线程后才可以继续           |
+
+<b>常见Thread对象的属性</b>
+
+| 属性   | 描述                                 |
+| ------ | ------------------------------------ |
+| name   | 线程名                               |
+| ident  | 线程标识符                           |
+| daemon | 布尔标志，表示这个线程是否是守护线程 |
+
+<b>常见Thread对象的方法</b>
+
+| 方法                                                         | 描述                                                         |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `__init__(group=None, tatget=None, name=None, args=(), kwargs={}, verbose=None, daemon=None)` | 实例化一个线程对象，需要有一个可调用的target，以及其参数args或kwargs。还可以传递name或group参数，不过后者还未实现。此外，verbose标志也是可接受的。而daemon的值将会设定thread.daemon属性/标识 |
+| start()                                                      | 开始执行该线程                                               |
+| run()                                                        | 定义线程功能的方法                                           |
+| join(timeout=None)                                           | 直至启动的线程终止之前一直挂起；除非给出了timeout(单位：秒)，否则会一直阻塞 |
+| getName()                                                    | 返回线程名                                                   |
+| setName(name)                                                | 设定线程名                                                   |
+| isAlivel/is_alive()                                          | 布尔标志，表示这个线程是否还存活                             |
+| isDaemon()                                                   | 如果是守护线程，则返回True; 否则，返回False                  |
+| setDaemon(daemonic)                                          | 把线程的守护标志设定为布尔值daemonic(必须在线程start()之前调用) |
+
+<b>使用Thread创建线程的三种方式</b>
+
+创建Thread实例，传给它一个函数：
+
+```
+"""
+通过threading模块的Thread创建线程方式一：
+创建Thread实例，传给它一个函数
+"""
+import threading
+from time import sleep, ctime
+
+
+loops = [4, 2]
+
+
+def loop(nloop, nsec):
+    print(f'start loop {nloop} at: {ctime()}')
+    sleep(nsec)
+    print(f'loop {nloop} done at: {ctime()}')
+
+
+def main():
+    print(f'starting at: {ctime()}')
+    threads = []
+    nloops = range(len(loops))
+
+    for i in nloops:
+        t = threading.Thread(target=loop, args=(i, loops[i]))
+        threads.append(t)
+    
+    for i in nloops:            # start threads
+        threads[i].start()
+    
+    for i in nloops:            # wait for all
+        threads[i].join()       # threads to finish
+    
+    print(f'all DONE at: {ctime()}')
+
+
+if __name__ == '__main__':
+    main()
+```
+
+创建Thread实例，传给它一个可调用的类实例:
+
+```
+"""
+通过threading模块的Thread创建线程方式二：
+创建Thread实例，传给它一个可调用的类实例
+"""
+import threading
+from time import sleep, ctime
+
+
+loops = [4, 2]
+
+
+class ThreadFunc:
+    def __init__(self, func, args, name=''):
+        self.name = name
+        self.func = func
+        self.args = args
+    
+    def __call__(self):
+        self.func(*self.args)
+
+
+def loop(nloop, nsec):
+    print(f'start loop {nloop} at: {ctime()}')
+    sleep(nsec)
+    print(f'loop {nloop} done at: {ctime()}')
+
+
+def main():
+    print(f'starting at: {ctime()}')
+    threads = []
+    nloops = range(len(loops))
+
+    for i in nloops:
+        t = threading.Thread(target=ThreadFunc(loop, (i, loops[i]), loop.__name__))
+        threads.append(t)
+    
+    for i in nloops:            # start threads
+        threads[i].start()
+    
+    for i in nloops:            # wait for all
+        threads[i].join()       # threads to finish
+    
+    print(f'all DONE at: {ctime()}')
+
+
+if __name__ == '__main__':
+    main()
+```
+
+派生Thread的子类，并创建子类的实例：
+
+```
+"""
+通过threading模块的Thread创建线程方式三：
+派生Thread的子类，并创建子类的实例
+"""
+import threading
+from time import sleep, ctime
+
+
+loops = [4, 2]
+
+
+class MyThread(threading.Thread):
+    def __init__(self, func, args, name=''):
+        threading.Thread.__init__(self)
+        self.name = name
+        self.func = func
+        self.args = args
+    
+    def run(self):
+        self.func(*self.args)
+
+
+def loop(nloop, nsec):
+    print(f'start loop {nloop} at: {ctime()}')
+    sleep(nsec)
+    print(f'loop {nloop} done at: {ctime()}')
+
+
+def main():
+    print(f'starting at: {ctime()}')
+    threads = []
+    nloops = range(len(loops))
+
+    for i in nloops:
+        t = MyThread(loop, (i, loops[i]), loop.__name__)
+        threads.append(t)
+    
+    for i in nloops:            # start threads
+        threads[i].start()
+    
+    for i in nloops:            # wait for all
+        threads[i].join()       # threads to finish
+    
+    print(f'all DONE at: {ctime()}')
+
+
+if __name__ == '__main__':
+    main()
+```
+
+> 1）MyThread子类的构造函数必须先调用其基类的构造函数（第9行）；
+>
+> 2）之前的特殊方法__call__()在这个子类中必须要写为run()
+
+#### 同步原语
+
+在多线程代码中，总会有一些特定的函数或代码块不希望（或不应该）被多个线程同时执行，通常包括修改数据库、更新文件或其他会产生竞态条件的类似情况。回顾本章前面的部分，如果两个线程运行的顺序发生变化，就有可能造成代码的执行轨迹或行为不相同，或者产生不一致的数据，这就是需要使用同步的情况。当任意数量的线程可以访问临界区的代码，但在给定的时刻只有一个线程可以通过时，就是使用同步的时候了。程序员选择适合的同步原语，或者线程控制机制来执行同步。
 
