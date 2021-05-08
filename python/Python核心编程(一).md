@@ -1029,5 +1029,30 @@ if __name__ == '__main__':
 
 #### 同步原语
 
-在多线程代码中，总会有一些特定的函数或代码块不希望（或不应该）被多个线程同时执行，通常包括修改数据库、更新文件或其他会产生竞态条件的类似情况。回顾本章前面的部分，如果两个线程运行的顺序发生变化，就有可能造成代码的执行轨迹或行为不相同，或者产生不一致的数据，这就是需要使用同步的情况。当任意数量的线程可以访问临界区的代码，但在给定的时刻只有一个线程可以通过时，就是使用同步的时候了。程序员选择适合的同步原语，或者线程控制机制来执行同步。
+在多线程代码中，总会有一些特定的函数或代码块不希望（或不应该）被多个线程同时执行，通常包括修改数据库、更新文件或其他会产生竞态条件的类似情况。回顾前面的部分，如果两个线程运行的顺序发生变化，就有可能造成代码的执行轨迹或行为不相同，或者产生不一致的数据，这就是需要使用同步的情况。当任意数量的线程可以访问临界区的代码，但在给定的时刻只有一个线程可以通过时，就是使用同步的时候了。程序员选择适合的同步原语，或者线程控制机制来执行同步。
 
+## 5. 数据库编程
+
+Python和数据库
+
+wiki.python.org/moin/DatabaseProgramming
+
+wiki.python.org/moin/DatabaseInterfaces
+
+数据库格式、结构及开发模式
+
+en.wikipedia.org/wiki/DSN
+
+www.martinfowler.com/eaaCatalog/dataMapper.html
+
+en.wikipedia.org/wiki/Active_record_pattern
+
+blog.mongodb.org/post/114440717/bson
+
+非关系数据库
+
+en.wikipedia.org/wiki/Nosql
+
+nosql-database.org/
+
+www.mongodb.org/display/DOCS/MongoDB,+CouchDB,+MySQL+Compare+Grid

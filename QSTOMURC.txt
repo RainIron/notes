@@ -1,0 +1,16 @@
+QSTOMURC学习法则
+
+Q: 产生的背景、初衷和要解决什么样的问题。(Question)
+S: 适用的场景。（Scene）
+TO: 优势和劣势。(trade-off)
+M: 组成部分。(Make)
+UR: 底层原理和实现。(Upderlying、Realize)
+C: 与已有实现对比。(Contrast)
+
+
+
+我推荐David Flanagan写的JavaScript: The Definitive Guide （O'Reilly出版）1 。在高级概念和特性方面，我推荐Ross Harmes和Dustin Diaz写的Pro JavaSript Design Patterns （Apress出版）2 。表5-1概括了本章内容。
+
+1 本书中文版最新版《JavaScript权威指南（第6版）》已由机械工业出版社出版。——编者注
+
+2 本书中文版《JavaScript设计模式》已由人民邮电出版社出版（谢廷晟译）。——译者注
