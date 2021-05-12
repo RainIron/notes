@@ -1,6 +1,6 @@
 # Nginx基础学习(一)
 
-Nginx源码安装与配置。
+Nginx源码安装与配置。摘自《深入理解Nginx》。
 
 [TOC]
 
